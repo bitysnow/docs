@@ -49,7 +49,7 @@
       },
       {
         "tab": "API reference",
-        "groups": [
+                "groups": [
           {
             "group": "API documentation",
             "pages": [
@@ -57,12 +57,81 @@
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "PMOCK",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/pmock-api-introduction",
+              {
+                "group": "Phone",
+                "pages": [
+                  "api-reference/pmock/create-phone",
+                  "api-reference/pmock/get-phone-list",
+                  "api-reference/pmock/get-phone-resolution-list",
+                  "api-reference/pmock/get-phone-task-status",
+                  "api-reference/pmock/delete-phone",
+                  "api-reference/pmock/power-on",
+                  "api-reference/pmock/power-off",
+                  "api-reference/pmock/restart-phone",
+                  "api-reference/pmock/restore-factory-settings",
+                  "api-reference/pmock/one-click-new-machine",
+                  "api-reference/pmock/phone-accelerate",
+                  "api-reference/pmock/get-adb-information",
+                  "api-reference/pmock/get-remote-token"
+                ]
+              },
+              {
+                "group": "File & App",
+                "pages": [
+                  "api-reference/pmock/get-app-list",
+                  "api-reference/pmock/get-app-category-list",
+                  "api-reference/pmock/phone-file-scan",
+                  "api-reference/pmock/phone-file-download",
+                  "api-reference/pmock/initialize-upload-task",
+                  "api-reference/pmock/complete-and-push",
+                  "api-reference/pmock/phone-install-app",
+                  "api-reference/pmock/get-can-upgrade-app-list",
+                  "api-reference/pmock/phone-app-operation"
+                ]
+              },
+              {
+                "group": "Network",
+                "pages": [
+                  "api-reference/pmock/get-network-list",
+                  "api-reference/pmock/phone-network-settings"
+                ]
+              },
+              {
+                "group": "Task",
+                "pages": [
+                  "api-reference/pmock/get-task-info-list"
+                ]
+              },
+              {
+                "group": "Other",
+                "pages": [
+                  "api-reference/pmock/get-product-list",
+                  "api-reference/pmock/get-list-brand"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "AI",
+            "pages": [
+              "api-reference/ai-api-introduction",
+              "api-reference/ai/get-task-result",
+              "api-reference/ai/sn-generate-wav",
+              "api-reference/ai/sn-upsample-tags",
+              "api-reference/ai/sn-generate-mp4",
+              "api-reference/ai/sn-generate-lyrics",
+              "api-reference/ai/sn-get-lyrics-and-audio-timeline",
+              "api-reference/ai/sn-get-downbeats",
+              "api-reference/ai/sn-create-persona",
+              "api-reference/ai/sn-upload-audio",
+              "api-reference/ai/sn-generate-audio",
+              "api-reference/ai/sn-connect-audio",
+              "api-reference/ai/sa-generate-video",
+              "api-reference/ai/gi-generate-video",
+              "api-reference/ai/gi-generate-image"
             ]
           }
         ]
