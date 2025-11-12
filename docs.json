@@ -152,8 +152,8 @@
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "https://appdownload.pmock.cn/website/logo.webp",
+    "dark": "https://appdownload.pmock.cn/website/logo.webp"
   },
   "navbar": {
     "links": [
