@@ -757,9 +757,9 @@
         },
         "/open/api/phone/reset": {
             "post": {
-                "summary": "Restore factory settings",
+                "summary": "Factory Reset",
                 "deprecated": false,
-                "description": "phone restore factory settings",
+                "description": "phone factory reset",
                 "tags": [
 
                 ],
@@ -812,9 +812,9 @@
         },
         "/open/api/phone/oneNew": {
             "post": {
-                "summary": "One click new machine",
+                "summary": "One-Click New Device Setup",
                 "deprecated": false,
-                "description": "one click new machine",
+                "description": "One-Click New Device Setup",
                 "tags": [
 
                 ],
