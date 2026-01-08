@@ -103,16 +103,16 @@
 								]
 							},
 							{
-								"group": "手机操作",
+								"group": "Phone-operate",
 								"pages": [
-									"api-reference/pmock/手机操作-单击",
-									"api-reference/pmock/手机操作-双击",
-									"api-reference/pmock/手机操作-滑动",
-									"api-reference/pmock/手机操作-拖动",
-									"api-reference/pmock/手机操作-输入",
-									"api-reference/pmock/手机操作-长按",
-									"api-reference/pmock/手机操作-操作应用",
-									"api-reference/pmock/手机操作-查询任务状态"
+									"api-reference/pmock/phone-operate--click",
+									"api-reference/pmock/phone-operate--double-click",
+									"api-reference/pmock/phone-operate--swipe",
+									"api-reference/pmock/phone-operate--drag",
+									"api-reference/pmock/phone-operate--input",
+									"api-reference/pmock/phone-operate--long-click",
+									"api-reference/pmock/phone-operate--operate-app",
+									"api-reference/pmock/phone-operate--check-task-status"
 								]
 							}
 						]

@@ -1,8 +1,9 @@
 {
 	"openapi": "3.1.0",
 	"info": {
-		"title": "OpenAPI definition",
-		"version": "v0"
+		"title": "apidoc",
+		"description": "",
+		"version": "1.0.0"
 	},
 	"tags": [],
 	"servers": [
@@ -1631,9 +1632,9 @@
 		},
 		"/open/api/phone/action/click": {
 			"post": {
-				"summary": "手机操作-单击",
+				"summary": "phone operate - click",
 				"deprecated": false,
-				"description": "手机操作-单击",
+				"description": "phone operate - click",
 				"tags": [],
 				"parameters": [],
 				"requestBody": {
@@ -1671,9 +1672,9 @@
 		},
 		"/open/api/phone/action/doubleClick": {
 			"post": {
-				"summary": "手机操作-双击",
+				"summary": "phone operate - double click",
 				"deprecated": false,
-				"description": "手机操作-双击",
+				"description": "phone operate - double click",
 				"tags": [],
 				"parameters": [],
 				"requestBody": {
@@ -1711,9 +1712,9 @@
 		},
 		"/open/api/phone/action/swipe": {
 			"post": {
-				"summary": "手机操作-滑动",
+				"summary": "phone operate - swipe",
 				"deprecated": false,
-				"description": "手机操作-滑动",
+				"description": "phone operate - swipe",
 				"tags": [],
 				"parameters": [],
 				"requestBody": {
@@ -1751,9 +1752,9 @@
 		},
 		"/open/api/phone/action/drag": {
 			"post": {
-				"summary": "手机操作-拖动",
+				"summary": "phone operate - drag",
 				"deprecated": false,
-				"description": "手机操作-拖动",
+				"description": "phone operate - drag",
 				"tags": [],
 				"parameters": [],
 				"requestBody": {
@@ -1791,9 +1792,9 @@
 		},
 		"/open/api/phone/action/input": {
 			"post": {
-				"summary": "手机操作-输入",
+				"summary": "phone operate - input",
 				"deprecated": false,
-				"description": "手机操作-输入",
+				"description": "phone operate - input",
 				"tags": [],
 				"parameters": [],
 				"requestBody": {
@@ -1831,9 +1832,9 @@
 		},
 		"/open/api/phone/action/longClick": {
 			"post": {
-				"summary": "手机操作-长按",
+				"summary": "phone operate - long click",
 				"deprecated": false,
-				"description": "手机操作-长按",
+				"description": "phone operate - long click",
 				"tags": [],
 				"parameters": [],
 				"requestBody": {
@@ -1871,9 +1872,9 @@
 		},
 		"/open/api/phone/action/app": {
 			"post": {
-				"summary": "手机操作-操作应用",
+				"summary": "phone operate - operate app",
 				"deprecated": false,
-				"description": "手机操作-操作应用",
+				"description": "phone operate - operate app",
 				"tags": [],
 				"parameters": [],
 				"requestBody": {
@@ -1911,9 +1912,9 @@
 		},
 		"/open/api/phone/action/task/status": {
 			"post": {
-				"summary": "手机操作-查询任务状态",
+				"summary": "phone operate - check task status",
 				"deprecated": false,
-				"description": "手机操作-查询任务状态",
+				"description": "phone operate - check task status",
 				"tags": [],
 				"parameters": [],
 				"requestBody": {
@@ -1961,12 +1962,12 @@
 				"properties": {
 					"taskId": {
 						"type": "integer",
-						"description": "任务id",
+						"description": "task id",
 						"format": "int64"
 					},
 					"taskStatus": {
 						"type": "integer",
-						"description": "任务状态 -1=失败 0=执行中 1=成功 2=超时"
+						"description": "task status -1=failed 0=running 1=success 2=time out"
 					}
 				}
 			},
@@ -3123,11 +3124,11 @@
 				"properties": {
 					"code": {
 						"type": "string",
-						"description": "手机编号"
+						"description": "phone code"
 					},
 					"taskId": {
 						"type": "integer",
-						"description": "任务Id",
+						"description": "taskId",
 						"format": "int64"
 					}
 				},
@@ -3138,15 +3139,15 @@
 				"properties": {
 					"code": {
 						"type": "string",
-						"description": "手机编号"
+						"description": "phone code"
 					},
 					"opType": {
 						"type": "integer",
-						"description": "操作类型：1=启动APP、2=停止APP、3=清理数据(暂时不支持)、4=卸载APP\n操作类型 1=启动APP、2=停止APP、4=卸载APP"
+						"description": "operation type 1=start app、2=stop app、4=uninstall app"
 					},
 					"pkg": {
 						"type": "string",
-						"description": "APP包名\napp包名"
+						"description": "package name"
 					}
 				},
 				"required": ["code", "opType", "pkg"]
@@ -3156,11 +3157,11 @@
 				"properties": {
 					"code": {
 						"type": "string",
-						"description": "手机编号"
+						"description": "phone code"
 					},
 					"posType": {
 						"type": "integer",
-						"description": "位置类型：1=节点，2=固定坐标，3=范围位置",
+						"description": "position type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"query": {
@@ -3168,32 +3169,32 @@
 						"items": {
 							"type": "string"
 						},
-						"description": "节点,格式[key=value,key=value,...]"
+						"description": "query:[key=value,key=value,...]"
 					},
 					"pos": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "坐标 X,Y\n坐标,格式[X,Y]"
+						"description": "coordinate:[X,Y]"
 					},
 					"range": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "[x1,y1,x2,y2]\n区域,格式[X1,Y1,X2,Y2]"
+						"description": "coordinate range:[X1,Y1,X2,Y2]"
 					},
 					"duration": {
 						"type": "integer",
-						"description": "持续时长"
+						"description": "duration"
 					},
 					"durationRange": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "持续时长范围"
+						"description": "duration range"
 					}
 				},
 				"required": ["code"]
@@ -3203,23 +3204,23 @@
 				"properties": {
 					"code": {
 						"type": "string",
-						"description": "手机编号"
+						"description": "phone code"
 					},
 					"inputType": {
 						"type": "integer",
-						"description": "输入类型：1=直接输入，2=来源网络请求"
+						"description": "input type：1=text，2=from url"
 					},
 					"text": {
 						"type": "string",
-						"description": "输入内容"
+						"description": "text content"
 					},
 					"url": {
 						"type": "string",
-						"description": "请求的URL\n请求URL"
+						"description": "url"
 					},
 					"waitTime": {
 						"type": "integer",
-						"description": "等待结果时长\n结果等待时长"
+						"description": "wait time for result"
 					}
 				},
 				"required": ["code"]
@@ -3229,16 +3230,16 @@
 				"properties": {
 					"code": {
 						"type": "string",
-						"description": "手机编号"
+						"description": "phone code"
 					},
 					"posType": {
 						"type": "integer",
-						"description": "位置类型：1=节点，2=固定坐标，3=范围位置\n位置1类型：1=节点，2=固定坐标，3=范围位置",
+						"description": "position1 type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"posType2": {
 						"type": "integer",
-						"description": "位置类型：1=节点，2=固定坐标，3=范围位置\n位置2类型：1=节点，2=固定坐标，3=范围位置",
+						"description": "position2 type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"query": {
@@ -3246,53 +3247,53 @@
 						"items": {
 							"type": "string"
 						},
-						"description": "节点1,格式[key=value,key=value,...]"
+						"description": "query1:[key=value,key=value,...]"
 					},
 					"query2": {
 						"type": "array",
 						"items": {
 							"type": "string"
 						},
-						"description": "节点2,格式[key=value,key=value,...]"
+						"description": "query2:[key=value,key=value,...]"
 					},
 					"pos1": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "坐标 X,Y\n坐标1,格式[X,Y]"
+						"description": "coordinate1:[X,Y]"
 					},
 					"pos2": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "x2,y2\n坐标2,格式[X,Y]"
+						"description": "coordinate2:[X,Y]"
 					},
 					"range1": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "[x1,y1,x2,y2]\n区域1,格式[X1,Y1,X2,Y2]"
+						"description": "coordinate range1:[X1,Y1,X2,Y2]"
 					},
 					"range2": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "[x1,y1,x2,y2]\n区域2,格式[X1,Y1,X2,Y2]"
+						"description": "coordinate range2:[X1,Y1,X2,Y2]"
 					},
 					"duration": {
 						"type": "integer",
-						"description": "持续时长"
+						"description": "duration"
 					},
 					"durationRange": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "持续时长范围"
+						"description": "duration range"
 					}
 				},
 				"required": ["code"]
@@ -3302,16 +3303,16 @@
 				"properties": {
 					"code": {
 						"type": "string",
-						"description": "手机编号"
+						"description": "phone code"
 					},
 					"posType": {
 						"type": "integer",
-						"description": "位置类型：1=节点，2=固定坐标，3=范围位置\n位置1类型：1=节点，2=固定坐标，3=范围位置",
+						"description": "position1 type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"posType2": {
 						"type": "integer",
-						"description": "位置类型：1=节点，2=固定坐标，3=范围位置\n位置2类型：1=节点，2=固定坐标，3=范围位置",
+						"description": "position2 type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"query": {
@@ -3319,53 +3320,53 @@
 						"items": {
 							"type": "string"
 						},
-						"description": "节点1,格式[key=value,key=value,...]"
+						"description": "query1:[key=value,key=value,...]"
 					},
 					"query2": {
 						"type": "array",
 						"items": {
 							"type": "string"
 						},
-						"description": "节点2,格式[key=value,key=value,...]"
+						"description": "query2:[key=value,key=value,...]"
 					},
 					"pos1": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "坐标 X,Y\n坐标1,格式[X,Y]"
+						"description": "coordinate1:[X,Y]"
 					},
 					"pos2": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "x2,y2\n坐标2,格式[X,Y]"
+						"description": "coordinate2:[X,Y]"
 					},
 					"range1": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "[x1,y1,x2,y2]\n区域1,格式[X1,Y1,X2,Y2]"
+						"description": "coordinate range1:[X1,Y1,X2,Y2]"
 					},
 					"range2": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "[x1,y1,x2,y2]\n区域2,格式[X1,Y1,X2,Y2]"
+						"description": "coordinate range2:[X1,Y1,X2,Y2]"
 					},
 					"duration": {
 						"type": "integer",
-						"description": "持续时长"
+						"description": "duration"
 					},
 					"durationRange": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "持续时长范围"
+						"description": "duration range"
 					}
 				},
 				"required": ["code"]
@@ -3375,11 +3376,11 @@
 				"properties": {
 					"code": {
 						"type": "string",
-						"description": "手机编号"
+						"description": "phone code"
 					},
 					"posType": {
 						"type": "integer",
-						"description": "位置类型：1=节点，2=固定坐标，3=范围位置",
+						"description": "position type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"query": {
@@ -3387,21 +3388,21 @@
 						"items": {
 							"type": "string"
 						},
-						"description": "节点,格式[key=value,key=value,...]"
+						"description": "query:[key=value,key=value,...]"
 					},
 					"pos": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "坐标 X,Y\n坐标,格式[X,Y]"
+						"description": "coordinate:[X,Y]"
 					},
 					"range": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "[x1,y1,x2,y2]\n区域,格式[X1,Y1,X2,Y2]"
+						"description": "coordinate range:[X1,Y1,X2,Y2]"
 					}
 				},
 				"required": ["code"]
@@ -3439,11 +3440,11 @@
 				"properties": {
 					"code": {
 						"type": "string",
-						"description": "手机编号"
+						"description": "phone code"
 					},
 					"posType": {
 						"type": "integer",
-						"description": "位置类型：1=节点，2=固定坐标，3=范围位置",
+						"description": "position type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"query": {
@@ -3451,21 +3452,21 @@
 						"items": {
 							"type": "string"
 						},
-						"description": "节点,格式[key=value,key=value,...]"
+						"description": "query:[key=value,key=value,...]"
 					},
 					"pos": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "坐标 X,Y\n坐标,格式[X,Y]"
+						"description": "coordinate:[X,Y]"
 					},
 					"range": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "[x1,y1,x2,y2]\n区域,格式[X1,Y1,X2,Y2]"
+						"description": "coordinate range:[X1,Y1,X2,Y2]"
 					}
 				},
 				"required": ["code"]
