@@ -101,6 +101,19 @@
 									"api-reference/pmock/get-product-list",
 									"api-reference/pmock/get-list-brand"
 								]
+							},
+							{
+								"group": "手机操作",
+								"pages": [
+									"api-reference/pmock/手机操作-单击",
+									"api-reference/pmock/手机操作-双击",
+									"api-reference/pmock/手机操作-滑动",
+									"api-reference/pmock/手机操作-拖动",
+									"api-reference/pmock/手机操作-输入",
+									"api-reference/pmock/手机操作-长按",
+									"api-reference/pmock/手机操作-操作应用",
+									"api-reference/pmock/手机操作-查询任务状态"
+								]
 							}
 						]
 					},
