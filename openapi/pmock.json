@@ -1952,11 +1952,62 @@
 				},
 				"security": []
 			}
+		},
+		"/open/api/phone/screenCap": {
+			"post": {
+				"summary": "phone screenCap",
+				"deprecated": false,
+				"description": "phone screenCap",
+				"tags": [],
+				"parameters": [],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PhoneScreenCapReqVO",
+								"description": ""
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RPhoneScreenCapResVO"
+								},
+								"example": {
+									"traceId": "",
+									"code": 0,
+									"msg": "",
+									"data": {
+										"url": ""
+									},
+									"status": ""
+								}
+							}
+						},
+						"headers": {}
+					}
+				},
+				"security": []
+			}
 		}
 	},
 	"webhooks": {},
 	"components": {
 		"schemas": {
+			"PhoneScreenCapResVO": {
+				"type": "object",
+				"properties": {
+					"url": {
+						"type": "string",
+						"description": "ScreenCap URL, one hour validity period"
+					}
+				}
+			},
 			"ActionTaskStatusResVO": {
 				"type": "object",
 				"properties": {
@@ -3092,6 +3143,44 @@
 					}
 				}
 			},
+			"RPhoneScreenCapResVO": {
+				"type": "object",
+				"properties": {
+					"traceId": {
+						"type": "string",
+						"description": "Request link ID"
+					},
+					"code": {
+						"type": "integer",
+						"description": "code"
+					},
+					"msg": {
+						"type": "string",
+						"description": "Request return message"
+					},
+					"data": {
+						"$ref": "#/components/schemas/PhoneScreenCapResVO",
+						"description": "Request return data"
+					},
+					"status": {
+						"type": "string",
+						"description": "Status, representing whether this is an instant completion or waiting state, finish or pending",
+						"default": "finish"
+					}
+				},
+				"required": ["traceId", "code", "msg", "status"]
+			},
+			"PhoneScreenCapReqVO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"description": "Phone ID, The `Get phone list` returns the ID contained in the data.",
+						"format": "int64"
+					}
+				},
+				"required": ["id"]
+			},
 			"RActionTaskStatusResVO": {
 				"type": "object",
 				"properties": {
@@ -3143,11 +3232,11 @@
 					},
 					"opType": {
 						"type": "integer",
-						"description": "operation type 1=start app、2=stop app、4=uninstall app"
+						"description": "操作类型：1=启动APP、2=停止APP、3=清理数据(暂时不支持)、4=卸载APP\noperation type 1=start app、2=stop app、4=uninstall app"
 					},
 					"pkg": {
 						"type": "string",
-						"description": "package name"
+						"description": "APP包名\npackage name"
 					}
 				},
 				"required": ["code", "opType", "pkg"]
@@ -3161,7 +3250,7 @@
 					},
 					"posType": {
 						"type": "integer",
-						"description": "position type：1=query，2=coordinate，3=coordinate range",
+						"description": "位置类型：1=节点，2=固定坐标，3=范围位置\nposition type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"query": {
@@ -3176,14 +3265,14 @@
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate:[X,Y]"
+						"description": "坐标 X,Y\ncoordinate:[X,Y]"
 					},
 					"range": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate range:[X1,Y1,X2,Y2]"
+						"description": "[x1,y1,x2,y2]\ncoordinate range:[X1,Y1,X2,Y2]"
 					},
 					"duration": {
 						"type": "integer",
@@ -3194,7 +3283,7 @@
 						"items": {
 							"type": "integer"
 						},
-						"description": "duration range"
+						"description": "持续时长范围\nduration range"
 					}
 				},
 				"required": ["code"]
@@ -3208,7 +3297,7 @@
 					},
 					"inputType": {
 						"type": "integer",
-						"description": "input type：1=text，2=from url"
+						"description": "输入类型：1=直接输入，2=来源网络请求\ninput type：1=text，2=from url"
 					},
 					"text": {
 						"type": "string",
@@ -3216,11 +3305,11 @@
 					},
 					"url": {
 						"type": "string",
-						"description": "url"
+						"description": "请求的URL\nurl"
 					},
 					"waitTime": {
 						"type": "integer",
-						"description": "wait time for result"
+						"description": "等待结果时长\nwait time for result"
 					}
 				},
 				"required": ["code"]
@@ -3234,12 +3323,12 @@
 					},
 					"posType": {
 						"type": "integer",
-						"description": "position1 type：1=query，2=coordinate，3=coordinate range",
+						"description": "位置类型：1=节点，2=固定坐标，3=范围位置\nposition1 type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"posType2": {
 						"type": "integer",
-						"description": "position2 type：1=query，2=coordinate，3=coordinate range",
+						"description": "位置类型：1=节点，2=固定坐标，3=范围位置\nposition2 type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"query": {
@@ -3261,28 +3350,28 @@
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate1:[X,Y]"
+						"description": "坐标 X,Y\ncoordinate1:[X,Y]"
 					},
 					"pos2": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate2:[X,Y]"
+						"description": "x2,y2\ncoordinate2:[X,Y]"
 					},
 					"range1": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate range1:[X1,Y1,X2,Y2]"
+						"description": "[x1,y1,x2,y2]\ncoordinate range1:[X1,Y1,X2,Y2]"
 					},
 					"range2": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate range2:[X1,Y1,X2,Y2]"
+						"description": "[x1,y1,x2,y2]\ncoordinate range2:[X1,Y1,X2,Y2]"
 					},
 					"duration": {
 						"type": "integer",
@@ -3293,7 +3382,7 @@
 						"items": {
 							"type": "integer"
 						},
-						"description": "duration range"
+						"description": "持续时长范围\nduration range"
 					}
 				},
 				"required": ["code"]
@@ -3307,12 +3396,12 @@
 					},
 					"posType": {
 						"type": "integer",
-						"description": "position1 type：1=query，2=coordinate，3=coordinate range",
+						"description": "位置类型：1=节点，2=固定坐标，3=范围位置\nposition1 type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"posType2": {
 						"type": "integer",
-						"description": "position2 type：1=query，2=coordinate，3=coordinate range",
+						"description": "位置类型：1=节点，2=固定坐标，3=范围位置\nposition2 type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"query": {
@@ -3334,28 +3423,28 @@
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate1:[X,Y]"
+						"description": "坐标 X,Y\ncoordinate1:[X,Y]"
 					},
 					"pos2": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate2:[X,Y]"
+						"description": "x2,y2\ncoordinate2:[X,Y]"
 					},
 					"range1": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate range1:[X1,Y1,X2,Y2]"
+						"description": "[x1,y1,x2,y2]\ncoordinate range1:[X1,Y1,X2,Y2]"
 					},
 					"range2": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate range2:[X1,Y1,X2,Y2]"
+						"description": "[x1,y1,x2,y2]\ncoordinate range2:[X1,Y1,X2,Y2]"
 					},
 					"duration": {
 						"type": "integer",
@@ -3366,7 +3455,7 @@
 						"items": {
 							"type": "integer"
 						},
-						"description": "duration range"
+						"description": "持续时长范围\nduration range"
 					}
 				},
 				"required": ["code"]
@@ -3380,7 +3469,7 @@
 					},
 					"posType": {
 						"type": "integer",
-						"description": "position type：1=query，2=coordinate，3=coordinate range",
+						"description": "位置类型：1=节点，2=固定坐标，3=范围位置\nposition type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"query": {
@@ -3395,14 +3484,14 @@
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate:[X,Y]"
+						"description": "坐标 X,Y\ncoordinate:[X,Y]"
 					},
 					"range": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate range:[X1,Y1,X2,Y2]"
+						"description": "[x1,y1,x2,y2]\ncoordinate range:[X1,Y1,X2,Y2]"
 					}
 				},
 				"required": ["code"]
@@ -3444,7 +3533,7 @@
 					},
 					"posType": {
 						"type": "integer",
-						"description": "position type：1=query，2=coordinate，3=coordinate range",
+						"description": "位置类型：1=节点，2=固定坐标，3=范围位置\nposition type：1=query，2=coordinate，3=coordinate range",
 						"default": 1
 					},
 					"query": {
@@ -3459,14 +3548,14 @@
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate:[X,Y]"
+						"description": "坐标 X,Y\ncoordinate:[X,Y]"
 					},
 					"range": {
 						"type": "array",
 						"items": {
 							"type": "integer"
 						},
-						"description": "coordinate range:[X1,Y1,X2,Y2]"
+						"description": "[x1,y1,x2,y2]\ncoordinate range:[X1,Y1,X2,Y2]"
 					}
 				},
 				"required": ["code"]
@@ -3572,6 +3661,36 @@
 				},
 				"required": ["traceId", "code", "msg", "status"]
 			},
+			"TableDataInfoPhonePageListResVO": {
+				"type": "object",
+				"properties": {
+					"traceId": {
+						"type": "string",
+						"description": "Link ID"
+					},
+					"total": {
+						"type": "integer",
+						"description": "Total number of records",
+						"format": "int64"
+					},
+					"rows": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/PhonePageListResVO",
+							"description": "PhoneListResVO"
+						},
+						"description": "list data"
+					},
+					"code": {
+						"type": "integer",
+						"description": "Message status code"
+					},
+					"msg": {
+						"type": "string",
+						"description": "message content"
+					}
+				}
+			},
 			"PhoneBrandListReqVO": {
 				"type": "object",
 				"properties": {
@@ -3613,35 +3732,36 @@
 				},
 				"required": ["traceId", "code", "msg", "status"]
 			},
-			"TableDataInfoPhonePageListResVO": {
+			"RListPhoneResolutionListResVO": {
 				"type": "object",
 				"properties": {
 					"traceId": {
 						"type": "string",
-						"description": "Link ID"
-					},
-					"total": {
-						"type": "integer",
-						"description": "Total number of records",
-						"format": "int64"
-					},
-					"rows": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/PhonePageListResVO",
-							"description": "PhoneListResVO"
-						},
-						"description": "list data"
+						"description": "Request link ID"
 					},
 					"code": {
 						"type": "integer",
-						"description": "Message status code"
+						"description": "code"
 					},
 					"msg": {
 						"type": "string",
-						"description": "message content"
+						"description": "Request return message"
+					},
+					"data": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/PhoneResolutionListResVO",
+							"description": "PhoneResolutionListResVO"
+						},
+						"description": "Request return data"
+					},
+					"status": {
+						"type": "string",
+						"description": "Status, representing whether this is an instant completion or waiting state, finish or pending",
+						"default": "finish"
 					}
-				}
+				},
+				"required": ["traceId", "code", "msg", "status"]
 			},
 			"TaskStatusListReqVO": {
 				"type": "object",
@@ -3771,37 +3891,6 @@
 				},
 				"required": ["traceId", "code", "msg", "status"]
 			},
-			"RListPhoneResolutionListResVO": {
-				"type": "object",
-				"properties": {
-					"traceId": {
-						"type": "string",
-						"description": "Request link ID"
-					},
-					"code": {
-						"type": "integer",
-						"description": "code"
-					},
-					"msg": {
-						"type": "string",
-						"description": "Request return message"
-					},
-					"data": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/PhoneResolutionListResVO",
-							"description": "PhoneResolutionListResVO"
-						},
-						"description": "Request return data"
-					},
-					"status": {
-						"type": "string",
-						"description": "Status, representing whether this is an instant completion or waiting state, finish or pending",
-						"default": "finish"
-					}
-				},
-				"required": ["traceId", "code", "msg", "status"]
-			},
 			"TableDataInfoAppListV2ResVO": {
 				"type": "object",
 				"properties": {
@@ -3831,75 +3920,6 @@
 						"description": "message content"
 					}
 				}
-			},
-			"PhoneAppListReqVO": {
-				"type": "object",
-				"properties": {
-					"pageSize": {
-						"type": "integer",
-						"description": "Number of records displayed per page\nThe default is1,and the maximum number of items in a single query is:1"
-					},
-					"pageNum": {
-						"type": "integer",
-						"description": "Current page count"
-					},
-					"id": {
-						"type": "integer",
-						"description": "Phone ID,obtain through `Get phone list` api",
-						"format": "int64"
-					},
-					"apkName": {
-						"type": "string",
-						"description": "Application name",
-						"pattern": "^[^%]*$"
-					},
-					"onlyShowInstalled": {
-						"type": "boolean",
-						"description": "Only show installed applications(default: false)",
-						"default": false
-					},
-					"cateCode": {
-						"type": "integer",
-						"description": "Application category code,obtain through `Get app category list` api",
-						"format": "int64",
-						"default": -1
-					},
-					"shelfStatus": {
-						"type": "integer",
-						"description": "Shelf status: 1=On shelf, 0=Off shelf"
-					}
-				}
-			},
-			"RListApiRemoteTokenResVO": {
-				"type": "object",
-				"properties": {
-					"traceId": {
-						"type": "string",
-						"description": "Request link ID"
-					},
-					"code": {
-						"type": "integer",
-						"description": "code"
-					},
-					"msg": {
-						"type": "string",
-						"description": "Request return message"
-					},
-					"data": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/ApiRemoteTokenResVO",
-							"description": "ApiRemoteTokenResVO"
-						},
-						"description": "Request return data"
-					},
-					"status": {
-						"type": "string",
-						"description": "Status, representing whether this is an instant completion or waiting state, finish or pending",
-						"default": "finish"
-					}
-				},
-				"required": ["traceId", "code", "msg", "status"]
 			},
 			"RPhoneTaskStatusResVO": {
 				"type": "object",
@@ -4030,6 +4050,75 @@
 				},
 				"required": ["id"]
 			},
+			"PhoneAppListReqVO": {
+				"type": "object",
+				"properties": {
+					"pageSize": {
+						"type": "integer",
+						"description": "Number of records displayed per page\nThe default is1,and the maximum number of items in a single query is:1"
+					},
+					"pageNum": {
+						"type": "integer",
+						"description": "Current page count"
+					},
+					"id": {
+						"type": "integer",
+						"description": "Phone ID,obtain through `Get phone list` api",
+						"format": "int64"
+					},
+					"apkName": {
+						"type": "string",
+						"description": "Application name",
+						"pattern": "^[^%]*$"
+					},
+					"onlyShowInstalled": {
+						"type": "boolean",
+						"description": "Only show installed applications(default: false)",
+						"default": false
+					},
+					"cateCode": {
+						"type": "integer",
+						"description": "Application category code,obtain through `Get app category list` api",
+						"format": "int64",
+						"default": -1
+					},
+					"shelfStatus": {
+						"type": "integer",
+						"description": "Shelf status: 1=On shelf, 0=Off shelf"
+					}
+				}
+			},
+			"RListApiRemoteTokenResVO": {
+				"type": "object",
+				"properties": {
+					"traceId": {
+						"type": "string",
+						"description": "Request link ID"
+					},
+					"code": {
+						"type": "integer",
+						"description": "code"
+					},
+					"msg": {
+						"type": "string",
+						"description": "Request return message"
+					},
+					"data": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ApiRemoteTokenResVO",
+							"description": "ApiRemoteTokenResVO"
+						},
+						"description": "Request return data"
+					},
+					"status": {
+						"type": "string",
+						"description": "Status, representing whether this is an instant completion or waiting state, finish or pending",
+						"default": "finish"
+					}
+				},
+				"required": ["traceId", "code", "msg", "status"]
+			},
 			"ApiRemoteTokenReqVO": {
 				"type": "object",
 				"properties": {
@@ -4075,6 +4164,22 @@
 				},
 				"required": ["traceId", "code", "msg", "status"]
 			},
+			"PhoneReqVODelete": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"description": "Phone ID, The `Get phone list` returns the ID contained in the data.",
+						"format": "int64"
+					},
+					"configId": {
+						"type": "integer",
+						"description": "phone model id, Create the corresponding model of mobile phone based on the id obtain through `Get the list of models` api",
+						"format": "int64"
+					}
+				},
+				"required": ["id"]
+			},
 			"ApiUploadMinIOReqVO": {
 				"type": "object",
 				"properties": {
@@ -4119,22 +4224,6 @@
 				},
 				"required": ["phoneId"]
 			},
-			"PhoneReqVODelete": {
-				"type": "object",
-				"properties": {
-					"id": {
-						"type": "integer",
-						"description": "Phone ID, The `Get phone list` returns the ID contained in the data.",
-						"format": "int64"
-					},
-					"configId": {
-						"type": "integer",
-						"description": "phone model id, Create the corresponding model of mobile phone based on the id obtain through `Get the list of models` api",
-						"format": "int64"
-					}
-				},
-				"required": ["id"]
-			},
 			"RUploadTaskInfoVO": {
 				"type": "object",
 				"properties": {
@@ -4161,6 +4250,22 @@
 					}
 				},
 				"required": ["traceId", "code", "msg", "status"]
+			},
+			"PhoneReqVOUpdate": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"description": "Phone ID, The `Get phone list` returns the ID contained in the data.",
+						"format": "int64"
+					},
+					"configId": {
+						"type": "integer",
+						"description": "phone model id, Create the corresponding model of mobile phone based on the id obtain through `Get the list of models` api",
+						"format": "int64"
+					}
+				},
+				"required": ["id"]
 			},
 			"UploadTaskInitReqVO": {
 				"type": "object",
@@ -4232,7 +4337,34 @@
 				},
 				"required": ["traceId", "code", "msg", "status"]
 			},
-			"PhoneReqVOUpdate": {
+			"RPhoneStartResVO": {
+				"type": "object",
+				"properties": {
+					"traceId": {
+						"type": "string",
+						"description": "Request link ID"
+					},
+					"code": {
+						"type": "integer",
+						"description": "code"
+					},
+					"msg": {
+						"type": "string",
+						"description": "Request return message"
+					},
+					"data": {
+						"$ref": "#/components/schemas/PhoneStartResVO",
+						"description": "Request return data"
+					},
+					"status": {
+						"type": "string",
+						"description": "Status, representing whether this is an instant completion or waiting state, finish or pending",
+						"default": "finish"
+					}
+				},
+				"required": ["traceId", "code", "msg", "status"]
+			},
+			"PhoneReqVO": {
 				"type": "object",
 				"properties": {
 					"id": {
@@ -4294,7 +4426,7 @@
 				},
 				"required": ["traceId", "code", "msg", "status"]
 			},
-			"RPhoneStartResVO": {
+			"RApiTaskResVO": {
 				"type": "object",
 				"properties": {
 					"traceId": {
@@ -4310,7 +4442,7 @@
 						"description": "Request return message"
 					},
 					"data": {
-						"$ref": "#/components/schemas/PhoneStartResVO",
+						"$ref": "#/components/schemas/ApiTaskResVO",
 						"description": "Request return data"
 					},
 					"status": {
@@ -4320,22 +4452,6 @@
 					}
 				},
 				"required": ["traceId", "code", "msg", "status"]
-			},
-			"PhoneReqVO": {
-				"type": "object",
-				"properties": {
-					"id": {
-						"type": "integer",
-						"description": "Phone ID, The `Get phone list` returns the ID contained in the data.",
-						"format": "int64"
-					},
-					"configId": {
-						"type": "integer",
-						"description": "phone model id, Create the corresponding model of mobile phone based on the id obtain through `Get the list of models` api",
-						"format": "int64"
-					}
-				},
-				"required": ["id"]
 			},
 			"ApiPhoneFileScanReqVO": {
 				"type": "object",
@@ -4377,33 +4493,6 @@
 					},
 					"data": {
 						"$ref": "#/components/schemas/PhoneAdbInfoResVO",
-						"description": "Request return data"
-					},
-					"status": {
-						"type": "string",
-						"description": "Status, representing whether this is an instant completion or waiting state, finish or pending",
-						"default": "finish"
-					}
-				},
-				"required": ["traceId", "code", "msg", "status"]
-			},
-			"RApiTaskResVO": {
-				"type": "object",
-				"properties": {
-					"traceId": {
-						"type": "string",
-						"description": "Request link ID"
-					},
-					"code": {
-						"type": "integer",
-						"description": "code"
-					},
-					"msg": {
-						"type": "string",
-						"description": "Request return message"
-					},
-					"data": {
-						"$ref": "#/components/schemas/ApiTaskResVO",
 						"description": "Request return data"
 					},
 					"status": {

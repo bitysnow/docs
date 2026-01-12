@@ -67,7 +67,8 @@
 									"api-reference/pmock/one-click-new-machine",
 									"api-reference/pmock/phone-accelerate",
 									"api-reference/pmock/get-adb-information",
-									"api-reference/pmock/get-remote-token"
+									"api-reference/pmock/get-remote-token",
+									"api-reference/pmock/phone-screencap"
 								]
 							},
 							{
