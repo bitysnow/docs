@@ -122,21 +122,46 @@
 						"group": "AI",
 						"pages": [
 							"api-reference/ai-api-introduction",
-							"api-reference/ai/get-task-result",
-							"api-reference/ai/suno-generate-wav",
-							"api-reference/ai/suno-upsample-tags",
-							"api-reference/ai/suno-generate-mp4",
-							"api-reference/ai/suno-generate-lyrics",
-							"api-reference/ai/suno-get-lyrics-and-audio-timeline",
-							"api-reference/ai/suno-get-downbeats",
-							"api-reference/ai/suno-create-persona",
-							"api-reference/ai/suno-upload-audio",
-							"api-reference/ai/suno-generate-audio",
-							"api-reference/ai/suno-connect-audio",
-							"api-reference/ai/sora-generate-video",
-							"api-reference/ai/sora-create-role",
-							"api-reference/ai/veo-31-generate-video",
-							"api-reference/ai/banana-generate-image"
+							{
+								"group": "Task Result",
+								"pages": ["api-reference/ai/get-task-result"]
+							},
+							{
+								"group": "Suno",
+								"pages": [
+									"api-reference/ai/suno-generate-wav",
+									"api-reference/ai/suno-upsample-tags",
+									"api-reference/ai/suno-generate-mp4",
+									"api-reference/ai/suno-generate-lyrics",
+									"api-reference/ai/suno-get-lyrics-and-audio-timeline",
+									"api-reference/ai/suno-get-downbeats",
+									"api-reference/ai/suno-create-persona",
+									"api-reference/ai/suno-upload-audio",
+									"api-reference/ai/suno-generate-audio",
+									"api-reference/ai/suno-connect-audio"
+								]
+							},
+							{
+								"group": "Sora",
+								"pages": [
+									"api-reference/ai/sora-generate-video",
+									"api-reference/ai/sora-create-role"
+								]
+							},
+							{
+								"group": "Gemini",
+								"pages": [
+									"api-reference/ai/veo-31-generate-video",
+									"api-reference/ai/banana-generate-image"
+								]
+							},
+							{
+								"group": "Chat",
+								"pages": [
+									"api-reference/ai/compatible-openai-chat",
+									"api-reference/ai/chat"
+								]
+							}
 						]
 					}
 				]

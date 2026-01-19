@@ -1,0 +1,146 @@
+---
+openapi: post /ai/chat/completions
+---
+
+## Stream Request Example
+
+<Tabs>
+  <Tab title="Java">
+    ```java
+    String API_KEY = "97d63abce84b4e8cb3f93fe4578b1d1c";
+    String API_SECRET = "43b7d9ba6c6b4bdba4a810f33ecae815";
+
+    // 请求参数
+    HashMap<String, Object> params = new HashMap<>();
+    params.put("model", "gpt-5.1");
+    params.put("messages", List.of(
+            Map.of("role", "system", "content", "You are a helpful assistant."),
+            Map.of("role", "user", "content", "Hi")));
+    params.put("stream", true);
+
+    Map<String, String> headers = Map.of(
+            "wuinai-access-token", signature, // signature is the authentication of Introduction
+            "wuinai-access-key", API_KEY,
+            "Accept", "text/event-stream");
+
+    // OkHttp 异步 SSE 客户端
+    OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(Duration.ofSeconds(30))
+            .readTimeout(0, TimeUnit.SECONDS) // SSE 流式必须
+            .build();
+
+    Request.Builder requestBuild  = new Request.Builder().url("https://ai.pmock.com/api/ai/chat/completions");
+
+    headers.forEach(requestBuild::addHeader);
+    requestBuild.post(RequestBody.create(JSON.toJSONString(params), MediaType.parse("application/json")));
+
+    CountDownLatch latch = new CountDownLatch(1);
+
+    EventSourceListener listener = new EventSourceListener() {
+        @Override
+        public void onOpen(@NotNull EventSource eventSource, @NotNull Response response) {
+            System.out.println("SSE Opened");
+        }
+
+        @Override
+        public void onEvent(@NotNull EventSource eventSource, @Nullable String id, @Nullable String type, @NotNull String data) {
+            if ("[DONE]".equals(data)) {
+                System.out.println("[DONE]");
+                latch.countDown();
+                eventSource.cancel(); // 关闭 SSE
+                return;
+            }
+
+            System.out.println("Received SSE: " + data);
+        }
+
+        @Override
+        public void onClosed(@NotNull EventSource eventSource) {
+            System.out.println("SSE Closed");
+        }
+
+        @Override
+        public void onFailure(@NotNull EventSource eventSource, @Nullable Throwable t, @Nullable Response response) {
+            System.err.println("SSE Error: " + (t != null ? t.getMessage() : "unknown"));
+            if (response != null) {
+                System.err.println("Response code: " + response.code());
+            }
+            latch.countDown();
+            eventSource.cancel();
+        }
+    };
+
+    RealEventSource realEventSource = new RealEventSource(requestBuild.build(), listener);
+    realEventSource.connect(client);
+
+    boolean finished = latch.await(2, TimeUnit.MINUTES);
+    if (!finished) {
+        System.err.println("SSE stream timed out!");
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+## Maven
+
+```xml
+<dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>x.x.x</version>
+</dependency>
+
+<dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp-sse</artifactId>
+    <version>x.x.x</version>
+</dependency>
+```
+
+## Normal Response
+
+```json
+{
+	"code": 200,
+	"message": "success",
+	"data": {
+		"id": "chatcmpl-xxx",
+		"model": "gpt-5.1",
+		"created": 1768809934,
+		"object": "chat.completion",
+		"usage": {
+			"promptTokens": 0,
+			"completionTokens": 0,
+			"totalTokens": 0,
+			"promptTokensDetails": {
+				"textTokens": 0
+			},
+			"completionTokensDetails": {
+				"contentTokens": 0
+			}
+		},
+		"choices": [
+			{
+				"index": 0,
+				"message": {
+					"role": "assistant",
+					"content": "Hey! How's it going?"
+				},
+				"finishReason": "stop"
+			}
+		]
+	},
+	"traceId": "d7c7ae8b6d9a488f92f1346f18dcc6ee"
+}
+```
+
+## Stream Response
+
+```text
+data: {"code":200,"data":{"created":1768819167,"model":"gpt-5.1","id":"chatcmpl-xxx","choices":[{"delta":{"content":" on"},"index":0}],"object":"chat.completion.chunk"},"message":"success"}
+data: {"code":200,"data":{"created":1768819167,"model":"gpt-5.1","id":"chatcmpl-xxx","choices":[{"delta":{"content":" today"},"index":0}],"object":"chat.completion.chunk"},"message":"success"}
+data: {"code":200,"data":{"created":1768819167,"model":"gpt-5.1","id":"chatcmpl-xxx","choices":[{"delta":{"content":"?"},"index":0}],"object":"chat.completion.chunk"},"message":"success"}
+data: {"code":200,"data":{"created":1768819167,"usage":{"completionTokens":0,"promptTokens":0,"promptTokensDetails":{},"totalTokens":0},"model":"gpt-5.1","id":"chatcmpl-xxx","choices":[{"delta":{},"finishReason":"stop","index":0}],"object":"chat.completion.chunk"},"message":"success"}
+data: [DONE]
+```

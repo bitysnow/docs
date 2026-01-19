@@ -20,7 +20,6 @@
 			"description": "任务开放接口"
 		}
 	],
-
 	"paths": {
 		"/task/result": {
 			"post": {
@@ -398,35 +397,6 @@
 				}
 			}
 		},
-		"/ai/openai/chat/completions": {
-			"post": {
-				"summary": "compatible openai chat",
-				"description": "Compliance with OpenAI specifications allows the use of OpenAI SDK",
-				"operationId": "chatOpenAiCompletions",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/SelfChatCompletionsReq"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/ai/gi/video/generate": {
 			"post": {
 				"summary": "veo-3.1 generate video",
@@ -478,35 +448,6 @@
 							"*/*": {
 								"schema": {
 									"$ref": "#/components/schemas/RTaskResult"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/ai/chat/completions": {
-			"post": {
-				"summary": "chat",
-				"description": "ai chat completions",
-				"operationId": "chatCompletions",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/SelfChatCompletionsReq"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
 								}
 							}
 						}
@@ -566,6 +507,9 @@
 				"type": "object",
 				"additionalProperties": {},
 				"properties": {
+					"success": {
+						"type": "boolean"
+					},
 					"empty": {
 						"type": "boolean"
 					}
@@ -1006,137 +950,6 @@
 					}
 				},
 				"required": ["videoUrl"]
-			},
-			"SelfChatCompletionsReq": {
-				"type": "object",
-				"properties": {
-					"messages": {
-						"type": "array",
-						"description": "messages",
-						"items": {
-							"$ref": "#/components/schemas/SelfChatMessageReq"
-						},
-						"minItems": 1
-					},
-					"model": {
-						"type": "string",
-						"description": "model",
-						"enum": [
-							"gpt-5.1",
-							"gpt-5.1-all",
-							"gpt-5.1-thinking",
-							"gpt-5.1-thinking-all",
-							"gpt-5.2",
-							"gemini-3-pro",
-							"gemini-2.5-pro",
-							"gemini-2.5-flash",
-							"gemini-3-flash",
-							"claude-4.5"
-						],
-						"title": "/chat/chat/completions : gpt-5.1 : MS : gpt-5.1; /chat/chat/completions : gpt-5.1-all : MS : gpt-5.1-all; /chat/chat/completions : gpt-5.1-thinking : MS : gpt-5.1-thinking; /chat/chat/completions : gpt-5.1-thinking-all : MS : gpt-5.1-thinking-all; /chat/chat/completions : gpt-5.2 : MS : gpt-5.2; /chat/chat/completions : gemini-3-pro : MS : gemini-3-pro; /chat/chat/completions : gemini-2.5-pro : MS : gemini-2.5-pro; /chat/chat/completions : gemini-2.5-flash : MS : gemini-2.5-flash; /chat/chat/completions : gemini-3-flash : MS : gemini-3-flash; /chat/chat/completions : claude-4.5 : MS : claude-4.5"
-					},
-					"stream": {
-						"type": "boolean",
-						"default": false,
-						"description": "streaming output"
-					},
-					"temperature": {
-						"type": "number",
-						"format": "double",
-						"description": "Temperature (0-2)"
-					},
-					"maxTokens": {
-						"type": "integer",
-						"format": "int32",
-						"description": "Maximum token count"
-					},
-					"maxCompletionTokens": {
-						"type": "integer",
-						"format": "int32",
-						"description": "Maximum number of completed tokens"
-					},
-					"topP": {
-						"type": "number",
-						"format": "double",
-						"description": "top P"
-					},
-					"frequencyPenalty": {
-						"type": "number",
-						"format": "double",
-						"description": "frequency penalty(-2.0 to 2.0)"
-					},
-					"presencePenalty": {
-						"type": "number",
-						"format": "double",
-						"description": "presence penalty(-2.0 to 2.0)"
-					},
-					"stop": {
-						"description": "Stop sequence"
-					},
-					"n": {
-						"type": "integer",
-						"format": "int32",
-						"description": "Generated Quantity"
-					},
-					"seed": {
-						"type": "integer",
-						"format": "int32",
-						"description": "random seed"
-					},
-					"user": {
-						"type": "string",
-						"description": "user"
-					},
-					"tools": {
-						"type": "array",
-						"description": "Tool List (Function Calling)",
-						"items": {}
-					},
-					"toolChoice": {
-						"description": "Tool selection strategy"
-					},
-					"responseFormat": {
-						"description": "Response format"
-					},
-					"logprobs": {
-						"type": "boolean",
-						"description": "logprobs"
-					},
-					"topLogprobs": {
-						"type": "integer",
-						"format": "int32",
-						"description": "top logprobs"
-					},
-					"logitBias": {
-						"description": "logit bias"
-					},
-					"parallelToolCalls": {
-						"type": "boolean",
-						"description": "parallel tool calls"
-					}
-				},
-				"required": ["messages", "model"]
-			},
-			"SelfChatMessageReq": {
-				"type": "object",
-				"properties": {
-					"content": {
-						"type": "string",
-						"description": "content",
-						"minLength": 1
-					},
-					"role": {
-						"type": "string",
-						"description": "role",
-						"enum": ["user", "assistant", "system", "tool"],
-						"title": "user; assistant; system; tool"
-					},
-					"name": {
-						"type": "string",
-						"description": "The names of optional participants can provide information for the model to distinguish participants with the same role。"
-					}
-				},
-				"required": ["content", "role"]
 			},
 			"SelfGeminiVeoVideoGenReq": {
 				"type": "object",
