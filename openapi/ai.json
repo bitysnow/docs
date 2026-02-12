@@ -20,7 +20,6 @@
 			"description": "任务开放接口"
 		}
 	],
-
 	"paths": {
 		"/task/result": {
 			"post": {
@@ -369,6 +368,35 @@
 				}
 			}
 		},
+		"/ai/sa/video/generate/v2": {
+			"post": {
+				"summary": "sora generate video v2",
+				"description": "create a task to generate video v2",
+				"operationId": "soraGenVideoV2",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SelfSora2VideoGenV2Req"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RTaskResult"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/ai/sa/create/role": {
 			"post": {
 				"summary": "sora create role",
@@ -417,7 +445,12 @@
 					"200": {
 						"description": "OK",
 						"content": {
-							"*/*": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							},
+							"text/event-stream": {
 								"schema": {
 									"type": "object"
 								}
@@ -504,7 +537,12 @@
 					"200": {
 						"description": "OK",
 						"content": {
-							"*/*": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							},
+							"text/event-stream": {
 								"schema": {
 									"type": "object"
 								}
@@ -964,6 +1002,92 @@
 						"format": "int32",
 						"default": "10",
 						"description": "The duration of video generation can only be 10 for sora-2, and 10, 15, 25 for sora-2-pro, with a default of 10",
+						"enum": [10, 15, 25],
+						"example": 10,
+						"title": "10 : 10; 15 : 15; 25 : 25"
+					},
+					"removeWatermark": {
+						"type": "boolean",
+						"default": false,
+						"description": "Whether to remove watermark, default is false"
+					},
+					"styleId": {
+						"type": "string",
+						"default": "anime",
+						"description": "style id for video generation,default is anime",
+						"enum": [
+							"anime",
+							"selfie",
+							"golden",
+							"handheld",
+							"festive",
+							"retro",
+							"news",
+							"chaos",
+							"vintage",
+							"comic",
+							"kakalaka",
+							"sitcom"
+						],
+						"example": "anime",
+						"title": "anime : anime; selfie : selfie; golden : golden; handheld : handheld; festive : festive; retro : retro; news : news; chaos : chaos; vintage : vintage; comic : comic; kakalaka : kakalaka; sitcom : sitcom"
+					},
+					"storyboard": {
+						"type": "boolean",
+						"default": false,
+						"description": "whether to enable storyboard mode, if true, the prompt will be parsed as storyboard format"
+					}
+				},
+				"required": ["model", "prompt"]
+			},
+			"SelfSora2VideoGenV2Req": {
+				"type": "object",
+				"description": "SA-Generate V2 video request parameters",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "Video generation model, default is sora-2",
+						"enum": ["sora-2"],
+						"example": "sora-2",
+						"title": "sora-2 : sora-2"
+					},
+					"prompt": {
+						"type": "string",
+						"description": "The prompt for generating videos, up to 5000 characters",
+						"maxLength": 5000,
+						"minLength": 0
+					},
+					"images": {
+						"type": "array",
+						"description": "The images used to generate videos can be URL arrays or empty, currently only supporting one image",
+						"items": {
+							"type": "string"
+						},
+						"maxItems": 1,
+						"maxLength": 1,
+						"minItems": 0
+					},
+					"orientation": {
+						"type": "string",
+						"default": "landscape",
+						"description": "Direction of video generation, default landscape",
+						"enum": ["landscape", "portrait"],
+						"example": "landscape",
+						"title": "landscape : landscape; portrait : portrait"
+					},
+					"size": {
+						"type": "string",
+						"default": "small",
+						"description": "Video generation size, default small",
+						"enum": ["small"],
+						"example": "small",
+						"title": "small : small"
+					},
+					"duration": {
+						"type": "string",
+						"format": "int32",
+						"default": "10",
+						"description": "The duration of video generation can only be 10 for sora-2, and 10, 15, with a default of 10",
 						"enum": [10, 15],
 						"example": 10,
 						"title": "10 : 10; 15 : 15"
@@ -972,6 +1096,32 @@
 						"type": "boolean",
 						"default": false,
 						"description": "Whether to remove watermark, default is false"
+					},
+					"styleId": {
+						"type": "string",
+						"default": "anime",
+						"description": "style id for video generation,default is anime",
+						"enum": [
+							"anime",
+							"selfie",
+							"golden",
+							"handheld",
+							"festive",
+							"retro",
+							"news",
+							"chaos",
+							"vintage",
+							"comic",
+							"kakalaka",
+							"sitcom"
+						],
+						"example": "anime",
+						"title": "anime : anime; selfie : selfie; golden : golden; handheld : handheld; festive : festive; retro : retro; news : news; chaos : chaos; vintage : vintage; comic : comic; kakalaka : kakalaka; sitcom : sitcom"
+					},
+					"storyboard": {
+						"type": "boolean",
+						"default": false,
+						"description": "whether to enable storyboard mode, if true, the prompt will be parsed as storyboard format"
 					}
 				},
 				"required": ["model", "prompt"]
@@ -1121,9 +1271,7 @@
 				"type": "object",
 				"properties": {
 					"content": {
-						"type": "string",
-						"description": "content",
-						"minLength": 1
+						"description": "content"
 					},
 					"role": {
 						"type": "string",

@@ -145,7 +145,8 @@
 								"group": "Sora",
 								"pages": [
 									"api-reference/ai/sora-generate-video",
-									"api-reference/ai/sora-create-role"
+									"api-reference/ai/sora-create-role",
+									"api-reference/ai/sora-generate-video-v2"
 								]
 							},
 							{
