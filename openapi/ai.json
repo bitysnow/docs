@@ -339,6 +339,40 @@
 				}
 			}
 		},
+		"/ai/self/chat/completions": {
+			"post": {
+				"summary": "self chat completions",
+				"description": "self chat completions",
+				"operationId": "selfChatCompletions",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SelfChatCompletionsReq"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							},
+							"text/event-stream": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/ai/sa/video/generate": {
 			"post": {
 				"summary": "sora generate video",
@@ -428,7 +462,7 @@
 		},
 		"/ai/openai/chat/completions": {
 			"post": {
-				"summary": "compatible openai chat",
+				"summary": "chat completions(Deprecated)",
 				"description": "Compliance with OpenAI specifications allows the use of OpenAI SDK",
 				"operationId": "chatOpenAiCompletions",
 				"requestBody": {
@@ -457,7 +491,8 @@
 							}
 						}
 					}
-				}
+				},
+				"deprecated": true
 			}
 		},
 		"/ai/gi/video/generate": {
@@ -518,11 +553,114 @@
 				}
 			}
 		},
+		"/ai/chat/v1/responses": {
+			"post": {
+				"summary": "chat responses",
+				"description": "chat responses",
+				"operationId": "chatV1Responses",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SelfChatV1ResponsesReq"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							},
+							"text/event-stream": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/ai/chat/completions": {
 			"post": {
-				"summary": "chat",
+				"summary": "self chat completions(Deprecated)",
 				"description": "ai chat completions",
 				"operationId": "chatCompletions",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SelfChatCompletionsReq"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							},
+							"text/event-stream": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"deprecated": true
+			}
+		},
+		"/ai/chat/claude/v1/message": {
+			"post": {
+				"summary": "chat claude message",
+				"description": "chat claude message",
+				"operationId": "chatClaudeV1Responses",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SelfChatClaudeV1ResponsesReq"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							},
+							"text/event-stream": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ai/chat/chat/completions": {
+			"post": {
+				"summary": "chat completions",
+				"description": "ai chat completions",
+				"operationId": "chatChatCompletions",
 				"requestBody": {
 					"content": {
 						"application/json": {
@@ -954,6 +1092,135 @@
 				},
 				"required": ["clipId", "isInfill"]
 			},
+			"SelfChatCompletionsReq": {
+				"type": "object",
+				"properties": {
+					"messages": {
+						"type": "array",
+						"description": "messages",
+						"items": {
+							"$ref": "#/components/schemas/SelfChatMessageReq"
+						},
+						"minItems": 1
+					},
+					"model": {
+						"type": "string",
+						"description": "model",
+						"enum": [
+							"gpt-5.1",
+							"gpt-5.1-all",
+							"gpt-5.1-thinking",
+							"gpt-5.1-thinking-all",
+							"gpt-5.2",
+							"gemini-3-pro",
+							"gemini-2.5-pro",
+							"gemini-2.5-flash",
+							"gemini-3-flash",
+							"claude-4.5"
+						],
+						"title": "/chat/chat/completions : gpt-5.1 : MS : gpt-5.1; /chat/chat/completions : gpt-5.1-all : MS : gpt-5.1-all; /chat/chat/completions : gpt-5.1-thinking : MS : gpt-5.1-thinking; /chat/chat/completions : gpt-5.1-thinking-all : MS : gpt-5.1-thinking-all; /chat/chat/completions : gpt-5.2 : MS : gpt-5.2; /chat/chat/completions : gemini-3-pro : MS : gemini-3-pro; /chat/chat/completions : gemini-2.5-pro : MS : gemini-2.5-pro; /chat/chat/completions : gemini-2.5-flash : MS : gemini-2.5-flash; /chat/chat/completions : gemini-3-flash : MS : gemini-3-flash; /chat/chat/completions : claude-4.5 : MS : claude-4.5"
+					},
+					"stream": {
+						"type": "boolean",
+						"default": false,
+						"description": "streaming output"
+					},
+					"temperature": {
+						"type": "number",
+						"format": "double",
+						"description": "Temperature (0-2)"
+					},
+					"maxTokens": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Maximum token count"
+					},
+					"maxCompletionTokens": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Maximum number of completed tokens"
+					},
+					"topP": {
+						"type": "number",
+						"format": "double",
+						"description": "top P"
+					},
+					"frequencyPenalty": {
+						"type": "number",
+						"format": "double",
+						"description": "frequency penalty(-2.0 to 2.0)"
+					},
+					"presencePenalty": {
+						"type": "number",
+						"format": "double",
+						"description": "presence penalty(-2.0 to 2.0)"
+					},
+					"stop": {
+						"description": "Stop sequence"
+					},
+					"n": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Generated Quantity"
+					},
+					"seed": {
+						"type": "integer",
+						"format": "int32",
+						"description": "random seed"
+					},
+					"user": {
+						"type": "string",
+						"description": "user"
+					},
+					"tools": {
+						"type": "array",
+						"description": "Tool List (Function Calling)",
+						"items": {}
+					},
+					"toolChoice": {
+						"description": "Tool selection strategy"
+					},
+					"responseFormat": {
+						"description": "Response format"
+					},
+					"logprobs": {
+						"type": "boolean",
+						"description": "logprobs"
+					},
+					"topLogprobs": {
+						"type": "integer",
+						"format": "int32",
+						"description": "top logprobs"
+					},
+					"logitBias": {
+						"description": "logit bias"
+					},
+					"parallelToolCalls": {
+						"type": "boolean",
+						"description": "parallel tool calls"
+					}
+				},
+				"required": ["messages", "model"]
+			},
+			"SelfChatMessageReq": {
+				"type": "object",
+				"properties": {
+					"content": {
+						"description": "content"
+					},
+					"role": {
+						"type": "string",
+						"description": "role",
+						"enum": ["user", "assistant", "system", "tool"],
+						"title": "user; assistant; system; tool"
+					},
+					"name": {
+						"type": "string",
+						"description": "The names of optional participants can provide information for the model to distinguish participants with the same role。"
+					}
+				},
+				"required": ["content", "role"]
+			},
 			"SelfSora2VideoGenReq": {
 				"type": "object",
 				"description": "SA-Generate video request parameters",
@@ -1157,135 +1424,6 @@
 				},
 				"required": ["videoUrl"]
 			},
-			"SelfChatCompletionsReq": {
-				"type": "object",
-				"properties": {
-					"messages": {
-						"type": "array",
-						"description": "messages",
-						"items": {
-							"$ref": "#/components/schemas/SelfChatMessageReq"
-						},
-						"minItems": 1
-					},
-					"model": {
-						"type": "string",
-						"description": "model",
-						"enum": [
-							"gpt-5.1",
-							"gpt-5.1-all",
-							"gpt-5.1-thinking",
-							"gpt-5.1-thinking-all",
-							"gpt-5.2",
-							"gemini-3-pro",
-							"gemini-2.5-pro",
-							"gemini-2.5-flash",
-							"gemini-3-flash",
-							"claude-4.5"
-						],
-						"title": "/chat/chat/completions : gpt-5.1 : MS : gpt-5.1; /chat/chat/completions : gpt-5.1-all : MS : gpt-5.1-all; /chat/chat/completions : gpt-5.1-thinking : MS : gpt-5.1-thinking; /chat/chat/completions : gpt-5.1-thinking-all : MS : gpt-5.1-thinking-all; /chat/chat/completions : gpt-5.2 : MS : gpt-5.2; /chat/chat/completions : gemini-3-pro : MS : gemini-3-pro; /chat/chat/completions : gemini-2.5-pro : MS : gemini-2.5-pro; /chat/chat/completions : gemini-2.5-flash : MS : gemini-2.5-flash; /chat/chat/completions : gemini-3-flash : MS : gemini-3-flash; /chat/chat/completions : claude-4.5 : MS : claude-4.5"
-					},
-					"stream": {
-						"type": "boolean",
-						"default": false,
-						"description": "streaming output"
-					},
-					"temperature": {
-						"type": "number",
-						"format": "double",
-						"description": "Temperature (0-2)"
-					},
-					"maxTokens": {
-						"type": "integer",
-						"format": "int32",
-						"description": "Maximum token count"
-					},
-					"maxCompletionTokens": {
-						"type": "integer",
-						"format": "int32",
-						"description": "Maximum number of completed tokens"
-					},
-					"topP": {
-						"type": "number",
-						"format": "double",
-						"description": "top P"
-					},
-					"frequencyPenalty": {
-						"type": "number",
-						"format": "double",
-						"description": "frequency penalty(-2.0 to 2.0)"
-					},
-					"presencePenalty": {
-						"type": "number",
-						"format": "double",
-						"description": "presence penalty(-2.0 to 2.0)"
-					},
-					"stop": {
-						"description": "Stop sequence"
-					},
-					"n": {
-						"type": "integer",
-						"format": "int32",
-						"description": "Generated Quantity"
-					},
-					"seed": {
-						"type": "integer",
-						"format": "int32",
-						"description": "random seed"
-					},
-					"user": {
-						"type": "string",
-						"description": "user"
-					},
-					"tools": {
-						"type": "array",
-						"description": "Tool List (Function Calling)",
-						"items": {}
-					},
-					"toolChoice": {
-						"description": "Tool selection strategy"
-					},
-					"responseFormat": {
-						"description": "Response format"
-					},
-					"logprobs": {
-						"type": "boolean",
-						"description": "logprobs"
-					},
-					"topLogprobs": {
-						"type": "integer",
-						"format": "int32",
-						"description": "top logprobs"
-					},
-					"logitBias": {
-						"description": "logit bias"
-					},
-					"parallelToolCalls": {
-						"type": "boolean",
-						"description": "parallel tool calls"
-					}
-				},
-				"required": ["messages", "model"]
-			},
-			"SelfChatMessageReq": {
-				"type": "object",
-				"properties": {
-					"content": {
-						"description": "content"
-					},
-					"role": {
-						"type": "string",
-						"description": "role",
-						"enum": ["user", "assistant", "system", "tool"],
-						"title": "user; assistant; system; tool"
-					},
-					"name": {
-						"type": "string",
-						"description": "The names of optional participants can provide information for the model to distinguish participants with the same role。"
-					}
-				},
-				"required": ["content", "role"]
-			},
 			"SelfGeminiVeoVideoGenReq": {
 				"type": "object",
 				"properties": {
@@ -1351,8 +1489,8 @@
 						"type": "string",
 						"default": "nano-banana-fast",
 						"description": "The model used to generate images",
-						"enum": ["nano-banana-fast", "nano-banana-pro"],
-						"title": "nano-banana-fast : nano-banana-fast; nano-banana-pro : nano-banana-pro"
+						"enum": ["nano-banana-fast", "nano-banana-pro", "nano-banana-2"],
+						"title": "nano-banana-fast : nano-banana-fast; nano-banana-pro : nano-banana-pro; nano-banana-2 : nano-banana-2"
 					},
 					"resolution": {
 						"type": "string",
@@ -1394,12 +1532,149 @@
 							"4:5",
 							"3:4",
 							"16:9",
-							"9:16"
+							"9:16",
+							"1:4",
+							"4:1",
+							"1:8",
+							"8:1"
 						],
-						"title": "21:9 : 21:9; 1:1 : 1:1; 4:3 : 4:3; 3:2 : 3:2; 2:3 : 2:3; 5:4 : 5:4; 4:5 : 4:5; 3:4 : 3:4; 16:9 : 16:9; 9:16 : 9:16"
+						"title": "21:9 : 21:9; 1:1 : 1:1; 4:3 : 4:3; 3:2 : 3:2; 2:3 : 2:3; 5:4 : 5:4; 4:5 : 4:5; 3:4 : 3:4; 16:9 : 16:9; 9:16 : 9:16; 1:4 : 1:4; 4:1 : 4:1; 1:8 : 1:8; 8:1 : 8:1"
 					}
 				},
 				"required": ["action", "numImages", "prompt"]
+			},
+			"SelfChatV1ResponsesReq": {
+				"type": "object",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "model",
+						"enum": [
+							"gpt-5.1",
+							"gpt-5.1-all",
+							"gpt-5.1-thinking",
+							"gpt-5.1-thinking-all",
+							"gpt-5.2",
+							"gemini-3-pro",
+							"gemini-2.5-pro",
+							"gemini-2.5-flash",
+							"gemini-3-flash",
+							"gemini-3.1-pro",
+							"claude-4.5",
+							"claude-opus-4-6",
+							"claude-haiku-4-5-20251001",
+							"claude-sonnet-4-6"
+						],
+						"title": "/chat/v1/responses : gpt-5.1 : MS : gpt-5.1; /chat/v1/responses : gpt-5.1-all : MS : gpt-5.1-all; /chat/v1/responses : gpt-5.1-thinking : MS : gpt-5.1-thinking; /chat/v1/responses : gpt-5.1-thinking-all : MS : gpt-5.1-thinking-all; /chat/v1/responses : gpt-5.2 : MS : gpt-5.2; /chat/v1/responses : gemini-3-pro : MS : gemini-3-pro; /chat/v1/responses : gemini-2.5-pro : MS : gemini-2.5-pro; /chat/v1/responses : gemini-2.5-flash : MS : gemini-2.5-flash; /chat/v1/responses : gemini-3-flash : MS : gemini-3-flash; /chat/v1/responses : gemini-3.1-pro : MS : gemini-3.1-pro; /chat/v1/responses : claude-4.5 : MS : claude-4.5; /chat/v1/responses : claude-opus-4-6 : MS : claude-opus-4-6; /chat/v1/responses : claude-haiku-4-5-20251001 : MS : claude-haiku-4-5-20251001; /chat/v1/responses : claude-sonnet-4-6 : MS : claude-sonnet-4-6"
+					},
+					"input": {
+						"type": "string",
+						"description": "input messages",
+						"minLength": 1
+					},
+					"instructions": {
+						"type": "string",
+						"description": "instructions"
+					},
+					"stream": {
+						"type": "boolean",
+						"default": false,
+						"description": "streaming output"
+					},
+					"temperature": {
+						"type": "number",
+						"format": "double",
+						"description": "Temperature (0-2)"
+					},
+					"maxOutputTokens": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Maximum token count"
+					},
+					"topP": {
+						"type": "number",
+						"format": "double",
+						"description": "top P"
+					},
+					"tools": {
+						"type": "array",
+						"description": "Tool List (Function Calling)",
+						"items": {}
+					},
+					"toolChoice": {
+						"description": "Tool selection strategy"
+					},
+					"text": {
+						"description": "Text"
+					}
+				},
+				"required": ["input", "model"]
+			},
+			"SelfChatClaudeV1ResponsesReq": {
+				"type": "object",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "model",
+						"enum": [
+							"claude-4.5",
+							"claude-opus-4-6",
+							"claude-haiku-4-5-20251001",
+							"claude-sonnet-4-6"
+						],
+						"title": "/chat/claude/v1/messages : claude-4.5 : MS : claude-4.5; /chat/claude/v1/messages : claude-opus-4-6 : MS : claude-opus-4-6; /chat/claude/v1/messages : claude-haiku-4-5-20251001 : MS : claude-haiku-4-5-20251001; /chat/claude/v1/messages : claude-sonnet-4-6 : MS : claude-sonnet-4-6"
+					},
+					"messages": {
+						"type": "array",
+						"description": "messages",
+						"items": {}
+					},
+					"maxTokens": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Maximum token count"
+					},
+					"system": {
+						"type": "string",
+						"description": "system prompt"
+					},
+					"stream": {
+						"type": "boolean",
+						"default": true,
+						"description": "streaming output"
+					},
+					"temperature": {
+						"type": "number",
+						"format": "double",
+						"description": "Temperature (0-1)"
+					},
+					"topP": {
+						"type": "number",
+						"format": "double",
+						"description": "top P"
+					},
+					"topK": {
+						"type": "number",
+						"format": "double",
+						"description": "top k"
+					},
+					"stopSequences": {
+						"type": "array",
+						"description": "stopSequences",
+						"items": {
+							"type": "string"
+						}
+					},
+					"tools": {
+						"type": "array",
+						"description": "Tool List (Function Calling)",
+						"items": {}
+					},
+					"toolChoice": {
+						"description": "Tool selection strategy"
+					}
+				},
+				"required": ["maxTokens", "messages", "model"]
 			}
 		}
 	}

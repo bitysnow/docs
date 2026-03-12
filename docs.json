@@ -159,8 +159,12 @@
 							{
 								"group": "Chat",
 								"pages": [
-									"api-reference/ai/compatible-openai-chat",
-									"api-reference/ai/chat"
+									"api-reference/ai/chat-completionsdeprecated",
+									"api-reference/ai/self-chat-completionsdeprecated",
+									"api-reference/ai/chat-completions",
+									"api-reference/ai/self-chat-completions",
+									"api-reference/ai/chat-responses",
+									"api-reference/ai/chat-claude-message"
 								]
 							}
 						]
