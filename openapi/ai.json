@@ -622,10 +622,10 @@
 				"deprecated": true
 			}
 		},
-		"/ai/chat/claude/v1/message": {
+		"/ai/chat/claude/v1/messages": {
 			"post": {
-				"summary": "chat claude message",
-				"description": "chat claude message",
+				"summary": "chat claude messages",
+				"description": "chat claude messages",
 				"operationId": "chatClaudeV1Responses",
 				"requestBody": {
 					"content": {
@@ -1568,9 +1568,7 @@
 						"title": "/chat/v1/responses : gpt-5.1 : MS : gpt-5.1; /chat/v1/responses : gpt-5.1-all : MS : gpt-5.1-all; /chat/v1/responses : gpt-5.1-thinking : MS : gpt-5.1-thinking; /chat/v1/responses : gpt-5.1-thinking-all : MS : gpt-5.1-thinking-all; /chat/v1/responses : gpt-5.2 : MS : gpt-5.2; /chat/v1/responses : gemini-3-pro : MS : gemini-3-pro; /chat/v1/responses : gemini-2.5-pro : MS : gemini-2.5-pro; /chat/v1/responses : gemini-2.5-flash : MS : gemini-2.5-flash; /chat/v1/responses : gemini-3-flash : MS : gemini-3-flash; /chat/v1/responses : gemini-3.1-pro : MS : gemini-3.1-pro; /chat/v1/responses : claude-4.5 : MS : claude-4.5; /chat/v1/responses : claude-opus-4-6 : MS : claude-opus-4-6; /chat/v1/responses : claude-haiku-4-5-20251001 : MS : claude-haiku-4-5-20251001; /chat/v1/responses : claude-sonnet-4-6 : MS : claude-sonnet-4-6"
 					},
 					"input": {
-						"type": "string",
-						"description": "input messages",
-						"minLength": 1
+						"description": "input messages"
 					},
 					"instructions": {
 						"type": "string",
@@ -1610,6 +1608,15 @@
 				},
 				"required": ["input", "model"]
 			},
+			"JSONObject": {
+				"type": "object",
+				"additionalProperties": {},
+				"properties": {
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
 			"SelfChatClaudeV1ResponsesReq": {
 				"type": "object",
 				"properties": {
@@ -1627,7 +1634,9 @@
 					"messages": {
 						"type": "array",
 						"description": "messages",
-						"items": {}
+						"items": {
+							"$ref": "#/components/schemas/JSONObject"
+						}
 					},
 					"maxTokens": {
 						"type": "integer",
@@ -1635,7 +1644,6 @@
 						"description": "Maximum token count"
 					},
 					"system": {
-						"type": "string",
 						"description": "system prompt"
 					},
 					"stream": {
