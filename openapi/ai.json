@@ -1092,6 +1092,15 @@
 				},
 				"required": ["clipId", "isInfill"]
 			},
+			"JSONObject": {
+				"type": "object",
+				"additionalProperties": {},
+				"properties": {
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
 			"SelfChatCompletionsReq": {
 				"type": "object",
 				"properties": {
@@ -1099,7 +1108,7 @@
 						"type": "array",
 						"description": "messages",
 						"items": {
-							"$ref": "#/components/schemas/SelfChatMessageReq"
+							"$ref": "#/components/schemas/JSONObject"
 						},
 						"minItems": 1
 					},
@@ -1116,9 +1125,12 @@
 							"gemini-2.5-pro",
 							"gemini-2.5-flash",
 							"gemini-3-flash",
-							"claude-4.5"
+							"claude-4.5",
+							"gpt-5.4",
+							"gpt-5.3",
+							"gpt-5.3-codex"
 						],
-						"title": "/chat/chat/completions : gpt-5.1 : MS : gpt-5.1; /chat/chat/completions : gpt-5.1-all : MS : gpt-5.1-all; /chat/chat/completions : gpt-5.1-thinking : MS : gpt-5.1-thinking; /chat/chat/completions : gpt-5.1-thinking-all : MS : gpt-5.1-thinking-all; /chat/chat/completions : gpt-5.2 : MS : gpt-5.2; /chat/chat/completions : gemini-3-pro : MS : gemini-3-pro; /chat/chat/completions : gemini-2.5-pro : MS : gemini-2.5-pro; /chat/chat/completions : gemini-2.5-flash : MS : gemini-2.5-flash; /chat/chat/completions : gemini-3-flash : MS : gemini-3-flash; /chat/chat/completions : claude-4.5 : MS : claude-4.5"
+						"title": "/chat/chat/completions : gpt-5.1 : MS : gpt-5.1; /chat/chat/completions : gpt-5.1-all : MS : gpt-5.1-all; /chat/chat/completions : gpt-5.1-thinking : MS : gpt-5.1-thinking; /chat/chat/completions : gpt-5.1-thinking-all : MS : gpt-5.1-thinking-all; /chat/chat/completions : gpt-5.2 : MS : gpt-5.2; /chat/chat/completions : gemini-3-pro : MS : gemini-3-pro; /chat/chat/completions : gemini-2.5-pro : MS : gemini-2.5-pro; /chat/chat/completions : gemini-2.5-flash : MS : gemini-2.5-flash; /chat/chat/completions : gemini-3-flash : MS : gemini-3-flash; /chat/chat/completions : claude-4.5 : MS : claude-4.5; /chat/chat/completions : gpt-5.4 : MS : gpt-5.4; /chat/chat/completions : gpt-5.3 : MS : gpt-5.3; /chat/chat/completions : gpt-5.3-codex : MS : gpt-5.3-codex"
 					},
 					"stream": {
 						"type": "boolean",
@@ -1201,25 +1213,6 @@
 					}
 				},
 				"required": ["messages", "model"]
-			},
-			"SelfChatMessageReq": {
-				"type": "object",
-				"properties": {
-					"content": {
-						"description": "content"
-					},
-					"role": {
-						"type": "string",
-						"description": "role",
-						"enum": ["user", "assistant", "system", "tool"],
-						"title": "user; assistant; system; tool"
-					},
-					"name": {
-						"type": "string",
-						"description": "The names of optional participants can provide information for the model to distinguish participants with the same role。"
-					}
-				},
-				"required": ["content", "role"]
 			},
 			"SelfSora2VideoGenReq": {
 				"type": "object",
@@ -1560,12 +1553,14 @@
 							"gemini-2.5-flash",
 							"gemini-3-flash",
 							"gemini-3.1-pro",
-							"claude-4.5",
 							"claude-opus-4-6",
 							"claude-haiku-4-5-20251001",
-							"claude-sonnet-4-6"
+							"claude-sonnet-4-6",
+							"gpt-5.4",
+							"gpt-5.3",
+							"gpt-5.3-codex"
 						],
-						"title": "/chat/v1/responses : gpt-5.1 : MS : gpt-5.1; /chat/v1/responses : gpt-5.1-all : MS : gpt-5.1-all; /chat/v1/responses : gpt-5.1-thinking : MS : gpt-5.1-thinking; /chat/v1/responses : gpt-5.1-thinking-all : MS : gpt-5.1-thinking-all; /chat/v1/responses : gpt-5.2 : MS : gpt-5.2; /chat/v1/responses : gemini-3-pro : MS : gemini-3-pro; /chat/v1/responses : gemini-2.5-pro : MS : gemini-2.5-pro; /chat/v1/responses : gemini-2.5-flash : MS : gemini-2.5-flash; /chat/v1/responses : gemini-3-flash : MS : gemini-3-flash; /chat/v1/responses : gemini-3.1-pro : MS : gemini-3.1-pro; /chat/v1/responses : claude-4.5 : MS : claude-4.5; /chat/v1/responses : claude-opus-4-6 : MS : claude-opus-4-6; /chat/v1/responses : claude-haiku-4-5-20251001 : MS : claude-haiku-4-5-20251001; /chat/v1/responses : claude-sonnet-4-6 : MS : claude-sonnet-4-6"
+						"title": "/chat/v1/responses : gpt-5.1 : MS : gpt-5.1; /chat/v1/responses : gpt-5.1-all : MS : gpt-5.1-all; /chat/v1/responses : gpt-5.1-thinking : MS : gpt-5.1-thinking; /chat/v1/responses : gpt-5.1-thinking-all : MS : gpt-5.1-thinking-all; /chat/v1/responses : gpt-5.2 : MS : gpt-5.2; /chat/v1/responses : gemini-3-pro : MS : gemini-3-pro; /chat/v1/responses : gemini-2.5-pro : MS : gemini-2.5-pro; /chat/v1/responses : gemini-2.5-flash : MS : gemini-2.5-flash; /chat/v1/responses : gemini-3-flash : MS : gemini-3-flash; /chat/v1/responses : gemini-3.1-pro : MS : gemini-3.1-pro; /chat/v1/responses : claude-opus-4-6 : MS : claude-opus-4-6; /chat/v1/responses : claude-haiku-4-5-20251001 : MS : claude-haiku-4-5-20251001; /chat/v1/responses : claude-sonnet-4-6 : MS : claude-sonnet-4-6; /chat/v1/responses : gpt-5.4 : MS : gpt-5.4; /chat/v1/responses : gpt-5.3 : MS : gpt-5.3; /chat/v1/responses : gpt-5.3-codex : MS : gpt-5.3-codex"
 					},
 					"input": {
 						"description": "input messages"
@@ -1608,15 +1603,6 @@
 				},
 				"required": ["input", "model"]
 			},
-			"JSONObject": {
-				"type": "object",
-				"additionalProperties": {},
-				"properties": {
-					"empty": {
-						"type": "boolean"
-					}
-				}
-			},
 			"SelfChatClaudeV1ResponsesReq": {
 				"type": "object",
 				"properties": {
@@ -1624,12 +1610,11 @@
 						"type": "string",
 						"description": "model",
 						"enum": [
-							"claude-4.5",
 							"claude-opus-4-6",
 							"claude-haiku-4-5-20251001",
 							"claude-sonnet-4-6"
 						],
-						"title": "/chat/claude/v1/messages : claude-4.5 : MS : claude-4.5; /chat/claude/v1/messages : claude-opus-4-6 : MS : claude-opus-4-6; /chat/claude/v1/messages : claude-haiku-4-5-20251001 : MS : claude-haiku-4-5-20251001; /chat/claude/v1/messages : claude-sonnet-4-6 : MS : claude-sonnet-4-6"
+						"title": "/chat/claude/v1/messages : claude-opus-4-6 : MS : claude-opus-4-6; /chat/claude/v1/messages : claude-haiku-4-5-20251001 : MS : claude-haiku-4-5-20251001; /chat/claude/v1/messages : claude-sonnet-4-6 : MS : claude-sonnet-4-6"
 					},
 					"messages": {
 						"type": "array",
