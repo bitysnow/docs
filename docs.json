@@ -113,7 +113,8 @@
 									"api-reference/pmock/phone-operate--input",
 									"api-reference/pmock/phone-operate--long-click",
 									"api-reference/pmock/phone-operate--operate-app",
-									"api-reference/pmock/phone-operate--check-task-status"
+									"api-reference/pmock/phone-operate--check-task-status",
+									"api-reference/pmock/get-the-cpy-connection-details"
 								]
 							}
 						]
