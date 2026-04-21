@@ -1,0 +1,75 @@
+---
+openapi: post /ai/chat/v1/responses
+---
+
+## Maven
+
+```xml
+<dependency>
+    <groupId>com.openai</groupId>
+    <artifactId>openai-java</artifactId>
+    <version>x.x.x</version>
+</dependency>
+```
+
+## Normal Request Example
+
+<Tabs>
+  <Tab title="Java">
+    ```java
+    @Test
+    void clientOpenClientTest() {
+        OpenAIClient client = OpenAIOkHttpClient.builder()
+                .apiKey(apiKey) // Your access key
+                .baseUrl("https://ai.pmock.com/api/ai/chat/v1")
+                .build();
+
+        ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
+                .model("gpt-5.2")
+                .addMessage(ChatCompletionMessageParam.ofSystem(
+                        ChatCompletionSystemMessageParam.builder().content("You are a helpful assistant.").build()))
+                .addMessage(ChatCompletionMessageParam.ofUser(
+                        ChatCompletionUserMessageParam.builder().content("Hello!").build()))
+                .build();
+
+        ChatCompletion chatCompletion = client.chat().completions().create(params);
+        System.out.println(chatCompletion.choices().get(0).message().content());
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+## Stream Response
+
+<Tabs>
+  <Tab title="Java">
+    ```java
+        @Test
+    void streamClientOpenClientTest() {
+        OpenAIClient client = OpenAIOkHttpClient.builder()
+                .apiKey(apiKey) // Your access key
+                .baseUrl("https://ai.pmock.com/api/ai/chat/v1")
+                .build();
+
+        ChatCompletionCreateParams streamParams = ChatCompletionCreateParams.builder()
+                .model("gpt-5.2")
+                .addMessage(ChatCompletionMessageParam.ofSystem(
+                        ChatCompletionSystemMessageParam.builder().content("You are a helpful assistant.").build()))
+                .addMessage(ChatCompletionMessageParam.ofUser(
+                        ChatCompletionUserMessageParam.builder().content("Hello!").build()))
+                .build();
+
+        try (StreamResponse<ChatCompletionChunk> streaming = client.chat().completions().createStreaming(streamParams)) {
+            streaming.stream().forEach(chunk -> {
+                if (!chunk.choices().isEmpty()) {
+                    String content = chunk.choices().get(0).delta().content().orElse("");
+                    System.out.print(content);
+                }
+            });
+        }
+    }
+    ```
+
+  </Tab>
+</Tabs>

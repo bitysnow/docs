@@ -1,0 +1,71 @@
+---
+openapi: post /ai/chat/responses
+---
+
+## Maven
+
+```xml
+<dependency>
+    <groupId>com.openai</groupId>
+    <artifactId>openai-java</artifactId>
+    <version>x.x.x</version>
+</dependency>
+```
+
+## Normal Request Example
+
+<Tabs>
+  <Tab title="Java">
+    ```java
+    @Test
+    void chatV1ResponsesClientTest() {
+        OpenAIClient client = OpenAIOkHttpClient.builder()
+                .apiKey(apiKey) // Your access key
+                .baseUrl("https://ai.pmock.com/api/ai/chat")
+                .build();
+
+        ResponseCreateParams build = ResponseCreateParams.builder()
+                .model("gpt-5.2")
+                .instructions("You are a helpful assistant.")
+                .input("Hello!")
+                .build();
+
+        com.openai.models.responses.Response response = client.responses().create(build);
+        System.out.println(response.output().get(0).message().get().content().get(0).outputText());
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+## Stream Response
+
+<Tabs>
+  <Tab title="Java">
+    ```java
+    @Test
+    void streamChatV1ResponsesClientTest() {
+        OpenAIClient client = OpenAIOkHttpClient.builder()
+                .apiKey(apiKey) // Your access key
+                .baseUrl("https://ai.pmock.com/api/ai/chat")
+                .build();
+
+        ResponseCreateParams build = ResponseCreateParams.builder()
+                .model("gpt-5.2")
+                .instructions("You are a helpful assistant.")
+                .input("Hello!")
+                .build();
+
+        try (StreamResponse<ResponseStreamEvent> streaming = client.responses().createStreaming(build)) {
+            streaming.stream().forEach(chunk -> {
+                chunk.outputTextDelta().ifPresent(event -> {
+                    String delta = event.delta();
+                    System.out.print(delta);
+                });
+            });
+        }
+    }
+    ```
+
+  </Tab>
+</Tabs>
