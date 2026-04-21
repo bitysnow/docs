@@ -156,12 +156,6 @@
 									"api-reference/ai/开放-ai对话开放接口/chat-claude-messages",
 									"api-reference/ai/开放-ai对话开放接口/chat-completions"
 								]
-							},
-							{
-								"group": "Baidu",
-								"pages": [
-									"api-reference/ai/开放-百度视频生成/text-generate-video"
-								]
 							}
 						]
 					}
