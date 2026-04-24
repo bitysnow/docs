@@ -1,0 +1,8 @@
+---
+openapi: post /ai/openai/images/generate
+---
+
+A unified entry point for image creation. The backend service automatically determines the action based on the request body:
+
+- **Text-to-Image:** If the `image` field is absent or null, it performs text-to-image generation.
+- **Image Editing:** If the `image` field is present, it performs image editing based on the provided image.

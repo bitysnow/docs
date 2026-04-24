@@ -135,6 +135,12 @@
 								]
 							},
 							{
+								"group": "OpenAi",
+								"pages": [
+									"api-reference/ai/开放-openai开放接口/openai-generate-async"
+								]
+							},
+							{
 								"group": "Sora2",
 								"pages": [
 									"api-reference/ai/开放-sora2开放接口/sora2-generate-video",
