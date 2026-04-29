@@ -191,6 +191,65 @@
 				}
 			}
 		},
+		"/ai/openai/v1/images/generations": {
+			"post": {
+				"tags": ["开放-OpenAi开放接口"],
+				"summary": "openai compat generate",
+				"description": "generate a image",
+				"operationId": "openAiCompatImageGenerate",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/OpenAiCompatImageGenerateDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ai/openai/v1/images/edits": {
+			"post": {
+				"tags": ["开放-OpenAi开放接口"],
+				"summary": "openai compat edits",
+				"description": "edits a image",
+				"operationId": "openAiCompatImageEdits",
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"$ref": "#/components/schemas/OpenAiCompatImageEditDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/ai/openai/images/generate": {
 			"post": {
 				"tags": ["开放-OpenAi开放接口"],
@@ -202,6 +261,36 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/OpenAiImageGenerateDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RTaskResultVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ai/gi/video/upsample": {
+			"post": {
+				"tags": ["开放-Gemini开放接口"],
+				"summary": "video upsample",
+				"description": "video upsample",
+				"operationId": "videoUpsample",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/GeminiVideoUpsampleDTO"
 							}
 						}
 					},
@@ -768,6 +857,198 @@
 				},
 				"required": ["model", "prompt"]
 			},
+			"OpenAiCompatImageGenerateDTO": {
+				"type": "object",
+				"properties": {
+					"prompt": {
+						"type": "string",
+						"description": "prompt",
+						"minLength": 1
+					},
+					"background": {
+						"type": "string",
+						"description": "background transparency",
+						"enum": ["transparent", "opaque", "auto"],
+						"title": "transparent : transparent; opaque : opaque; auto : auto"
+					},
+					"model": {
+						"type": "string",
+						"default": "gpt-image-2",
+						"description": "model",
+						"enum": ["gpt-image-2"],
+						"title": "gpt-image-2 : gpt-image-2 : mount_sea"
+					},
+					"moderation": {
+						"type": "string",
+						"description": "Audit intensity",
+						"enum": ["auto", "low"],
+						"title": "auto : auto; low : low"
+					},
+					"n": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Generation quantity (currently only supports 1)"
+					},
+					"outputCompression": {
+						"type": "integer",
+						"format": "int32",
+						"description": "JPEG/WebP compression level 0-100"
+					},
+					"outputFormat": {
+						"type": "string",
+						"description": "Output file format",
+						"enum": ["png", "jpeg", "webp"],
+						"title": "png : png; jpeg : jpeg; webp : webp"
+					},
+					"partialImages": {
+						"type": "integer",
+						"format": "int32",
+						"description": "partial images"
+					},
+					"quality": {
+						"type": "string",
+						"description": "quality grade",
+						"enum": ["auto", "low", "medium", "high", "standard"],
+						"title": "auto : auto; low : low; medium : medium; high : high; standard : standard"
+					},
+					"responseFormat": {
+						"type": "string",
+						"description": "Response format (compatible with DALL · E; The gpt image series always returns b64_json)",
+						"enum": ["url", "b64_json"],
+						"title": "url : url; b64_json : b64_json"
+					},
+					"size": {
+						"type": "string",
+						"default": "1024x1024",
+						"description": "image size",
+						"enum": [
+							"auto",
+							"1024x1024",
+							"1024x1536",
+							"1536x1024",
+							"2048x2048",
+							"2048x1152",
+							"3840x2160",
+							"2160x3840"
+						],
+						"title": "auto : auto; 1024x1024 : 1024x1024; 1024x1536 : 1024x1536; 1536x1024 : 1536x1024; 2048x2048 : 2048x2048; 2048x1152 : 2048x1152; 3840x2160 : 3840x2160; 2160x3840 : 2160x3840"
+					},
+					"inputFidelity": {
+						"type": "string",
+						"description": "Input image fidelity (newly added in gpt-image-2, only effective for editing scenes); Generate can be ignored)",
+						"enum": ["high", "low"],
+						"title": "high : high; low : low"
+					},
+					"user": {
+						"type": "string",
+						"description": "user"
+					}
+				},
+				"required": ["model", "prompt"]
+			},
+			"OpenAiCompatImageEditDTO": {
+				"type": "object",
+				"properties": {
+					"image": {
+						"type": "array",
+						"description": "images",
+						"items": {
+							"type": "string",
+							"format": "binary"
+						},
+						"minItems": 1
+					},
+					"prompt": {
+						"type": "string",
+						"description": "prompt",
+						"minLength": 1
+					},
+					"background": {
+						"type": "string",
+						"description": "background transparency",
+						"enum": ["transparent", "opaque", "auto"],
+						"title": "transparent : transparent; opaque : opaque; auto : auto"
+					},
+					"inputFidelity": {
+						"type": "string",
+						"description": "Input image fidelity (newly added in gpt-image-2, only effective for editing scenes); Generate can be ignored)",
+						"enum": ["high", "low"],
+						"title": "high : high; low : low"
+					},
+					"mark": {
+						"type": "string",
+						"format": "binary",
+						"description": "mark"
+					},
+					"model": {
+						"type": "string",
+						"default": "gpt-image-2",
+						"description": "model",
+						"enum": ["gpt-image-2"],
+						"title": "gpt-image-2 : gpt-image-2 : mount_sea"
+					},
+					"moderation": {
+						"type": "string",
+						"description": "Audit intensity",
+						"enum": ["auto", "low"],
+						"title": "auto : auto; low : low"
+					},
+					"n": {
+						"type": "integer",
+						"format": "int32",
+						"description": "n"
+					},
+					"outputCompression": {
+						"type": "integer",
+						"format": "int32",
+						"description": "JPEG/WebP compression level 0-100"
+					},
+					"outputFormat": {
+						"type": "string",
+						"description": "Output file format",
+						"enum": ["png", "jpeg", "webp"],
+						"title": "png : png; jpeg : jpeg; webp : webp"
+					},
+					"responseFormat": {
+						"type": "string",
+						"default": "b64_json",
+						"description": "Response format (compatible with DALL · E; The gpt image series always returns b64_json)",
+						"enum": ["url", "b64_json"],
+						"title": "url : url; b64_json : b64_json"
+					},
+					"partialImages": {
+						"type": "integer",
+						"format": "int64",
+						"description": "partialImages"
+					},
+					"quality": {
+						"type": "string",
+						"description": "quality",
+						"enum": ["auto", "low", "medium", "high", "standard"],
+						"title": "auto : auto; low : low; medium : medium; high : high; standard : standard"
+					},
+					"size": {
+						"type": "string",
+						"description": "size",
+						"enum": [
+							"auto",
+							"1024x1024",
+							"1024x1536",
+							"1536x1024",
+							"2048x2048",
+							"2048x1152",
+							"3840x2160",
+							"2160x3840"
+						],
+						"title": "auto : auto; 1024x1024 : 1024x1024; 1024x1536 : 1024x1536; 1536x1024 : 1536x1024; 2048x2048 : 2048x2048; 2048x1152 : 2048x1152; 3840x2160 : 3840x2160; 2160x3840 : 2160x3840"
+					},
+					"user": {
+						"type": "string",
+						"description": "user"
+					}
+				},
+				"required": ["image", "model", "prompt"]
+			},
 			"OpenAiImageGenerateDTO": {
 				"type": "object",
 				"properties": {
@@ -785,8 +1066,17 @@
 					"size": {
 						"type": "string",
 						"description": "image size",
-						"enum": ["auto", "1024x1024", "1024x1536", "1536x1024"],
-						"title": "auto : auto; 1024x1024 : 1024x1024; 1024x1536 : 1024x1536; 1536x1024 : 1536x1024"
+						"enum": [
+							"auto",
+							"1024x1024",
+							"1024x1536",
+							"1536x1024",
+							"2048x2048",
+							"2048x1152",
+							"3840x2160",
+							"2160x3840"
+						],
+						"title": "auto : auto; 1024x1024 : 1024x1024; 1024x1536 : 1024x1536; 1536x1024 : 1536x1024; 2048x2048 : 2048x2048; 2048x1152 : 2048x1152; 3840x2160 : 3840x2160; 2160x3840 : 2160x3840"
 					},
 					"n": {
 						"type": "integer",
@@ -847,6 +1137,22 @@
 					}
 				},
 				"required": ["model", "prompt"]
+			},
+			"GeminiVideoUpsampleDTO": {
+				"type": "object",
+				"properties": {
+					"videoId": {
+						"type": "string",
+						"description": "Video Task ID (return value from /ai/gi/video/generate)",
+						"minLength": 1
+					},
+					"action": {
+						"type": "string",
+						"description": "Upgrade operation type",
+						"enum": ["Get1080p", "Get4k", "GetGif"]
+					}
+				},
+				"required": ["videoId"]
 			},
 			"GeminiVeoVideoGenerateDTO": {
 				"type": "object",

@@ -137,6 +137,8 @@
 							{
 								"group": "OpenAi",
 								"pages": [
+									"api-reference/ai/开放-openai开放接口/openai-compat-generate",
+									"api-reference/ai/开放-openai开放接口/openai-compat-edits",
 									"api-reference/ai/开放-openai开放接口/openai-generate-async"
 								]
 							},

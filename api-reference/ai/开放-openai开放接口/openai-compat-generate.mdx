@@ -1,0 +1,35 @@
+---
+openapi: post /ai/openai/v1/images/generations
+---
+
+```xml
+<dependency>
+    <groupId>com.openai</groupId>
+    <artifactId>openai-java</artifactId>
+    <version>x.x.x</version>
+</dependency>
+```
+
+## Normal Request Example
+
+<Tabs>
+  <Tab title="Java">
+    ```java
+    @Test
+    void imageGenerateTest() {
+        OpenAIClient client = OpenAIOkHttpClient.builder()
+                .apiKey(apiKey)
+                .baseUrl("https://ai.pmock.com/api/ai/openai/v1")
+                .build();
+
+        ImageGenerateParams params = ImageGenerateParams.builder()
+                .prompt("a cute cat")
+                .responseFormat(ImageGenerateParams.ResponseFormat.B64_JSON)
+                .build();
+        ImagesResponse imagesResponse = client.images().generate(params);
+        System.out.println(imagesResponse.data());
+    }
+    ```
+
+  </Tab>
+</Tabs>

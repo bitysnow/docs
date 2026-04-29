@@ -1,0 +1,38 @@
+---
+openapi: post /ai/openai/v1/images/edits
+---
+
+## Maven
+
+```xml
+<dependency>
+    <groupId>com.openai</groupId>
+    <artifactId>openai-java</artifactId>
+    <version>x.x.x</version>
+</dependency>
+```
+
+## Normal Request Example
+
+<Tabs>
+  <Tab title="Java">
+    ```java
+    @Test
+    void imageEditTest() {
+        OpenAIClient client = OpenAIOkHttpClient.builder()
+                .apiKey(apiKey) // Your apiKey
+                .baseUrl("https://ai.pmock.com/api/ai/openai/v1")
+                .build();
+
+        ImageEditParams params = ImageEditParams.builder()
+                .image(Path.of("D:\\20260226142856_235_166.png")) // Your image
+                .prompt("change the color to green")
+                .responseFormat(ImageEditParams.ResponseFormat.B64_JSON)
+                .build();
+        ImagesResponse imagesResponse = client.images().edit(params);
+        System.out.println(imagesResponse.data());
+    }
+    ```
+
+  </Tab>
+</Tabs>
