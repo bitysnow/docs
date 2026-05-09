@@ -596,8 +596,8 @@
 						"format": "int32",
 						"default": "6",
 						"description": "video duration",
-						"enum": [6, 10, 15],
-						"title": "6 : 6; 10 : 10; 15 : 15"
+						"enum": [6, 10, 12, 16, 20],
+						"title": "6 : 6; 10 : 10; 12 : 12; 16 : 16; 20 : 20"
 					},
 					"aspectRatio": {
 						"type": "string",
