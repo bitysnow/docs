@@ -1,3 +1,220 @@
 ---
 openapi: post /ai/bd/text/video
 ---
+
+## Text-to-Video Model Parameters
+
+The following tables document only the `TextToVideo*TaskInput` structures used by `TextToVideoRequest`. In a request, pass the matching object for the selected model, such as `modelVQ1TaskInput` for `VQ1`.
+
+Reference: [Baidu AI Cloud VOD Data Structures - TextToVideoVQ1TaskInput](https://cloud.baidu.com/doc/VOD/s/mm3h9frta#texttovideovq1taskinput) (official page updated on 2026-04-27).
+
+## ModelTaskInput Parameters
+
+Pass the modelTaskInput parameter field according to different model names
+
+### VQ1
+
+| Parameter           | Type    | Description                                                                                                                            |
+| ------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `prompt`            | string  | Text prompt for generation                                                                                                             |
+| `duration`          | integer | Video duration in seconds. Supported value: `5`                                                                                        |
+| `resolution`        | string  | Resolution. Supported value: `1080p`                                                                                                   |
+| `style`             | string  | Style. Optional; default: `general`. Supported values: `general`, `anime`                                                              |
+| `movementAmplitude` | string  | Movement amplitude. Optional; default: `auto`. Supported values: `auto`, `small`, `medium`, `large`                                    |
+| `seed`              | integer | Random seed. Optional                                                                                                                  |
+| `aspectRatio`       | string  | Aspect ratio. Optional; default: `16:9`. Supported values: `16:9`, `9:16`, `1:1`                                                       |
+| `bgm`               | boolean | Whether to enable background music. Optional; default: `false`                                                                         |
+| `offPeak`           | boolean | Whether to use off-peak mode. Optional. Tasks have a lower priority and may take longer, up to 18 hours, but are priced more favorably |
+
+### VQ2
+
+| Parameter     | Type    | Description                                                                                                                            |
+| ------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `prompt`      | string  | Text prompt for generation                                                                                                             |
+| `duration`    | integer | Video duration in seconds. Supported range: `[1,8]`                                                                                    |
+| `resolution`  | string  | Resolution. Supported values: `360p`, `540p`, `720p`, `1080p`                                                                          |
+| `seed`        | integer | Random seed. Optional                                                                                                                  |
+| `aspectRatio` | string  | Aspect ratio. Optional; default: `16:9`. Supported values: `16:9`, `9:16`, `3:4`, `4:3`, `1:1`                                         |
+| `bgm`         | boolean | Whether to enable background music. Optional; default: `false`                                                                         |
+| `offPeak`     | boolean | Whether to use off-peak mode. Optional. Tasks have a lower priority and may take longer, up to 18 hours, but are priced more favorably |
+
+### VQ3P
+
+| Parameter     | Type    | Description                                                                                                                                                                                     |
+| ------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `prompt`      | string  | Text prompt for generation                                                                                                                                                                      |
+| `duration`    | integer | Video duration in seconds. Optional; default: `5`. Supported range: `[1-16]`                                                                                                                    |
+| `seed`        | integer | Random seed. Optional                                                                                                                                                                           |
+| `resolution`  | string  | Resolution. Optional; default: `720p`. Supported values: `540p`, `720p`, `1080p`                                                                                                                |
+| `aspectRatio` | string  | Aspect ratio. Optional; default: `16:9`. Supported values: `16:9`, `9:16`, `3:4`, `4:3`, `1:1`                                                                                                  |
+| `audio`       | boolean | Whether to use direct video-and-audio generation. Optional; default: `true`                                                                                                                     |
+| `bgm`         | boolean | Whether to enable background music. Optional; default: `false`                                                                                                                                  |
+| `offPeak`     | boolean | Whether to use off-peak mode. Optional; default: `false`. Available only when `audio` is `true`. Tasks have a lower priority and may take longer, up to 18 hours, but are priced more favorably |
+
+### VQ3T
+
+| Parameter     | Type    | Description                                                                                                                                                                                     |
+| ------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `prompt`      | string  | Text prompt for generation                                                                                                                                                                      |
+| `duration`    | integer | Video duration in seconds. Optional; default: `5`. Supported range: `[1-16]`                                                                                                                    |
+| `seed`        | integer | Random seed. Optional                                                                                                                                                                           |
+| `resolution`  | string  | Resolution. Optional; default: `720p`. Supported values: `540p`, `720p`, `1080p`                                                                                                                |
+| `aspectRatio` | string  | Aspect ratio. Optional; default: `16:9`. Supported values: `16:9`, `9:16`, `3:4`, `4:3`, `1:1`                                                                                                  |
+| `audio`       | boolean | Whether to use direct video-and-audio generation. Optional; default: `true`                                                                                                                     |
+| `bgm`         | boolean | Whether to enable background music. Optional; default: `false`                                                                                                                                  |
+| `offPeak`     | boolean | Whether to use off-peak mode. Optional; default: `false`. Available only when `audio` is `true`. Tasks have a lower priority and may take longer, up to 18 hours, but are priced more favorably |
+
+### P35
+
+| Parameter            | Type    | Description                                                                                                                                                              |
+| -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `prompt`             | string  | Prompt                                                                                                                                                                   |
+| `negativePrompt`     | string  | Negative prompt                                                                                                                                                          |
+| `duration`           | int     | Video duration in seconds. Supported values: `5`, `8`                                                                                                                    |
+| `resolution`         | string  | Video quality. Supported values: `360p`, `540p`, `720p`, `1080p`                                                                                                         |
+| `aspectRatio`        | string  | Aspect ratio. Supported values: `16:9`, `9:16`, `1:1`, `4:3`, `3:4`                                                                                                      |
+| `motionMode`         | string  | Generation mode. Optional; default: `normal`. Supported values: `normal`, `fast`. `fast` is available only when `duration=5`; `resolution=1080p` does not support `fast` |
+| `style`              | string  | Style. Optional; supported values: `anime`, `3d_animation`, `clay`, `comic`, `cyberpunk`                                                                                 |
+| `seed`               | integer | Random seed. Optional                                                                                                                                                    |
+| `soundEffectSwitch`  | boolean | Whether to enable background music. Optional; default: `false`                                                                                                           |
+| `soundEffectContent` | string  | Background music type. Optional; automatically matched by default. Accepts a string, such as `birdsong`                                                                  |
+
+### P40
+
+| Parameter            | Type    | Description                                                                                                                                                                                                                                                                                                                                                 |
+| -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `prompt`             | string  | Prompt                                                                                                                                                                                                                                                                                                                                                      |
+| `negativePrompt`     | string  | Negative prompt                                                                                                                                                                                                                                                                                                                                             |
+| `duration`           | int     | Video duration in seconds. Supported values: `5`, `8`                                                                                                                                                                                                                                                                                                       |
+| `resolution`         | string  | Video quality. Supported values: `360p`, `540p`, `720p`, `1080p`                                                                                                                                                                                                                                                                                            |
+| `aspectRatio`        | string  | Aspect ratio. Supported values: `16:9`, `9:16`, `1:1`, `4:3`, `3:4`                                                                                                                                                                                                                                                                                         |
+| `motionMode`         | string  | Generation mode. Optional; default: `normal`. Supported values: `normal`, `fast`. `fast` is available only when `duration=5`; `resolution=1080p` does not support `fast`                                                                                                                                                                                    |
+| `style`              | string  | Style. Optional; supported values: `anime`, `3d_animation`, `clay`, `comic`, `cyberpunk`                                                                                                                                                                                                                                                                    |
+| `seed`               | integer | Random seed. Optional                                                                                                                                                                                                                                                                                                                                       |
+| `soundEffectSwitch`  | boolean | Whether to enable background music. Optional; default: `false`                                                                                                                                                                                                                                                                                              |
+| `soundEffectContent` | string  | Background music type. Optional; automatically matched by default. Accepts a string, such as `birdsong`                                                                                                                                                                                                                                                     |
+| `cameraMovement`     | string  | Camera movement. Optional; supported values: `horizontal_left`, `horizontal_right`, `vertical_up`, `vertical_down`, `zoom_in`, `zoom_out`, `crane_up`, `quickly_zoom_in`, `quickly_zoom_out`, `smooth_zoom_in`, `camera_rotation`, `robo_arm`, `super_dolly_out`, `whip_pan`, `hitchcock`, `left_follow`, `right_follow`, `pan_left`, `pan_right`, `fix_bg` |
+
+### P45
+
+| Parameter            | Type    | Description                                                                                                                                                                                                                                                                                                                                                 |
+| -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `prompt`             | string  | Prompt                                                                                                                                                                                                                                                                                                                                                      |
+| `negativePrompt`     | string  | Negative prompt                                                                                                                                                                                                                                                                                                                                             |
+| `duration`           | int     | Video duration in seconds. Supported values: `5`, `8`                                                                                                                                                                                                                                                                                                       |
+| `resolution`         | string  | Video quality. Supported values: `360p`, `540p`, `720p`, `1080p`                                                                                                                                                                                                                                                                                            |
+| `aspectRatio`        | string  | Aspect ratio. Supported values: `16:9`, `9:16`, `1:1`, `4:3`, `3:4`                                                                                                                                                                                                                                                                                         |
+| `motionMode`         | string  | Generation mode. Optional; default: `normal`. Supported values: `normal`, `fast`. `fast` is available only when `duration=5`; `resolution=1080p` does not support `fast`                                                                                                                                                                                    |
+| `style`              | string  | Style. Optional; supported values: `anime`, `3d_animation`, `clay`, `comic`, `cyberpunk`                                                                                                                                                                                                                                                                    |
+| `seed`               | integer | Random seed. Optional                                                                                                                                                                                                                                                                                                                                       |
+| `soundEffectSwitch`  | boolean | Whether to enable background music. Optional; default: `false`                                                                                                                                                                                                                                                                                              |
+| `soundEffectContent` | string  | Background music type. Optional; automatically matched by default. Accepts a string, such as `birdsong`                                                                                                                                                                                                                                                     |
+| `cameraMovement`     | string  | Camera movement. Optional; supported values: `horizontal_left`, `horizontal_right`, `vertical_up`, `vertical_down`, `zoom_in`, `zoom_out`, `crane_up`, `quickly_zoom_in`, `quickly_zoom_out`, `smooth_zoom_in`, `camera_rotation`, `robo_arm`, `super_dolly_out`, `whip_pan`, `hitchcock`, `left_follow`, `right_follow`, `pan_left`, `pan_right`, `fix_bg` |
+
+### P50
+
+| Parameter            | Type    | Description                                                                                             |
+| -------------------- | ------- | ------------------------------------------------------------------------------------------------------- |
+| `prompt`             | string  | Prompt                                                                                                  |
+| `negativePrompt`     | string  | Negative prompt                                                                                         |
+| `duration`           | int     | Video duration in seconds. Supported values: `5`, `8`                                                   |
+| `resolution`         | string  | Video quality. Supported values: `360p`, `540p`, `720p`, `1080p`                                        |
+| `aspectRatio`        | string  | Aspect ratio. Supported values: `16:9`, `9:16`, `1:1`, `4:3`, `3:4`                                     |
+| `motionMode`         | string  | Generation mode. Optional; default: `normal`. Supported value: `normal`                                 |
+| `style`              | string  | Style. Optional; supported values: `anime`, `3d_animation`, `clay`, `comic`, `cyberpunk`                |
+| `seed`               | integer | Random seed. Optional                                                                                   |
+| `soundEffectSwitch`  | boolean | Whether to enable background music. Optional; default: `false`                                          |
+| `soundEffectContent` | string  | Background music type. Optional; automatically matched by default. Accepts a string, such as `birdsong` |
+
+### P55
+
+| Parameter                 | Type    | Description                                                                                                                       |
+| ------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `prompt`                  | string  | Prompt                                                                                                                            |
+| `negativePrompt`          | string  | Negative prompt                                                                                                                   |
+| `duration`                | int     | Video duration in seconds. Supported values: `5`, `8`, `10`                                                                       |
+| `resolution`              | string  | Video quality. Supported values: `360p`, `540p`, `720p`, `1080p`                                                                  |
+| `aspectRatio`             | string  | Aspect ratio. Supported values: `16:9`, `9:16`, `1:1`, `4:3`, `3:4`                                                               |
+| `motionMode`              | string  | Generation mode. Optional; default: `normal`. Supported value: `normal`                                                           |
+| `style`                   | string  | Style. Optional; supported values: `anime`, `3d_animation`, `clay`, `comic`, `cyberpunk`                                          |
+| `seed`                    | integer | Random seed. Optional                                                                                                             |
+| `generateAudioSwitch`     | boolean | Audio control switch. Optional. `true`: audio on; `false`: audio off                                                              |
+| `generateMultiClipSwitch` | boolean | Single-clip or multi-clip control switch. Optional. `true`: multi-clip; `false`: single-clip                                      |
+| `thinkingType`            | string  | Whether to use system prompt optimization. Optional. `enabled`: on; `disabled`: off; `auto` or omitted: allow the model to decide |
+
+### K16
+
+| Parameter        | Type   | Description                                                                                                           |
+| ---------------- | ------ | --------------------------------------------------------------------------------------------------------------------- |
+| `prompt`         | string | Prompt                                                                                                                |
+| `negativePrompt` | string | Negative prompt                                                                                                       |
+| `cfgScale`       | float  | Flexibility. Optional; default: `0.5`; range: `[0, 1]`. Larger values constrain generation more closely to the prompt |
+| `duration`       | int    | Video duration in seconds. Supported values: `5`, `10`                                                                |
+| `motionMode`     | string | Generation mode. Optional; default: `std`. Supported values: `std`, `pro`                                             |
+| `aspectRatio`    | string | Aspect ratio. Optional; default: `16:9`. Supported values: `9:16`, `16:9`, `1:1`                                      |
+
+### K20
+
+| Parameter        | Type   | Description                                                                                                           |
+| ---------------- | ------ | --------------------------------------------------------------------------------------------------------------------- |
+| `prompt`         | string | Prompt                                                                                                                |
+| `negativePrompt` | string | Negative prompt                                                                                                       |
+| `cfgScale`       | float  | Flexibility. Optional; default: `0.5`; range: `[0, 1]`. Larger values constrain generation more closely to the prompt |
+| `duration`       | int    | Video duration in seconds. Supported values: `5`, `10`                                                                |
+| `motionMode`     | string | Generation mode. Optional; default: `std`. Supported values: `std`, `pro`                                             |
+| `aspectRatio`    | string | Aspect ratio. Optional; default: `16:9`. Supported values: `9:16`, `16:9`, `1:1`                                      |
+
+### K21M
+
+| Parameter        | Type   | Description                                                                                                           |
+| ---------------- | ------ | --------------------------------------------------------------------------------------------------------------------- |
+| `prompt`         | string | Prompt                                                                                                                |
+| `negativePrompt` | string | Negative prompt                                                                                                       |
+| `cfgScale`       | float  | Flexibility. Optional; default: `0.5`; range: `[0, 1]`. Larger values constrain generation more closely to the prompt |
+| `duration`       | int    | Video duration in seconds. Supported values: `5`, `10`                                                                |
+| `aspectRatio`    | string | Aspect ratio. Optional; default: `16:9`. Supported values: `9:16`, `16:9`, `1:1`                                      |
+
+### K25T
+
+| Parameter        | Type   | Description                                                                                                           |
+| ---------------- | ------ | --------------------------------------------------------------------------------------------------------------------- |
+| `prompt`         | string | Prompt                                                                                                                |
+| `negativePrompt` | string | Negative prompt                                                                                                       |
+| `cfgScale`       | float  | Flexibility. Optional; default: `0.5`; range: `[0, 1]`. Larger values constrain generation more closely to the prompt |
+| `duration`       | int    | Video duration in seconds. Supported values: `5`, `10`                                                                |
+| `aspectRatio`    | string | Aspect ratio. Optional; default: `16:9`. Supported values: `9:16`, `16:9`, `1:1`                                      |
+| `mode`           | string | Mode. Optional; default: `pro`. Supported value: `pro`                                                                |
+
+### K26
+
+| Parameter        | Type   | Description                                                                                                            |
+| ---------------- | ------ | ---------------------------------------------------------------------------------------------------------------------- |
+| `prompt`         | string | Prompt                                                                                                                 |
+| `negativePrompt` | string | Negative prompt                                                                                                        |
+| `sound`          | string | Sound setting. Optional; default: `off`. Supported values: `off`, `on`. Supported only by K26 and later model versions |
+| `cfgScale`       | float  | Flexibility. Optional; default: `0.5`; range: `[0, 1]`. Larger values constrain generation more closely to the prompt  |
+| `duration`       | int    | Video duration in seconds. Supported values: `5`, `10`                                                                 |
+| `aspectRatio`    | string | Aspect ratio. Optional; default: `16:9`. Supported values: `9:16`, `16:9`, `1:1`                                       |
+| `mode`           | string | Mode. Optional; default: `pro`. Supported value: `pro`                                                                 |
+
+### H20
+
+| Parameter          | Type    | Description                                                                                                 |
+| ------------------ | ------- | ----------------------------------------------------------------------------------------------------------- |
+| `prompt`           | string  | Text prompt for generation. Required                                                                        |
+| `promptOptimizer`  | boolean | Whether to automatically optimize the prompt. Default: `true`                                               |
+| `fastPretreatment` | boolean | Whether to reduce the processing time of `prompt_optimizer`. Default: `false`                               |
+| `duration`         | integer | Video duration in seconds; available values depend on the resolution. Supported values: `6` (default), `10` |
+| `resolution`       | string  | Resolution. Supported values: `768p` (default), `1080p` (available only for 6-second videos)                |
+| `aigcWatermark`    | boolean | Whether to add a watermark to the generated video. Default: `false`                                         |
+
+### H23
+
+| Parameter          | Type    | Description                                                                                                 |
+| ------------------ | ------- | ----------------------------------------------------------------------------------------------------------- |
+| `prompt`           | string  | Text prompt for generation. Required                                                                        |
+| `promptOptimizer`  | boolean | Whether to automatically optimize the prompt. Default: `true`                                               |
+| `fastPretreatment` | boolean | Whether to reduce the processing time of `prompt_optimizer`. Default: `false`                               |
+| `duration`         | integer | Video duration in seconds; available values depend on the resolution. Supported values: `6` (default), `10` |
+| `resolution`       | string  | Resolution. Supported values: `768p` (default), `1080p` (available only for 6-second videos)                |
+| `aigcWatermark`    | boolean | Whether to add a watermark to the generated video. Default: `false`                                         |
