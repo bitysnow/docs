@@ -89,7 +89,8 @@
 								"group": "Network",
 								"pages": [
 									"api-reference/pmock/get-network-list",
-									"api-reference/pmock/phone-network-settings"
+									"api-reference/pmock/phone-network-settings",
+									"api-reference/pmock/network-delete"
 								]
 							},
 							{
@@ -115,6 +116,27 @@
 									"api-reference/pmock/phone-operate--operate-app",
 									"api-reference/pmock/phone-operate--check-task-status",
 									"api-reference/pmock/get-the-cpy-connection-details"
+								]
+							},
+							{
+								"group": "RPA",
+								"pages": [
+									"api-reference/pmock/add-template-to-my-team",
+									"api-reference/pmock/delete-template-from-my-team",
+									"api-reference/pmock/rpa-get-task-list",
+									"api-reference/pmock/rpa-get-task-detail",
+									"api-reference/pmock/rpa-get-task-detail-list",
+									"api-reference/pmock/rpa-add-task",
+									"api-reference/pmock/rpa-retry-task",
+									"api-reference/pmock/rpa-retry-task-detail",
+									"api-reference/pmock/rpa-update-task",
+									"api-reference/pmock/rpa-update-task-detail",
+									"api-reference/pmock/rpa-stop-task",
+									"api-reference/pmock/rpa-stop-task-detail",
+									"api-reference/pmock/rpa-delete-task",
+									"api-reference/pmock/rpa-delete-task-detail",
+									"api-reference/pmock/rpa-get-template-list-for-mark",
+									"api-reference/pmock/rpa-get-template-list-for-team"
 								]
 							}
 						]
