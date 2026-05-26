@@ -90,7 +90,7 @@
 								"pages": [
 									"api-reference/pmock/get-network-list",
 									"api-reference/pmock/phone-network-settings",
-									"api-reference/pmock/network-delete"
+									"api-reference/pmock/network-detect"
 								]
 							},
 							{
