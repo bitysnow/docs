@@ -115,7 +115,8 @@
 									"api-reference/pmock/phone-operate--long-click",
 									"api-reference/pmock/phone-operate--operate-app",
 									"api-reference/pmock/phone-operate--check-task-status",
-									"api-reference/pmock/get-the-cpy-connection-details"
+									"api-reference/pmock/get-the-cpy-connection-details",
+									"api-reference/pmock/obtain-the-token-of-the-remote-push-streaming-component"
 								]
 							},
 							{
