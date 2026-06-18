@@ -519,6 +519,36 @@
 					}
 				}
 			}
+		},
+		"/ai/bd/image/video": {
+			"post": {
+				"tags": ["开放-百度视频生成"],
+				"summary": "image generate video",
+				"description": "image generate video",
+				"operationId": "imageVideoGenerate",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/BdImageToVideoDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RTaskResultVO"
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	},
 	"components": {
@@ -589,7 +619,7 @@
 						"type": "string",
 						"description": "video model",
 						"enum": ["grok-imagine-video"],
-						"title": "grok-imagine-video : grok-imagine-video"
+						"title": "grok-imagine-video"
 					},
 					"duration": {
 						"type": "string",
@@ -667,7 +697,7 @@
 						"type": "string",
 						"description": "image model",
 						"enum": ["grok-imagine-image"],
-						"title": "grok-imagine-image : grok-imagine-image"
+						"title": "grok-imagine-image"
 					},
 					"aspectRatio": {
 						"type": "string",
@@ -694,7 +724,7 @@
 						"description": "Video generation model, default is sora-2",
 						"enum": ["sora-2", "sora-2-pro"],
 						"example": "sora-2",
-						"title": "sora-2 : sora-2 : mount_sea; sora-2-pro : sora-2-pro : mount_sea"
+						"title": "sora-2; sora-2-pro"
 					},
 					"prompt": {
 						"type": "string",
@@ -780,7 +810,7 @@
 						"description": "Video generation model, default is sora-2",
 						"enum": ["sora-2"],
 						"example": "sora-2",
-						"title": "sora-2 : sora-2 : mount_sea"
+						"title": "sora-2"
 					},
 					"prompt": {
 						"type": "string",
@@ -876,7 +906,7 @@
 						"default": "gpt-image-2",
 						"description": "model",
 						"enum": ["gpt-image-2"],
-						"title": "gpt-image-2 : gpt-image-2 : mount_sea"
+						"title": "gpt-image-2"
 					},
 					"moderation": {
 						"type": "string",
@@ -985,7 +1015,7 @@
 						"default": "gpt-image-2",
 						"description": "model",
 						"enum": ["gpt-image-2"],
-						"title": "gpt-image-2 : gpt-image-2 : mount_sea"
+						"title": "gpt-image-2"
 					},
 					"moderation": {
 						"type": "string",
@@ -1061,7 +1091,7 @@
 						"type": "string",
 						"description": "model",
 						"enum": ["gpt-image-2"],
-						"title": "gpt-image-2 : gpt-image-2 : mount_sea"
+						"title": "gpt-image-2"
 					},
 					"size": {
 						"type": "string",
@@ -1180,7 +1210,7 @@
 							"veo31_quality",
 							"veo31_fast_ingredients"
 						],
-						"title": "veo3_fast : veo3_fast; veo2_fast : veo2_fast; veo3_quality : veo3_quality; veo2_quality : veo2_quality; veo31_fast : veo31_fast; veo31_quality : veo31_quality; veo31_fast_ingredients : veo31_fast_ingredients"
+						"title": "veo3_fast; veo2_fast; veo3_quality; veo2_quality; veo31_fast; veo31_quality; veo31_fast_ingredients"
 					},
 					"videoId": {
 						"type": "string",
@@ -1220,7 +1250,7 @@
 						"default": "nano-banana-fast",
 						"description": "The model used to generate images",
 						"enum": ["nano-banana-fast", "nano-banana-pro", "nano-banana-2"],
-						"title": "nano-banana-fast : nano-banana-fast; nano-banana-pro : nano-banana-pro; nano-banana-2 : nano-banana-2"
+						"title": "nano-banana-fast; nano-banana-pro; nano-banana-2"
 					},
 					"resolution": {
 						"type": "string",
@@ -1296,7 +1326,7 @@
 							"gpt-5.3",
 							"gpt-5.3-codex"
 						],
-						"title": "gpt-5.1 : gpt-5.1 : mount_sea; gpt-5.1-all : gpt-5.1-all : mount_sea; gpt-5.1-thinking : gpt-5.1-thinking : mount_sea; gpt-5.1-thinking-all : gpt-5.1-thinking-all : mount_sea; gpt-5.2 : gpt-5.2 : mount_sea; gemini-3-pro : gemini-3-pro : mount_sea; gemini-2.5-pro : gemini-2.5-pro : mount_sea; gemini-2.5-flash : gemini-2.5-flash : mount_sea; gemini-3-flash : gemini-3-flash : mount_sea; gemini-3.1-pro : gemini-3.1-pro : mount_sea; claude-opus-4-6 : claude-opus-4-6 : mount_sea; claude-haiku-4-5-20251001 : claude-haiku-4-5-20251001 : mount_sea; claude-sonnet-4-6 : claude-sonnet-4-6 : mount_sea; gpt-5.4 : gpt-5.4 : mount_sea; gpt-5.3 : gpt-5.3 : mount_sea; gpt-5.3-codex : gpt-5.3-codex : mount_sea"
+						"title": "gpt-5.1; gpt-5.1-all; gpt-5.1-thinking; gpt-5.1-thinking-all; gpt-5.2; gemini-3-pro; gemini-2.5-pro; gemini-2.5-flash; gemini-3-flash; gemini-3.1-pro; claude-opus-4-6; claude-haiku-4-5-20251001; claude-sonnet-4-6; gpt-5.4; gpt-5.3; gpt-5.3-codex"
 					},
 					"input": {
 						"description": "input messages"
@@ -1348,9 +1378,36 @@
 						"enum": [
 							"claude-opus-4-6",
 							"claude-haiku-4-5-20251001",
-							"claude-sonnet-4-6"
+							"claude-sonnet-4-6",
+							"claude-opus-4-6-max",
+							"claude-opus-4-6-high",
+							"claude-opus-4-6-low",
+							"claude-opus-4-5-20251101",
+							"claude-opus-4-5-20251101-thinking",
+							"claude-opus-4-6-medium",
+							"claude-opus-4-1-20250805",
+							"claude-opus-4-20250514",
+							"claude-opus-4-1-20250805-thinking",
+							"claude-opus-4-7",
+							"claude-opus-4-7-high",
+							"claude-opus-4-7-low",
+							"claude-opus-4-7-max",
+							"claude-opus-4-7-medium",
+							"claude-opus-4-7-thinking",
+							"claude-opus-4-7-xhigh",
+							"claude-opus-4-8",
+							"claude-opus-4-8-high",
+							"claude-opus-4-8-low",
+							"claude-opus-4-8-max",
+							"claude-opus-4-8-medium",
+							"claude-opus-4-8-thinking",
+							"claude-opus-4-8-xhigh",
+							"claude-sonnet-4-20250514",
+							"claude-sonnet-4-20250514-thinking",
+							"claude-sonnet-4-5-20250929",
+							"claude-sonnet-4-5-20250929-thinking"
 						],
-						"title": "claude-opus-4-6 : claude-opus-4-6 : mount_sea; claude-haiku-4-5-20251001 : claude-haiku-4-5-20251001 : mount_sea; claude-sonnet-4-6 : claude-sonnet-4-6 : mount_sea"
+						"title": "claude-opus-4-6; claude-haiku-4-5-20251001; claude-sonnet-4-6; claude-opus-4-6-max; claude-opus-4-6-high; claude-opus-4-6-low; claude-opus-4-5-20251101; claude-opus-4-5-20251101-thinking; claude-opus-4-6-medium; claude-opus-4-1-20250805; claude-opus-4-20250514; claude-opus-4-1-20250805-thinking; claude-opus-4-7; claude-opus-4-7-high; claude-opus-4-7-low; claude-opus-4-7-max; claude-opus-4-7-medium; claude-opus-4-7-thinking; claude-opus-4-7-xhigh; claude-opus-4-8; claude-opus-4-8-high; claude-opus-4-8-low; claude-opus-4-8-max; claude-opus-4-8-medium; claude-opus-4-8-thinking; claude-opus-4-8-xhigh; claude-sonnet-4-20250514; claude-sonnet-4-20250514-thinking; claude-sonnet-4-5-20250929; claude-sonnet-4-5-20250929-thinking"
 					},
 					"messages": {
 						"type": "array",
@@ -1431,9 +1488,36 @@
 							"gpt-5.3-codex",
 							"claude-opus-4-6",
 							"claude-haiku-4-5-20251001",
-							"claude-sonnet-4-6"
+							"claude-sonnet-4-6",
+							"claude-opus-4-6-max",
+							"claude-opus-4-6-high",
+							"claude-opus-4-6-low",
+							"claude-opus-4-5-20251101",
+							"claude-opus-4-5-20251101-thinking",
+							"claude-opus-4-6-medium",
+							"claude-opus-4-1-20250805",
+							"claude-opus-4-20250514",
+							"claude-opus-4-1-20250805-thinking",
+							"claude-opus-4-7",
+							"claude-opus-4-7-high",
+							"claude-opus-4-7-low",
+							"claude-opus-4-7-max",
+							"claude-opus-4-7-medium",
+							"claude-opus-4-7-thinking",
+							"claude-opus-4-7-xhigh",
+							"claude-opus-4-8",
+							"claude-opus-4-8-high",
+							"claude-opus-4-8-low",
+							"claude-opus-4-8-max",
+							"claude-opus-4-8-medium",
+							"claude-opus-4-8-thinking",
+							"claude-opus-4-8-xhigh",
+							"claude-sonnet-4-20250514",
+							"claude-sonnet-4-20250514-thinking",
+							"claude-sonnet-4-5-20250929",
+							"claude-sonnet-4-5-20250929-thinking"
 						],
-						"title": "gpt-5.1 : gpt-5.1 : mount_sea; gpt-5.1-all : gpt-5.1-all : mount_sea; gpt-5.1-thinking : gpt-5.1-thinking : mount_sea; gpt-5.1-thinking-all : gpt-5.1-thinking-all : mount_sea; gpt-5.2 : gpt-5.2 : mount_sea; gemini-3-pro : gemini-3-pro : mount_sea; gemini-2.5-pro : gemini-2.5-pro : mount_sea; gemini-2.5-flash : gemini-2.5-flash : mount_sea; gemini-3-flash : gemini-3-flash : mount_sea; claude-4.5 : claude-4.5 : mount_sea; gpt-5.4 : gpt-5.4 : mount_sea; gpt-5.3 : gpt-5.3 : mount_sea; gpt-5.3-codex : gpt-5.3-codex : mount_sea; claude-opus-4-6 : claude-opus-4-6 : mount_sea; claude-haiku-4-5-20251001 : claude-haiku-4-5-20251001 : mount_sea; claude-sonnet-4-6 : claude-sonnet-4-6 : mount_sea"
+						"title": "gpt-5.1; gpt-5.1-all; gpt-5.1-thinking; gpt-5.1-thinking-all; gpt-5.2; gemini-3-pro; gemini-2.5-pro; gemini-2.5-flash; gemini-3-flash; claude-4.5; gpt-5.4; gpt-5.3; gpt-5.3-codex; claude-opus-4-6; claude-haiku-4-5-20251001; claude-sonnet-4-6; claude-opus-4-6-max; claude-opus-4-6-high; claude-opus-4-6-low; claude-opus-4-5-20251101; claude-opus-4-5-20251101-thinking; claude-opus-4-6-medium; claude-opus-4-1-20250805; claude-opus-4-20250514; claude-opus-4-1-20250805-thinking; claude-opus-4-7; claude-opus-4-7-high; claude-opus-4-7-low; claude-opus-4-7-max; claude-opus-4-7-medium; claude-opus-4-7-thinking; claude-opus-4-7-xhigh; claude-opus-4-8; claude-opus-4-8-high; claude-opus-4-8-low; claude-opus-4-8-max; claude-opus-4-8-medium; claude-opus-4-8-thinking; claude-opus-4-8-xhigh; claude-sonnet-4-20250514; claude-sonnet-4-20250514-thinking; claude-sonnet-4-5-20250929; claude-sonnet-4-5-20250929-thinking"
 					},
 					"stream": {
 						"type": "boolean",
@@ -1543,7 +1627,53 @@
 							"VE3.1",
 							"VE3.1F"
 						],
-						"title": "VQ1 : VQ1; VQ2 : VQ2; VQ3P : VQ3P; VQ3T : VQ3T; P35 : P35; P40 : P40; P45 : P45; P50 : P50; P55 : P55; K16 : K16; K20 : K20; K21M : K21M; K25T : K25T; K26 : K26; H20 : H20; H23 : H23; VE3.1 : VE3.1; VE3.1F : VE3.1F"
+						"title": "VQ1; VQ2; VQ3P; VQ3T; P35; P40; P45; P50; P55; K16; K20; K21M; K25T; K26; H20; H23; VE3.1; VE3.1F"
+					},
+					"modelTaskInput": {
+						"type": "object",
+						"additionalProperties": {},
+						"description": "modelTaskInput",
+						"properties": {
+							"empty": {
+								"type": "boolean"
+							}
+						}
+					}
+				}
+			},
+			"BdImageToVideoDTO": {
+				"type": "object",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "model",
+						"enum": [
+							"V20",
+							"VQ1",
+							"VQ1C",
+							"VQ2T",
+							"VQ2P",
+							"VQ2PF",
+							"VQ2",
+							"VQ3P",
+							"VQ3T",
+							"P35",
+							"P40",
+							"P45",
+							"P50",
+							"P55",
+							"K16",
+							"K20",
+							"K21",
+							"K21M",
+							"K25T",
+							"K26",
+							"H23",
+							"H23F",
+							"VE3.1",
+							"VE3.1F"
+						],
+						"title": "V20; VQ1; VQ1C; VQ2T; VQ2P; VQ2PF; VQ2; VQ3P; VQ3T; P35; P40; P45; P50; P55; K16; K20; K21; K21M; K25T; K26; H23; H23F; VE3.1; VE3.1F"
 					},
 					"modelTaskInput": {
 						"type": "object",
