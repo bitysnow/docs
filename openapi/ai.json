@@ -11,34 +11,13 @@
 		}
 	],
 	"tags": [
-		{
-			"name": "开放-百度视频生成",
-			"description": "开放-百度视频生成"
-		},
-		{
-			"name": "开放-Grok开放接口",
-			"description": "开放-Grok开放接口"
-		},
-		{
-			"name": "开放-Gemini开放接口",
-			"description": "开放-Gemini开放接口"
-		},
-		{
-			"name": "开放-AI对话开放接口",
-			"description": "开放-AI对话开放接口"
-		},
-		{
-			"name": "开放-Sora2开放接口",
-			"description": "开放-Sora2开放接口"
-		},
-		{
-			"name": "开放-OpenAi开放接口",
-			"description": "开放-OpenAi开放接口"
-		},
-		{
-			"name": "开放-任务开放接口",
-			"description": "开放-任务开放接口"
-		}
+		{ "name": "开放-百度视频生成", "description": "开放-百度视频生成" },
+		{ "name": "开放-Grok开放接口", "description": "开放-Grok开放接口" },
+		{ "name": "开放-Gemini开放接口", "description": "开放-Gemini开放接口" },
+		{ "name": "开放-AI对话开放接口", "description": "开放-AI对话开放接口" },
+		{ "name": "开放-Sora2开放接口", "description": "开放-Sora2开放接口" },
+		{ "name": "开放-OpenAi开放接口", "description": "开放-OpenAi开放接口" },
+		{ "name": "开放-任务开放接口", "description": "开放-任务开放接口" }
 	],
 	"paths": {
 		"/task/result": {
@@ -50,9 +29,7 @@
 				"requestBody": {
 					"content": {
 						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/GetApiRecordResultReq"
-							}
+							"schema": { "$ref": "#/components/schemas/GetApiRecordResultReq" }
 						}
 					},
 					"required": true
@@ -62,9 +39,7 @@
 						"description": "OK",
 						"content": {
 							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RListRMapResult"
-								}
+								"schema": { "$ref": "#/components/schemas/RListRMapResult" }
 							}
 						}
 					}
@@ -92,9 +67,7 @@
 						"description": "OK",
 						"content": {
 							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
-								}
+								"schema": { "$ref": "#/components/schemas/RTaskResultVO" }
 							}
 						}
 					}
@@ -122,9 +95,7 @@
 						"description": "OK",
 						"content": {
 							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
-								}
+								"schema": { "$ref": "#/components/schemas/RTaskResultVO" }
 							}
 						}
 					}
@@ -140,9 +111,7 @@
 				"requestBody": {
 					"content": {
 						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/Sora2VideoGenerateDTO"
-							}
+							"schema": { "$ref": "#/components/schemas/Sora2VideoGenerateDTO" }
 						}
 					},
 					"required": true
@@ -152,9 +121,7 @@
 						"description": "OK",
 						"content": {
 							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
-								}
+								"schema": { "$ref": "#/components/schemas/RTaskResultVO" }
 							}
 						}
 					}
@@ -182,9 +149,7 @@
 						"description": "OK",
 						"content": {
 							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
-								}
+								"schema": { "$ref": "#/components/schemas/RTaskResultVO" }
 							}
 						}
 					}
@@ -210,13 +175,7 @@
 				"responses": {
 					"200": {
 						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
+						"content": { "*/*": { "schema": { "type": "object" } } }
 					}
 				}
 			}
@@ -239,13 +198,7 @@
 				"responses": {
 					"200": {
 						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
+						"content": { "*/*": { "schema": { "type": "object" } } }
 					}
 				}
 			}
@@ -271,9 +224,7 @@
 						"description": "OK",
 						"content": {
 							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
-								}
+								"schema": { "$ref": "#/components/schemas/RTaskResultVO" }
 							}
 						}
 					}
@@ -301,9 +252,7 @@
 						"description": "OK",
 						"content": {
 							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
-								}
+								"schema": { "$ref": "#/components/schemas/RTaskResultVO" }
 							}
 						}
 					}
@@ -331,9 +280,7 @@
 						"description": "OK",
 						"content": {
 							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
-								}
+								"schema": { "$ref": "#/components/schemas/RTaskResultVO" }
 							}
 						}
 					}
@@ -361,9 +308,7 @@
 						"description": "OK",
 						"content": {
 							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
-								}
+								"schema": { "$ref": "#/components/schemas/RTaskResultVO" }
 							}
 						}
 					}
@@ -379,9 +324,7 @@
 				"requestBody": {
 					"content": {
 						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ChatV1ResponsesDTO"
-							}
+							"schema": { "$ref": "#/components/schemas/ChatV1ResponsesDTO" }
 						}
 					},
 					"required": true
@@ -389,13 +332,7 @@
 				"responses": {
 					"200": {
 						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
+						"content": { "*/*": { "schema": { "type": "object" } } }
 					}
 				}
 			}
@@ -409,9 +346,7 @@
 				"requestBody": {
 					"content": {
 						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ChatV1ResponsesDTO"
-							}
+							"schema": { "$ref": "#/components/schemas/ChatV1ResponsesDTO" }
 						}
 					},
 					"required": true
@@ -419,13 +354,7 @@
 				"responses": {
 					"200": {
 						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
+						"content": { "*/*": { "schema": { "type": "object" } } }
 					}
 				}
 			}
@@ -449,13 +378,7 @@
 				"responses": {
 					"200": {
 						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
+						"content": { "*/*": { "schema": { "type": "object" } } }
 					}
 				}
 			}
@@ -469,9 +392,7 @@
 				"requestBody": {
 					"content": {
 						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ChatCompletionsDTO"
-							}
+							"schema": { "$ref": "#/components/schemas/ChatCompletionsDTO" }
 						}
 					},
 					"required": true
@@ -479,13 +400,7 @@
 				"responses": {
 					"200": {
 						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
+						"content": { "*/*": { "schema": { "type": "object" } } }
 					}
 				}
 			}
@@ -499,9 +414,7 @@
 				"requestBody": {
 					"content": {
 						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/BdTextToVideoDTO"
-							}
+							"schema": { "$ref": "#/components/schemas/BdTextToVideoDTO" }
 						}
 					},
 					"required": true
@@ -511,9 +424,7 @@
 						"description": "OK",
 						"content": {
 							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
-								}
+								"schema": { "$ref": "#/components/schemas/RTaskResultVO" }
 							}
 						}
 					}
@@ -529,9 +440,7 @@
 				"requestBody": {
 					"content": {
 						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/BdImageToVideoDTO"
-							}
+							"schema": { "$ref": "#/components/schemas/BdImageToVideoDTO" }
 						}
 					},
 					"required": true
@@ -541,8 +450,52 @@
 						"description": "OK",
 						"content": {
 							"*/*": {
+								"schema": { "$ref": "#/components/schemas/RTaskResultVO" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ai/chat/models": {
+			"get": {
+				"tags": ["开放-AI对话开放接口"],
+				"summary": "list model",
+				"description": "list model",
+				"operationId": "listModel",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": { "$ref": "#/components/schemas/OpenapiModelListVO" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ai/chat/models/{model}": {
+			"get": {
+				"tags": ["开放-AI对话开放接口"],
+				"summary": "chat model",
+				"description": "chat model",
+				"operationId": "chatModel",
+				"parameters": [
+					{
+						"name": "model",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
 								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
+									"$ref": "#/components/schemas/OpenapiModelListItem"
 								}
 							}
 						}
@@ -560,9 +513,7 @@
 					"taskIds": {
 						"type": "array",
 						"description": "taskId list",
-						"items": {
-							"type": "string"
-						},
+						"items": { "type": "string" },
 						"maxItems": 50,
 						"maxLength": 50,
 						"minItems": 0,
@@ -581,31 +532,19 @@
 						"description": "Response status code",
 						"example": 200
 					},
-					"message": {
-						"type": "string",
-						"description": "Response message"
-					},
+					"message": { "type": "string", "description": "Response message" },
 					"data": {
 						"type": "array",
 						"description": "Response result",
-						"items": {
-							"$ref": "#/components/schemas/RMapResult"
-						}
+						"items": { "$ref": "#/components/schemas/RMapResult" }
 					},
-					"traceId": {
-						"type": "string",
-						"description": "Response traceId"
-					}
+					"traceId": { "type": "string", "description": "Response traceId" }
 				}
 			},
 			"RMapResult": {
 				"type": "object",
 				"additionalProperties": {},
-				"properties": {
-					"empty": {
-						"type": "boolean"
-					}
-				}
+				"properties": { "empty": { "type": "boolean" } }
 			},
 			"GrokXaiVideoGenerateDTO": {
 				"type": "object",
@@ -645,9 +584,7 @@
 					"images": {
 						"type": "array",
 						"description": "Reference image URL (Image generated video, up to 5 images); After providing the video size following the image, aspect ratio and resolution will be ignored",
-						"items": {
-							"type": "string"
-						}
+						"items": { "type": "string" }
 					}
 				},
 				"required": ["model", "prompt"]
@@ -662,27 +599,18 @@
 						"description": "Response status code",
 						"example": 200
 					},
-					"message": {
-						"type": "string",
-						"description": "Response message"
-					},
+					"message": { "type": "string", "description": "Response message" },
 					"data": {
 						"$ref": "#/components/schemas/TaskResultVO",
 						"description": "Response result"
 					},
-					"traceId": {
-						"type": "string",
-						"description": "Response traceId"
-					}
+					"traceId": { "type": "string", "description": "Response traceId" }
 				}
 			},
 			"TaskResultVO": {
 				"type": "object",
 				"properties": {
-					"taskId": {
-						"type": "string",
-						"description": "taskId"
-					}
+					"taskId": { "type": "string", "description": "taskId" }
 				}
 			},
 			"GrokXaiImageGenerateDTO": {
@@ -708,9 +636,7 @@
 					"images": {
 						"type": "array",
 						"description": "Reference image URL (Image generated/edited, up to 1 image, provided with image size following the reference image)",
-						"items": {
-							"type": "string"
-						}
+						"items": { "type": "string" }
 					}
 				},
 				"required": ["model", "prompt"]
@@ -735,9 +661,7 @@
 					"images": {
 						"type": "array",
 						"description": "The images used to generate videos can be URL arrays or empty, currently only supporting one image",
-						"items": {
-							"type": "string"
-						},
+						"items": { "type": "string" },
 						"maxItems": 1,
 						"maxLength": 1,
 						"minItems": 0
@@ -821,9 +745,7 @@
 					"images": {
 						"type": "array",
 						"description": "The images used to generate videos can be URL arrays or empty, currently only supporting one image",
-						"items": {
-							"type": "string"
-						},
+						"items": { "type": "string" },
 						"maxItems": 1,
 						"maxLength": 1,
 						"minItems": 0
@@ -969,10 +891,7 @@
 						"enum": ["high", "low"],
 						"title": "high : high; low : low"
 					},
-					"user": {
-						"type": "string",
-						"description": "user"
-					}
+					"user": { "type": "string", "description": "user" }
 				},
 				"required": ["model", "prompt"]
 			},
@@ -982,10 +901,7 @@
 					"image": {
 						"type": "array",
 						"description": "images",
-						"items": {
-							"type": "string",
-							"format": "binary"
-						},
+						"items": { "type": "string", "format": "binary" },
 						"minItems": 1
 					},
 					"prompt": {
@@ -1023,11 +939,7 @@
 						"enum": ["auto", "low"],
 						"title": "auto : auto; low : low"
 					},
-					"n": {
-						"type": "integer",
-						"format": "int32",
-						"description": "n"
-					},
+					"n": { "type": "integer", "format": "int32", "description": "n" },
 					"outputCompression": {
 						"type": "integer",
 						"format": "int32",
@@ -1072,10 +984,7 @@
 						],
 						"title": "auto : auto; 1024x1024 : 1024x1024; 1024x1536 : 1024x1536; 1536x1024 : 1536x1024; 2048x2048 : 2048x2048; 2048x1152 : 2048x1152; 3840x2160 : 3840x2160; 2160x3840 : 2160x3840"
 					},
-					"user": {
-						"type": "string",
-						"description": "user"
-					}
+					"user": { "type": "string", "description": "user" }
 				},
 				"required": ["image", "model", "prompt"]
 			},
@@ -1157,9 +1066,7 @@
 					"image": {
 						"type": "array",
 						"description": "Enter an image (URL or base64 data URL). If provided, go through image editing; If not provided, use text and images. Support single or multiple sheets",
-						"items": {
-							"type": "string"
-						}
+						"items": { "type": "string" }
 					},
 					"mask": {
 						"type": "string",
@@ -1219,9 +1126,7 @@
 					"imageList": {
 						"type": "array",
 						"description": "ImageList is only required when operating as IMG2VIDEO (1-2 http (s) URLs); Otherwise, it must be omitted or an empty array []",
-						"items": {
-							"type": "string"
-						}
+						"items": { "type": "string" }
 					},
 					"aspectRatio": {
 						"type": "string",
@@ -1274,9 +1179,7 @@
 					"imageUrls": {
 						"type": "array",
 						"description": "The image link that needs to be edited. It can be an accessible HTTP or HTTPS URL, with each image size not exceeding 10MB. If the action is edit, this parameter is required",
-						"items": {
-							"type": "string"
-						}
+						"items": { "type": "string" }
 					},
 					"aspectRatio": {
 						"type": "string",
@@ -1307,34 +1210,17 @@
 				"properties": {
 					"model": {
 						"type": "string",
-						"description": "model",
+						"description": "model, You can view the list of supported models through the interface `/ai/chat/models`",
 						"enum": [
-							"gpt-5.1",
-							"gpt-5.1-all",
-							"gpt-5.1-thinking",
-							"gpt-5.1-thinking-all",
-							"gpt-5.2",
-							"gemini-3-pro",
-							"gemini-2.5-pro",
-							"gemini-2.5-flash",
-							"gemini-3-flash",
-							"gemini-3.1-pro",
-							"claude-opus-4-6",
-							"claude-haiku-4-5-20251001",
-							"claude-sonnet-4-6",
 							"gpt-5.4",
-							"gpt-5.3",
-							"gpt-5.3-codex"
-						],
-						"title": "gpt-5.1; gpt-5.1-all; gpt-5.1-thinking; gpt-5.1-thinking-all; gpt-5.2; gemini-3-pro; gemini-2.5-pro; gemini-2.5-flash; gemini-3-flash; gemini-3.1-pro; claude-opus-4-6; claude-haiku-4-5-20251001; claude-sonnet-4-6; gpt-5.4; gpt-5.3; gpt-5.3-codex"
+							"gpt-5.5",
+							"claude-opus-4-6",
+							"claude-opus-4-7",
+							"claude-opus-4-8"
+						]
 					},
-					"input": {
-						"description": "input messages"
-					},
-					"instructions": {
-						"type": "string",
-						"description": "instructions"
-					},
+					"input": { "description": "input messages" },
+					"instructions": { "type": "string", "description": "instructions" },
 					"stream": {
 						"type": "boolean",
 						"default": false,
@@ -1360,12 +1246,8 @@
 						"description": "Tool List (Function Calling)",
 						"items": {}
 					},
-					"toolChoice": {
-						"description": "Tool selection strategy"
-					},
-					"text": {
-						"description": "Text"
-					}
+					"toolChoice": { "description": "Tool selection strategy" },
+					"text": { "description": "Text" }
 				},
 				"required": ["input", "model"]
 			},
@@ -1374,40 +1256,14 @@
 				"properties": {
 					"model": {
 						"type": "string",
-						"description": "model",
+						"description": "model, You can view the list of supported models through the interface `/ai/chat/models`",
 						"enum": [
+							"gpt-5.4",
+							"gpt-5.5",
 							"claude-opus-4-6",
-							"claude-haiku-4-5-20251001",
-							"claude-sonnet-4-6",
-							"claude-opus-4-6-max",
-							"claude-opus-4-6-high",
-							"claude-opus-4-6-low",
-							"claude-opus-4-5-20251101",
-							"claude-opus-4-5-20251101-thinking",
-							"claude-opus-4-6-medium",
-							"claude-opus-4-1-20250805",
-							"claude-opus-4-20250514",
-							"claude-opus-4-1-20250805-thinking",
 							"claude-opus-4-7",
-							"claude-opus-4-7-high",
-							"claude-opus-4-7-low",
-							"claude-opus-4-7-max",
-							"claude-opus-4-7-medium",
-							"claude-opus-4-7-thinking",
-							"claude-opus-4-7-xhigh",
-							"claude-opus-4-8",
-							"claude-opus-4-8-high",
-							"claude-opus-4-8-low",
-							"claude-opus-4-8-max",
-							"claude-opus-4-8-medium",
-							"claude-opus-4-8-thinking",
-							"claude-opus-4-8-xhigh",
-							"claude-sonnet-4-20250514",
-							"claude-sonnet-4-20250514-thinking",
-							"claude-sonnet-4-5-20250929",
-							"claude-sonnet-4-5-20250929-thinking"
-						],
-						"title": "claude-opus-4-6; claude-haiku-4-5-20251001; claude-sonnet-4-6; claude-opus-4-6-max; claude-opus-4-6-high; claude-opus-4-6-low; claude-opus-4-5-20251101; claude-opus-4-5-20251101-thinking; claude-opus-4-6-medium; claude-opus-4-1-20250805; claude-opus-4-20250514; claude-opus-4-1-20250805-thinking; claude-opus-4-7; claude-opus-4-7-high; claude-opus-4-7-low; claude-opus-4-7-max; claude-opus-4-7-medium; claude-opus-4-7-thinking; claude-opus-4-7-xhigh; claude-opus-4-8; claude-opus-4-8-high; claude-opus-4-8-low; claude-opus-4-8-max; claude-opus-4-8-medium; claude-opus-4-8-thinking; claude-opus-4-8-xhigh; claude-sonnet-4-20250514; claude-sonnet-4-20250514-thinking; claude-sonnet-4-5-20250929; claude-sonnet-4-5-20250929-thinking"
+							"claude-opus-4-8"
+						]
 					},
 					"messages": {
 						"type": "array",
@@ -1419,9 +1275,7 @@
 						"format": "int32",
 						"description": "Maximum token count"
 					},
-					"system": {
-						"description": "system prompt"
-					},
+					"system": { "description": "system prompt" },
 					"stream": {
 						"type": "boolean",
 						"default": true,
@@ -1445,18 +1299,14 @@
 					"stopSequences": {
 						"type": "array",
 						"description": "stopSequences",
-						"items": {
-							"type": "string"
-						}
+						"items": { "type": "string" }
 					},
 					"tools": {
 						"type": "array",
 						"description": "Tool List (Function Calling)",
 						"items": {}
 					},
-					"toolChoice": {
-						"description": "Tool selection strategy"
-					}
+					"toolChoice": { "description": "Tool selection strategy" }
 				},
 				"required": ["messages", "model"]
 			},
@@ -1471,53 +1321,14 @@
 					},
 					"model": {
 						"type": "string",
-						"description": "model",
+						"description": "model, You can view the list of supported models through the interface `/ai/chat/models`",
 						"enum": [
-							"gpt-5.1",
-							"gpt-5.1-all",
-							"gpt-5.1-thinking",
-							"gpt-5.1-thinking-all",
-							"gpt-5.2",
-							"gemini-3-pro",
-							"gemini-2.5-pro",
-							"gemini-2.5-flash",
-							"gemini-3-flash",
-							"claude-4.5",
 							"gpt-5.4",
-							"gpt-5.3",
-							"gpt-5.3-codex",
+							"gpt-5.5",
 							"claude-opus-4-6",
-							"claude-haiku-4-5-20251001",
-							"claude-sonnet-4-6",
-							"claude-opus-4-6-max",
-							"claude-opus-4-6-high",
-							"claude-opus-4-6-low",
-							"claude-opus-4-5-20251101",
-							"claude-opus-4-5-20251101-thinking",
-							"claude-opus-4-6-medium",
-							"claude-opus-4-1-20250805",
-							"claude-opus-4-20250514",
-							"claude-opus-4-1-20250805-thinking",
 							"claude-opus-4-7",
-							"claude-opus-4-7-high",
-							"claude-opus-4-7-low",
-							"claude-opus-4-7-max",
-							"claude-opus-4-7-medium",
-							"claude-opus-4-7-thinking",
-							"claude-opus-4-7-xhigh",
-							"claude-opus-4-8",
-							"claude-opus-4-8-high",
-							"claude-opus-4-8-low",
-							"claude-opus-4-8-max",
-							"claude-opus-4-8-medium",
-							"claude-opus-4-8-thinking",
-							"claude-opus-4-8-xhigh",
-							"claude-sonnet-4-20250514",
-							"claude-sonnet-4-20250514-thinking",
-							"claude-sonnet-4-5-20250929",
-							"claude-sonnet-4-5-20250929-thinking"
-						],
-						"title": "gpt-5.1; gpt-5.1-all; gpt-5.1-thinking; gpt-5.1-thinking-all; gpt-5.2; gemini-3-pro; gemini-2.5-pro; gemini-2.5-flash; gemini-3-flash; claude-4.5; gpt-5.4; gpt-5.3; gpt-5.3-codex; claude-opus-4-6; claude-haiku-4-5-20251001; claude-sonnet-4-6; claude-opus-4-6-max; claude-opus-4-6-high; claude-opus-4-6-low; claude-opus-4-5-20251101; claude-opus-4-5-20251101-thinking; claude-opus-4-6-medium; claude-opus-4-1-20250805; claude-opus-4-20250514; claude-opus-4-1-20250805-thinking; claude-opus-4-7; claude-opus-4-7-high; claude-opus-4-7-low; claude-opus-4-7-max; claude-opus-4-7-medium; claude-opus-4-7-thinking; claude-opus-4-7-xhigh; claude-opus-4-8; claude-opus-4-8-high; claude-opus-4-8-low; claude-opus-4-8-max; claude-opus-4-8-medium; claude-opus-4-8-thinking; claude-opus-4-8-xhigh; claude-sonnet-4-20250514; claude-sonnet-4-20250514-thinking; claude-sonnet-4-5-20250929; claude-sonnet-4-5-20250929-thinking"
+							"claude-opus-4-8"
+						]
 					},
 					"stream": {
 						"type": "boolean",
@@ -1554,9 +1365,7 @@
 						"format": "double",
 						"description": "presence penalty(-2.0 to 2.0)"
 					},
-					"stop": {
-						"description": "Stop sequence"
-					},
+					"stop": { "description": "Stop sequence" },
 					"n": {
 						"type": "integer",
 						"format": "int32",
@@ -1567,33 +1376,21 @@
 						"format": "int32",
 						"description": "random seed"
 					},
-					"user": {
-						"type": "string",
-						"description": "user"
-					},
+					"user": { "type": "string", "description": "user" },
 					"tools": {
 						"type": "array",
 						"description": "Tool List (Function Calling)",
 						"items": {}
 					},
-					"toolChoice": {
-						"description": "Tool selection strategy"
-					},
-					"responseFormat": {
-						"description": "Response format"
-					},
-					"logprobs": {
-						"type": "boolean",
-						"description": "logprobs"
-					},
+					"toolChoice": { "description": "Tool selection strategy" },
+					"responseFormat": { "description": "Response format" },
+					"logprobs": { "type": "boolean", "description": "logprobs" },
 					"topLogprobs": {
 						"type": "integer",
 						"format": "int32",
 						"description": "top logprobs"
 					},
-					"logitBias": {
-						"description": "logit bias"
-					},
+					"logitBias": { "description": "logit bias" },
 					"parallelToolCalls": {
 						"type": "boolean",
 						"description": "parallel tool calls"
@@ -1633,11 +1430,7 @@
 						"type": "object",
 						"additionalProperties": {},
 						"description": "modelTaskInput",
-						"properties": {
-							"empty": {
-								"type": "boolean"
-							}
-						}
+						"properties": { "empty": { "type": "boolean" } }
 					}
 				}
 			},
@@ -1679,11 +1472,31 @@
 						"type": "object",
 						"additionalProperties": {},
 						"description": "modelTaskInput",
-						"properties": {
-							"empty": {
-								"type": "boolean"
-							}
-						}
+						"properties": { "empty": { "type": "boolean" } }
+					}
+				}
+			},
+			"OpenapiModelListItem": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "string", "description": "id" },
+					"object": { "type": "string", "description": "object" },
+					"created": {
+						"type": "integer",
+						"format": "int64",
+						"description": "created"
+					},
+					"owned_by": { "type": "string", "description": "owned_by" }
+				}
+			},
+			"OpenapiModelListVO": {
+				"type": "object",
+				"properties": {
+					"object": { "type": "string", "description": "object" },
+					"data": {
+						"type": "array",
+						"description": "data",
+						"items": { "$ref": "#/components/schemas/OpenapiModelListItem" }
 					}
 				}
 			}
