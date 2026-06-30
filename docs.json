@@ -162,7 +162,9 @@
 								"pages": [
 									"api-reference/ai/开放-openai开放接口/openai-compat-generate",
 									"api-reference/ai/开放-openai开放接口/openai-compat-edits",
-									"api-reference/ai/开放-openai开放接口/openai-generate-async"
+									"api-reference/ai/开放-openai开放接口/openai-generate-async",
+									"api-reference/ai/开放-openai开放接口/openai-v1-models",
+									"api-reference/ai/开放-openai开放接口/openai-models"
 								]
 							},
 							{
@@ -188,6 +190,13 @@
 									"api-reference/ai/开放-ai对话开放接口/chat-completions",
 									"api-reference/ai/开放-ai对话开放接口/list-model",
 									"api-reference/ai/开放-ai对话开放接口/chat-model"
+								]
+							},
+							{
+								"group": "开放-模型列表接口",
+								"pages": [
+									"api-reference/ai/开放-模型列表接口/v1-models",
+									"api-reference/ai/开放-模型列表接口/models"
 								]
 							}
 						]

@@ -16,6 +16,7 @@
 		{ "name": "开放-Gemini开放接口", "description": "开放-Gemini开放接口" },
 		{ "name": "开放-AI对话开放接口", "description": "开放-AI对话开放接口" },
 		{ "name": "开放-Sora2开放接口", "description": "开放-Sora2开放接口" },
+		{ "name": "开放-模型列表接口", "description": "开放-模型列表接口" },
 		{ "name": "开放-OpenAi开放接口", "description": "开放-OpenAi开放接口" },
 		{ "name": "开放-任务开放接口", "description": "开放-任务开放接口" }
 	],
@@ -102,6 +103,75 @@
 				}
 			}
 		},
+		"/ai/v1/responses": {
+			"post": {
+				"tags": ["开放-AI对话开放接口"],
+				"summary": "v1 responses",
+				"description": "v1 responses",
+				"operationId": "v1Responses",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/ChatV1ResponsesDTO" }
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": { "*/*": { "schema": { "type": "object" } } }
+					}
+				}
+			}
+		},
+		"/ai/v1/images/generations": {
+			"post": {
+				"tags": ["开放-OpenAi开放接口"],
+				"summary": "compat generate",
+				"description": "generate a image",
+				"operationId": "compatImageGenerate",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/OpenAiCompatImageGenerateDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": { "*/*": { "schema": { "type": "object" } } }
+					}
+				}
+			}
+		},
+		"/ai/v1/images/edits": {
+			"post": {
+				"tags": ["开放-OpenAi开放接口"],
+				"summary": "compat edits",
+				"description": "edits a image",
+				"operationId": "compatImageEdits",
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"$ref": "#/components/schemas/OpenAiCompatImageEditDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": { "*/*": { "schema": { "type": "object" } } }
+					}
+				}
+			}
+		},
 		"/ai/sa/video/generate": {
 			"post": {
 				"tags": ["开放-Sora2开放接口"],
@@ -152,6 +222,28 @@
 								"schema": { "$ref": "#/components/schemas/RTaskResultVO" }
 							}
 						}
+					}
+				}
+			}
+		},
+		"/ai/responses": {
+			"post": {
+				"tags": ["开放-AI对话开放接口"],
+				"summary": "responses",
+				"description": "responses",
+				"operationId": "responses",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/ChatV1ResponsesDTO" }
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": { "*/*": { "schema": { "type": "object" } } }
 					}
 				}
 			}
@@ -315,6 +407,30 @@
 				}
 			}
 		},
+		"/ai/claude/v1/messages": {
+			"post": {
+				"tags": ["开放-AI对话开放接口"],
+				"summary": "claude messages",
+				"description": "claude messages",
+				"operationId": "claudeV1Responses",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ChatClaudeV1ResponsesDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": { "*/*": { "schema": { "type": "object" } } }
+					}
+				}
+			}
+		},
 		"/ai/chat/v1/responses": {
 			"post": {
 				"tags": ["开放-AI对话开放接口"],
@@ -347,6 +463,28 @@
 					"content": {
 						"application/json": {
 							"schema": { "$ref": "#/components/schemas/ChatV1ResponsesDTO" }
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": { "*/*": { "schema": { "type": "object" } } }
+					}
+				}
+			}
+		},
+		"/ai/chat/completions": {
+			"post": {
+				"tags": ["开放-AI对话开放接口"],
+				"summary": "completions",
+				"description": "completions",
+				"operationId": "chatCompletions",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/ChatCompletionsDTO" }
 						}
 					},
 					"required": true
@@ -457,12 +595,102 @@
 				}
 			}
 		},
+		"/ai/v1/models": {
+			"get": {
+				"tags": ["开放-模型列表接口"],
+				"summary": "v1 models",
+				"description": "models",
+				"operationId": "openaiV1Models",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": { "$ref": "#/components/schemas/OpenapiModelListVO" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ai/openai/v1/models": {
+			"get": {
+				"tags": ["开放-OpenAi开放接口"],
+				"summary": "openai v1 models",
+				"description": "openai v1 models",
+				"operationId": "openaiV1Models_1",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": { "$ref": "#/components/schemas/OpenapiModelListVO" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ai/openai/models": {
+			"get": {
+				"tags": ["开放-OpenAi开放接口"],
+				"summary": "openai models",
+				"description": "openai models",
+				"operationId": "openaiModels",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": { "$ref": "#/components/schemas/OpenapiModelListVO" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ai/models": {
+			"get": {
+				"tags": ["开放-模型列表接口"],
+				"summary": "models",
+				"description": "models",
+				"operationId": "openaiModels_1",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": { "$ref": "#/components/schemas/OpenapiModelListVO" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ai/chat/v1/models": {
+			"get": {
+				"tags": ["开放-AI对话开放接口"],
+				"summary": "chat list v1 model",
+				"description": "chat list v1 model",
+				"operationId": "listV1ChatModel",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": { "$ref": "#/components/schemas/OpenapiModelListVO" }
+							}
+						}
+					}
+				}
+			}
+		},
 		"/ai/chat/models": {
 			"get": {
 				"tags": ["开放-AI对话开放接口"],
-				"summary": "list model",
-				"description": "list model",
-				"operationId": "listModel",
+				"summary": "chat list model",
+				"description": "chat list model",
+				"operationId": "listChatModel",
 				"responses": {
 					"200": {
 						"description": "OK",
@@ -641,173 +869,51 @@
 				},
 				"required": ["model", "prompt"]
 			},
-			"Sora2VideoGenerateDTO": {
+			"ChatV1ResponsesDTO": {
 				"type": "object",
-				"description": "sora2 generate video request parameters",
 				"properties": {
 					"model": {
 						"type": "string",
-						"description": "Video generation model, default is sora-2",
-						"enum": ["sora-2", "sora-2-pro"],
-						"example": "sora-2",
-						"title": "sora-2; sora-2-pro"
-					},
-					"prompt": {
-						"type": "string",
-						"description": "The prompt for generating videos, up to 5000 characters",
-						"maxLength": 5000,
-						"minLength": 0
-					},
-					"images": {
-						"type": "array",
-						"description": "The images used to generate videos can be URL arrays or empty, currently only supporting one image",
-						"items": { "type": "string" },
-						"maxItems": 1,
-						"maxLength": 1,
-						"minItems": 0
-					},
-					"orientation": {
-						"type": "string",
-						"default": "landscape",
-						"description": "Direction of video generation, default landscape",
-						"enum": ["landscape", "portrait"],
-						"example": "landscape",
-						"title": "landscape : landscape; portrait : portrait"
-					},
-					"size": {
-						"type": "string",
-						"default": "small",
-						"description": "Video generation size, default small, only sora-2-pro, size can be set large",
-						"enum": ["small", "large"],
-						"example": "small",
-						"title": "small : small; large : large"
-					},
-					"duration": {
-						"type": "string",
-						"format": "int32",
-						"default": "10",
-						"description": "The duration of video generation can only be 10 for sora-2, and 10, 15, 25 for sora-2-pro, with a default of 10",
-						"enum": [10, 15, 25],
-						"example": "10",
-						"title": "10 : 10; 15 : 15; 25 : 25"
-					},
-					"removeWatermark": {
-						"type": "boolean",
-						"default": false,
-						"description": "Whether to remove watermark, default is false"
-					},
-					"styleId": {
-						"type": "string",
-						"default": "anime",
-						"description": "style id for video generation,default is anime",
+						"description": "model, You can view the list of supported models through the interface `/ai/chat/models`",
 						"enum": [
-							"anime",
-							"selfie",
-							"golden",
-							"handheld",
-							"festive",
-							"retro",
-							"news",
-							"chaos",
-							"vintage",
-							"comic",
-							"kakalaka",
-							"sitcom"
-						],
-						"example": "anime",
-						"title": "anime : anime; selfie : selfie; golden : golden; handheld : handheld; festive : festive; retro : retro; news : news; chaos : chaos; vintage : vintage; comic : comic; kakalaka : kakalaka; sitcom : sitcom"
+							"gpt-5.4",
+							"gpt-5.5",
+							"claude-opus-4-6",
+							"claude-opus-4-7",
+							"claude-opus-4-8"
+						]
 					},
-					"storyboard": {
+					"input": { "description": "input messages" },
+					"instructions": { "type": "string", "description": "instructions" },
+					"stream": {
 						"type": "boolean",
 						"default": false,
-						"description": "whether to enable storyboard mode, if true, the prompt will be parsed as storyboard format"
-					}
-				},
-				"required": ["model", "prompt"]
-			},
-			"Sora2VideoV2GenerateDTO": {
-				"type": "object",
-				"description": "SA-Generate V2 video request parameters",
-				"properties": {
-					"model": {
-						"type": "string",
-						"description": "Video generation model, default is sora-2",
-						"enum": ["sora-2"],
-						"example": "sora-2",
-						"title": "sora-2"
+						"description": "streaming output"
 					},
-					"prompt": {
-						"type": "string",
-						"description": "The prompt for generating videos, up to 5000 characters",
-						"maxLength": 5000,
-						"minLength": 0
+					"temperature": {
+						"type": "number",
+						"format": "double",
+						"description": "Temperature (0-2)"
 					},
-					"images": {
-						"type": "array",
-						"description": "The images used to generate videos can be URL arrays or empty, currently only supporting one image",
-						"items": { "type": "string" },
-						"maxItems": 1,
-						"maxLength": 1,
-						"minItems": 0
-					},
-					"orientation": {
-						"type": "string",
-						"default": "landscape",
-						"description": "Direction of video generation, default landscape",
-						"enum": ["landscape", "portrait"],
-						"example": "landscape",
-						"title": "landscape : landscape; portrait : portrait"
-					},
-					"size": {
-						"type": "string",
-						"default": "small",
-						"description": "Video generation size, default small",
-						"enum": ["small"],
-						"example": "small",
-						"title": "small : small"
-					},
-					"duration": {
-						"type": "string",
+					"maxOutputTokens": {
+						"type": "integer",
 						"format": "int32",
-						"default": "10",
-						"description": "The duration of video generation can only be 10 for sora-2, and 10, 15, with a default of 10",
-						"enum": [10, 15],
-						"example": "10",
-						"title": "10 : 10; 15 : 15"
+						"description": "Maximum token count"
 					},
-					"removeWatermark": {
-						"type": "boolean",
-						"default": false,
-						"description": "Whether to remove watermark, default is false"
+					"topP": {
+						"type": "number",
+						"format": "double",
+						"description": "top P"
 					},
-					"styleId": {
-						"type": "string",
-						"default": "anime",
-						"description": "style id for video generation,default is anime",
-						"enum": [
-							"anime",
-							"selfie",
-							"golden",
-							"handheld",
-							"festive",
-							"retro",
-							"news",
-							"chaos",
-							"vintage",
-							"comic",
-							"kakalaka",
-							"sitcom"
-						],
-						"example": "anime",
-						"title": "anime : anime; selfie : selfie; golden : golden; handheld : handheld; festive : festive; retro : retro; news : news; chaos : chaos; vintage : vintage; comic : comic; kakalaka : kakalaka; sitcom : sitcom"
+					"tools": {
+						"type": "array",
+						"description": "Tool List (Function Calling)",
+						"items": {}
 					},
-					"storyboard": {
-						"type": "boolean",
-						"default": false,
-						"description": "whether to enable storyboard mode, if true, the prompt will be parsed as storyboard format"
-					}
+					"toolChoice": { "description": "Tool selection strategy" },
+					"text": { "description": "Text" }
 				},
-				"required": ["model", "prompt"]
+				"required": ["input", "model"]
 			},
 			"OpenAiCompatImageGenerateDTO": {
 				"type": "object",
@@ -987,6 +1093,174 @@
 					"user": { "type": "string", "description": "user" }
 				},
 				"required": ["image", "model", "prompt"]
+			},
+			"Sora2VideoGenerateDTO": {
+				"type": "object",
+				"description": "sora2 generate video request parameters",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "Video generation model, default is sora-2",
+						"enum": ["sora-2", "sora-2-pro"],
+						"example": "sora-2",
+						"title": "sora-2; sora-2-pro"
+					},
+					"prompt": {
+						"type": "string",
+						"description": "The prompt for generating videos, up to 5000 characters",
+						"maxLength": 5000,
+						"minLength": 0
+					},
+					"images": {
+						"type": "array",
+						"description": "The images used to generate videos can be URL arrays or empty, currently only supporting one image",
+						"items": { "type": "string" },
+						"maxItems": 1,
+						"maxLength": 1,
+						"minItems": 0
+					},
+					"orientation": {
+						"type": "string",
+						"default": "landscape",
+						"description": "Direction of video generation, default landscape",
+						"enum": ["landscape", "portrait"],
+						"example": "landscape",
+						"title": "landscape : landscape; portrait : portrait"
+					},
+					"size": {
+						"type": "string",
+						"default": "small",
+						"description": "Video generation size, default small, only sora-2-pro, size can be set large",
+						"enum": ["small", "large"],
+						"example": "small",
+						"title": "small : small; large : large"
+					},
+					"duration": {
+						"type": "string",
+						"format": "int32",
+						"default": "10",
+						"description": "The duration of video generation can only be 10 for sora-2, and 10, 15, 25 for sora-2-pro, with a default of 10",
+						"enum": [10, 15, 25],
+						"example": "10",
+						"title": "10 : 10; 15 : 15; 25 : 25"
+					},
+					"removeWatermark": {
+						"type": "boolean",
+						"default": false,
+						"description": "Whether to remove watermark, default is false"
+					},
+					"styleId": {
+						"type": "string",
+						"default": "anime",
+						"description": "style id for video generation,default is anime",
+						"enum": [
+							"anime",
+							"selfie",
+							"golden",
+							"handheld",
+							"festive",
+							"retro",
+							"news",
+							"chaos",
+							"vintage",
+							"comic",
+							"kakalaka",
+							"sitcom"
+						],
+						"example": "anime",
+						"title": "anime : anime; selfie : selfie; golden : golden; handheld : handheld; festive : festive; retro : retro; news : news; chaos : chaos; vintage : vintage; comic : comic; kakalaka : kakalaka; sitcom : sitcom"
+					},
+					"storyboard": {
+						"type": "boolean",
+						"default": false,
+						"description": "whether to enable storyboard mode, if true, the prompt will be parsed as storyboard format"
+					}
+				},
+				"required": ["model", "prompt"]
+			},
+			"Sora2VideoV2GenerateDTO": {
+				"type": "object",
+				"description": "SA-Generate V2 video request parameters",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "Video generation model, default is sora-2",
+						"enum": ["sora-2"],
+						"example": "sora-2",
+						"title": "sora-2"
+					},
+					"prompt": {
+						"type": "string",
+						"description": "The prompt for generating videos, up to 5000 characters",
+						"maxLength": 5000,
+						"minLength": 0
+					},
+					"images": {
+						"type": "array",
+						"description": "The images used to generate videos can be URL arrays or empty, currently only supporting one image",
+						"items": { "type": "string" },
+						"maxItems": 1,
+						"maxLength": 1,
+						"minItems": 0
+					},
+					"orientation": {
+						"type": "string",
+						"default": "landscape",
+						"description": "Direction of video generation, default landscape",
+						"enum": ["landscape", "portrait"],
+						"example": "landscape",
+						"title": "landscape : landscape; portrait : portrait"
+					},
+					"size": {
+						"type": "string",
+						"default": "small",
+						"description": "Video generation size, default small",
+						"enum": ["small"],
+						"example": "small",
+						"title": "small : small"
+					},
+					"duration": {
+						"type": "string",
+						"format": "int32",
+						"default": "10",
+						"description": "The duration of video generation can only be 10 for sora-2, and 10, 15, with a default of 10",
+						"enum": [10, 15],
+						"example": "10",
+						"title": "10 : 10; 15 : 15"
+					},
+					"removeWatermark": {
+						"type": "boolean",
+						"default": false,
+						"description": "Whether to remove watermark, default is false"
+					},
+					"styleId": {
+						"type": "string",
+						"default": "anime",
+						"description": "style id for video generation,default is anime",
+						"enum": [
+							"anime",
+							"selfie",
+							"golden",
+							"handheld",
+							"festive",
+							"retro",
+							"news",
+							"chaos",
+							"vintage",
+							"comic",
+							"kakalaka",
+							"sitcom"
+						],
+						"example": "anime",
+						"title": "anime : anime; selfie : selfie; golden : golden; handheld : handheld; festive : festive; retro : retro; news : news; chaos : chaos; vintage : vintage; comic : comic; kakalaka : kakalaka; sitcom : sitcom"
+					},
+					"storyboard": {
+						"type": "boolean",
+						"default": false,
+						"description": "whether to enable storyboard mode, if true, the prompt will be parsed as storyboard format"
+					}
+				},
+				"required": ["model", "prompt"]
 			},
 			"OpenAiImageGenerateDTO": {
 				"type": "object",
@@ -1204,52 +1478,6 @@
 					}
 				},
 				"required": ["action", "numImages", "prompt"]
-			},
-			"ChatV1ResponsesDTO": {
-				"type": "object",
-				"properties": {
-					"model": {
-						"type": "string",
-						"description": "model, You can view the list of supported models through the interface `/ai/chat/models`",
-						"enum": [
-							"gpt-5.4",
-							"gpt-5.5",
-							"claude-opus-4-6",
-							"claude-opus-4-7",
-							"claude-opus-4-8"
-						]
-					},
-					"input": { "description": "input messages" },
-					"instructions": { "type": "string", "description": "instructions" },
-					"stream": {
-						"type": "boolean",
-						"default": false,
-						"description": "streaming output"
-					},
-					"temperature": {
-						"type": "number",
-						"format": "double",
-						"description": "Temperature (0-2)"
-					},
-					"maxOutputTokens": {
-						"type": "integer",
-						"format": "int32",
-						"description": "Maximum token count"
-					},
-					"topP": {
-						"type": "number",
-						"format": "double",
-						"description": "top P"
-					},
-					"tools": {
-						"type": "array",
-						"description": "Tool List (Function Calling)",
-						"items": {}
-					},
-					"toolChoice": { "description": "Tool selection strategy" },
-					"text": { "description": "Text" }
-				},
-				"required": ["input", "model"]
 			},
 			"ChatClaudeV1ResponsesDTO": {
 				"type": "object",
