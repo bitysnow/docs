@@ -189,6 +189,7 @@
 									"api-reference/ai/开放-ai对话开放接口/chat-claude-messages",
 									"api-reference/ai/开放-ai对话开放接口/chat-completions",
 									"api-reference/ai/开放-ai对话开放接口/list-model",
+									"api-reference/ai/开放-ai对话开放接口/chat-list-v1-model",
 									"api-reference/ai/开放-ai对话开放接口/chat-model"
 								]
 							},
