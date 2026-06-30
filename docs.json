@@ -193,7 +193,7 @@
 								]
 							},
 							{
-								"group": "开放-模型列表接口",
+								"group": "Model",
 								"pages": [
 									"api-reference/ai/开放-模型列表接口/v1-models",
 									"api-reference/ai/开放-模型列表接口/models"
