@@ -177,7 +177,7 @@
 								]
 							},
 							{
-								"group": "huoshan",
+								"group": "HuoShan",
 								"pages": [
 									"api-reference/ai/开放-火山视频生成/v1-huoshan-video-generate",
 									"api-reference/ai/开放-火山视频生成/contents-generations-tasks",
