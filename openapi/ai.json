@@ -1478,7 +1478,11 @@
 						"type": "string",
 						"default": "768P",
 						"description": "resolution",
-						"enum": ["768P", "2K（minimax-h3-lite not supported）"],
+						"enum": [
+							"768P",
+							"1080P(minimax-h3 not supported)",
+							"2K（minimax-h3-lite not supported）"
+						],
 						"minLength": 1
 					},
 					"duration": {
