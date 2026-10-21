@@ -148,7 +148,10 @@
 							"api-reference/ai-api-introduction",
 							{
 								"group": "Task",
-								"pages": ["api-reference/ai/开放-任务开放接口/get-task-result"]
+								"pages": [
+									"api-reference/ai/开放-任务开放接口/get-task-result",
+									"api-reference/ai/开放-任务开放接口/get-task-result-by-taskid"
+								]
 							},
 							{
 								"group": "Grok",
@@ -158,13 +161,27 @@
 								]
 							},
 							{
-								"group": "OpenAi",
+								"group": "Compatible",
 								"pages": [
-									"api-reference/ai/开放-openai开放接口/openai-compat-generate",
-									"api-reference/ai/开放-openai开放接口/openai-compat-edits",
-									"api-reference/ai/开放-openai开放接口/openai-generate-async",
-									"api-reference/ai/开放-openai开放接口/openai-v1-models",
-									"api-reference/ai/开放-openai开放接口/openai-models"
+									"api-reference/ai/开放-ai同步调用兼容接口/responses",
+									"api-reference/ai/开放-ai同步调用兼容接口/messages",
+									"api-reference/ai/开放-ai同步调用兼容接口/images-generate",
+									"api-reference/ai/开放-ai同步调用兼容接口/images-edits",
+									"api-reference/ai/开放-ai同步调用兼容接口/completions"
+								]
+							},
+							{
+								"group": "MiniMax",
+								"pages": [
+									"api-reference/ai/开放-minimax视频生成/v1-minimax-video-generate"
+								]
+							},
+							{
+								"group": "huoshan",
+								"pages": [
+									"api-reference/ai/开放-火山视频生成/v1-huoshan-video-generate",
+									"api-reference/ai/开放-火山视频生成/contents-generations-tasks",
+									"api-reference/ai/开放-火山视频生成/get-task-result"
 								]
 							},
 							{
@@ -175,34 +192,36 @@
 								]
 							},
 							{
+								"group": "OpenAI",
+								"pages": [
+									"api-reference/ai/开放-ai同步调用兼容接口/responses",
+									"api-reference/ai/开放-ai同步调用兼容接口/messages",
+									"api-reference/ai/开放-ai同步调用兼容接口/images-generate",
+									"api-reference/ai/开放-ai同步调用兼容接口/images-edits",
+									"api-reference/ai/开放-ai同步调用兼容接口/completions"
+								]
+							},
+							{
 								"group": "Gemini",
 								"pages": [
 									"api-reference/ai/开放-gemini开放接口/veo-generate-video",
 									"api-reference/ai/开放-gemini开放接口/banana-generate-image"
 								]
 							},
+
 							{
-								"group": "Chat",
-								"pages": [
-									"api-reference/ai/开放-ai对话开放接口/chat-responses",
-									"api-reference/ai/开放-ai对话开放接口/chat-responses-1",
-									"api-reference/ai/开放-ai对话开放接口/chat-claude-messages",
-									"api-reference/ai/开放-ai对话开放接口/chat-completions",
-									"api-reference/ai/开放-ai对话开放接口/chat-list-model",
-									"api-reference/ai/开放-ai对话开放接口/chat-list-v1-model",
-									"api-reference/ai/开放-ai对话开放接口/chat-model"
-								]
+								"group": "Business",
+								"pages": ["api-reference/ai/开发-业务相关接口/user-info"]
 							},
 							{
 								"group": "Model",
 								"pages": [
 									"api-reference/ai/开放-模型列表接口/v1-models",
-									"api-reference/ai/开放-模型列表接口/models"
+									"api-reference/ai/开放-模型列表接口/models",
+									"api-reference/ai/开放-模型列表接口/chat-list-v1-model",
+									"api-reference/ai/开放-模型列表接口/chat-list-model",
+									"api-reference/ai/开放-模型列表接口/chat-model"
 								]
-							},
-							{
-								"group": "Business",
-								"pages": ["api-reference/ai/开发-业务相关接口/user-info"]
 							}
 						]
 					}

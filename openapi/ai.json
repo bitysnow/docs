@@ -12,20 +12,20 @@
 	],
 	"tags": [
 		{
-			"name": "开放-百度视频生成",
-			"description": "开放-百度视频生成"
+			"name": "开放-minimax视频生成",
+			"description": "开放-minimax视频生成"
 		},
 		{
 			"name": "开放-Grok开放接口",
 			"description": "开放-Grok开放接口"
 		},
 		{
-			"name": "开放-Gemini开放接口",
-			"description": "开放-Gemini开放接口"
+			"name": "开放-AI同步调用兼容接口",
+			"description": "开放-AI同步调用兼容接口"
 		},
 		{
-			"name": "开放-AI对话开放接口",
-			"description": "开放-AI对话开放接口"
+			"name": "开放-Gemini开放接口",
+			"description": "开放-Gemini开放接口"
 		},
 		{
 			"name": "开放-Sora2开放接口",
@@ -34,6 +34,10 @@
 		{
 			"name": "开放-模型列表接口",
 			"description": "开放-模型列表接口"
+		},
+		{
+			"name": "开放-火山视频生成",
+			"description": "开放-火山视频生成"
 		},
 		{
 			"name": "开放-OpenAi开放接口",
@@ -141,15 +145,38 @@
 		},
 		"/ai/v1/responses": {
 			"post": {
-				"tags": ["开放-AI对话开放接口"],
-				"summary": "v1 responses",
-				"description": "v1 responses",
+				"tags": ["开放-AI同步调用兼容接口"],
+				"summary": "responses",
+				"description": "responses",
 				"operationId": "v1Responses",
 				"requestBody": {
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/ChatV1ResponsesDTO"
+								"$ref": "#/components/schemas/OpenaiV1ResponsesDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/ai/v1/minimax/video/generate": {
+			"post": {
+				"tags": ["开放-minimax视频生成"],
+				"summary": "v1 minimax video generate",
+				"description": "v1 minimax video generate",
+				"operationId": "v1ImageToVideoGenerate",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/V1MinimaxImageToVideoGenerateDTO"
 							}
 						}
 					},
@@ -161,25 +188,93 @@
 						"content": {
 							"*/*": {
 								"schema": {
-									"type": "object"
+									"$ref": "#/components/schemas/RTaskResultVO"
 								}
 							}
 						}
+					}
+				}
+			}
+		},
+		"/ai/v1/messages": {
+			"post": {
+				"tags": ["开放-AI同步调用兼容接口"],
+				"summary": "messages",
+				"description": "messages",
+				"operationId": "v1Messages",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AnthropicV1MessagesDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK"
 					}
 				}
 			}
 		},
 		"/ai/v1/images/generations": {
 			"post": {
-				"tags": ["开放-OpenAi开放接口"],
-				"summary": "compat generate",
-				"description": "generate a image",
-				"operationId": "compatImageGenerate",
+				"tags": ["开放-AI同步调用兼容接口"],
+				"summary": "images generate",
+				"description": "images generate",
+				"operationId": "v1ImageGenerate",
 				"requestBody": {
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/OpenAiCompatImageGenerateDTO"
+								"$ref": "#/components/schemas/OpenaiImageGenerateDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/ai/v1/images/edits": {
+			"post": {
+				"tags": ["开放-AI同步调用兼容接口"],
+				"summary": "images edits",
+				"description": "images edits",
+				"operationId": "v1ImageEdits",
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"$ref": "#/components/schemas/OpenaiImageEditsDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/ai/v1/huoshan/video/generate": {
+			"post": {
+				"tags": ["开放-火山视频生成"],
+				"summary": "v1 huoshan video generate",
+				"description": "v1 huoshan video generate",
+				"operationId": "v1VideoGenerate",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/V1HuoShanVideoGenerateDTO"
 							}
 						}
 					},
@@ -191,36 +286,7 @@
 						"content": {
 							"*/*": {
 								"schema": {
-									"type": "object"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/ai/v1/images/edits": {
-			"post": {
-				"tags": ["开放-OpenAi开放接口"],
-				"summary": "compat edits",
-				"description": "edits a image",
-				"operationId": "compatImageEdits",
-				"requestBody": {
-					"content": {
-						"multipart/form-data": {
-							"schema": {
-								"$ref": "#/components/schemas/OpenAiCompatImageEditDTO"
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
+									"$ref": "#/components/schemas/RTaskResultVO"
 								}
 							}
 						}
@@ -288,106 +354,17 @@
 				}
 			}
 		},
-		"/ai/responses": {
-			"post": {
-				"tags": ["开放-AI对话开放接口"],
-				"summary": "responses",
-				"description": "responses",
-				"operationId": "responses",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ChatV1ResponsesDTO"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/ai/openai/v1/images/generations": {
-			"post": {
-				"tags": ["开放-OpenAi开放接口"],
-				"summary": "openai compat generate",
-				"description": "generate a image",
-				"operationId": "openAiCompatImageGenerate",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/OpenAiCompatImageGenerateDTO"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/ai/openai/v1/images/edits": {
-			"post": {
-				"tags": ["开放-OpenAi开放接口"],
-				"summary": "openai compat edits",
-				"description": "edits a image",
-				"operationId": "openAiCompatImageEdits",
-				"requestBody": {
-					"content": {
-						"multipart/form-data": {
-							"schema": {
-								"$ref": "#/components/schemas/OpenAiCompatImageEditDTO"
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/ai/openai/images/generate": {
 			"post": {
 				"tags": ["开放-OpenAi开放接口"],
 				"summary": "openai generate async",
 				"description": "create a task to generate image",
-				"operationId": "openAiImagesGenerate",
+				"operationId": "imagesAsyncGenerate",
 				"requestBody": {
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/OpenAiImageGenerateDTO"
+								"$ref": "#/components/schemas/OpenaiImageAsyncGenerateDTO"
 							}
 						}
 					},
@@ -403,6 +380,29 @@
 								}
 							}
 						}
+					}
+				}
+			}
+		},
+		"/ai/huoshan/api/v3/contents/generations/tasks": {
+			"post": {
+				"tags": ["开放-火山视频生成"],
+				"summary": "contents generations tasks",
+				"description": "huoshan compatible interface",
+				"operationId": "contentsGenerationsTasks",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/HSContentsGenerationsTasksDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK"
 					}
 				}
 			}
@@ -472,7 +472,7 @@
 				"tags": ["开放-Gemini开放接口"],
 				"summary": "banana generate image",
 				"description": "create a task to generate image",
-				"operationId": "bananaImageGenerate",
+				"operationId": "bananaGenerate",
 				"requestBody": {
 					"content": {
 						"application/json": {
@@ -497,107 +497,17 @@
 				}
 			}
 		},
-		"/ai/claude/v1/messages": {
-			"post": {
-				"tags": ["开放-AI对话开放接口"],
-				"summary": "claude messages",
-				"description": "claude messages",
-				"operationId": "claudeV1Responses",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ChatClaudeV1ResponsesDTO"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/ai/chat/v1/responses": {
-			"post": {
-				"tags": ["开放-AI对话开放接口"],
-				"summary": "chat responses",
-				"description": "chat responses",
-				"operationId": "chatV1Responses",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ChatV1ResponsesDTO"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/ai/chat/responses": {
-			"post": {
-				"tags": ["开放-AI对话开放接口"],
-				"summary": "chat responses",
-				"description": "chat responses",
-				"operationId": "chatResponses",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ChatV1ResponsesDTO"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/ai/chat/completions": {
 			"post": {
-				"tags": ["开放-AI对话开放接口"],
+				"tags": ["开放-AI同步调用兼容接口"],
 				"summary": "completions",
 				"description": "completions",
-				"operationId": "chatCompletions",
+				"operationId": "completions",
 				"requestBody": {
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/ChatCompletionsDTO"
+								"$ref": "#/components/schemas/OpenaiChatCompletionsDTO"
 							}
 						}
 					},
@@ -605,131 +515,34 @@
 				},
 				"responses": {
 					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
-						}
+						"description": "OK"
 					}
 				}
 			}
 		},
-		"/ai/chat/claude/v1/messages": {
-			"post": {
-				"tags": ["开放-AI对话开放接口"],
-				"summary": "chat claude messages",
-				"description": "chat claude messages",
-				"operationId": "chatClaudeV1Responses",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ChatClaudeV1ResponsesDTO"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"type": "object"
-								}
-							}
+		"/task/result/{taskId}": {
+			"get": {
+				"tags": ["开放-任务开放接口"],
+				"summary": "Get task result by taskId",
+				"description": "get the task execution result through the task ID",
+				"operationId": "getResultByTaskId",
+				"parameters": [
+					{
+						"name": "taskId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
 						}
 					}
-				}
-			}
-		},
-		"/ai/chat/chat/completions": {
-			"post": {
-				"tags": ["开放-AI对话开放接口"],
-				"summary": "chat completions",
-				"description": "chat completions",
-				"operationId": "chatChatCompletions",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/ChatCompletionsDTO"
-							}
-						}
-					},
-					"required": true
-				},
+				],
 				"responses": {
 					"200": {
 						"description": "OK",
 						"content": {
 							"*/*": {
 								"schema": {
-									"type": "object"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/ai/bd/text/video": {
-			"post": {
-				"tags": ["开放-百度视频生成"],
-				"summary": "text generate video",
-				"description": "text generate video",
-				"operationId": "textVideoGenerate",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/BdTextToVideoDTO"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/ai/bd/image/video": {
-			"post": {
-				"tags": ["开放-百度视频生成"],
-				"summary": "image generate video",
-				"description": "image generate video",
-				"operationId": "imageVideoGenerate",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/BdImageToVideoDTO"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
+									"$ref": "#/components/schemas/RRMapResult"
 								}
 							}
 						}
@@ -777,31 +590,11 @@
 				}
 			}
 		},
-		"/ai/openai/v1/models": {
+		"/ai/models": {
 			"get": {
-				"tags": ["开放-OpenAi开放接口"],
-				"summary": "openai v1 models",
-				"description": "openai v1 models",
-				"operationId": "openaiV1Models_1",
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/OpenapiModelListVO"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/ai/openai/models": {
-			"get": {
-				"tags": ["开放-OpenAi开放接口"],
-				"summary": "openai models",
-				"description": "openai models",
+				"tags": ["开放-模型列表接口"],
+				"summary": "models",
+				"description": "models",
 				"operationId": "openaiModels",
 				"responses": {
 					"200": {
@@ -817,29 +610,32 @@
 				}
 			}
 		},
-		"/ai/models": {
+		"/ai/huoshan/api/v3/contents/generations/tasks/{taskId}": {
 			"get": {
-				"tags": ["开放-模型列表接口"],
-				"summary": "models",
-				"description": "models",
-				"operationId": "openaiModels_1",
+				"tags": ["开放-火山视频生成"],
+				"summary": "get task result",
+				"description": "huoshan compatible interface",
+				"operationId": "taskResult",
+				"parameters": [
+					{
+						"name": "taskId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/OpenapiModelListVO"
-								}
-							}
-						}
+						"description": "OK"
 					}
 				}
 			}
 		},
 		"/ai/chat/v1/models": {
 			"get": {
-				"tags": ["开放-AI对话开放接口"],
+				"tags": ["开放-模型列表接口"],
 				"summary": "chat list v1 model",
 				"description": "chat list v1 model",
 				"operationId": "listV1ChatModel",
@@ -859,7 +655,7 @@
 		},
 		"/ai/chat/models": {
 			"get": {
-				"tags": ["开放-AI对话开放接口"],
+				"tags": ["开放-模型列表接口"],
 				"summary": "chat list model",
 				"description": "chat list model",
 				"operationId": "listChatModel",
@@ -879,7 +675,7 @@
 		},
 		"/ai/chat/models/{model}": {
 			"get": {
-				"tags": ["开放-AI对话开放接口"],
+				"tags": ["开放-模型列表接口"],
 				"summary": "chat model",
 				"description": "chat model",
 				"operationId": "chatModel",
@@ -976,28 +772,25 @@
 						"type": "string",
 						"description": "video model",
 						"enum": ["grok-imagine-video"],
-						"title": "grok-imagine-video"
+						"minLength": 1
 					},
 					"duration": {
-						"type": "string",
+						"type": "integer",
 						"format": "int32",
-						"default": "6",
+						"default": 6,
 						"description": "video duration",
-						"enum": [6, 10, 12, 16, 20],
-						"title": "6 : 6; 10 : 10; 12 : 12; 16 : 16; 20 : 20"
+						"enum": ["6", "10", "12", "16", "20"]
 					},
 					"aspectRatio": {
 						"type": "string",
 						"description": "video aspectRatio",
-						"enum": ["2:3", "3:2", "1:1", "9:16", "16:9"],
-						"title": "2:3 : 2:3; 3:2 : 3:2; 1:1 : 1:1; 9:16 : 9:16; 16:9 : 16:9"
+						"enum": ["2:3", "3:2", "1:1", "9:16", "16:9"]
 					},
 					"resolution": {
 						"type": "string",
 						"default": "720P",
 						"description": "video resolution",
-						"enum": ["480P", "720P"],
-						"title": "480P : 480P; 720P : 720P"
+						"enum": ["480P", "720P"]
 					},
 					"images": {
 						"type": "array",
@@ -1054,13 +847,12 @@
 						"type": "string",
 						"description": "image model",
 						"enum": ["grok-imagine-image"],
-						"title": "grok-imagine-image"
+						"minLength": 1
 					},
 					"aspectRatio": {
 						"type": "string",
 						"description": "image aspectRatio",
-						"enum": ["1:1", "3:2", "2:3", "16:9", "9:16"],
-						"title": "1:1 : 1:1; 3:2 : 3:2; 2:3 : 2:3; 16:9 : 16:9; 9:16 : 9:16"
+						"enum": ["1:1", "3:2", "2:3", "9:16", "16:9"]
 					},
 					"images": {
 						"type": "array",
@@ -1072,424 +864,218 @@
 				},
 				"required": ["model", "prompt"]
 			},
-			"ChatV1ResponsesDTO": {
+			"OpenaiV1ResponsesDTO": {
 				"type": "object",
 				"properties": {
 					"model": {
 						"type": "string",
-						"description": "model, You can view the list of supported models through the interface `/ai/chat/models`",
-						"enum": [
-							"gpt-5.4",
-							"gpt-5.5",
-							"claude-opus-4-6",
-							"claude-opus-4-7",
-							"claude-opus-4-8"
-						]
+						"minLength": 1
 					},
-					"input": {
-						"description": "input messages"
-					},
+					"input": {},
 					"instructions": {
-						"type": "string",
-						"description": "instructions"
+						"type": "string"
+					},
+					"metadata": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "string"
+						}
 					},
 					"stream": {
-						"type": "boolean",
-						"default": false,
-						"description": "streaming output"
+						"type": "boolean"
 					},
 					"temperature": {
 						"type": "number",
-						"format": "double",
-						"description": "Temperature (0-2)"
-					},
-					"maxOutputTokens": {
-						"type": "integer",
-						"format": "int32",
-						"description": "Maximum token count"
-					},
-					"topP": {
-						"type": "number",
-						"format": "double",
-						"description": "top P"
+						"format": "double"
 					},
 					"tools": {
 						"type": "array",
-						"description": "Tool List (Function Calling)",
 						"items": {}
 					},
-					"toolChoice": {
-						"description": "Tool selection strategy"
+					"stream_options": {
+						"$ref": "#/components/schemas/StreamOptions"
+					},
+					"top_p": {
+						"type": "number",
+						"format": "double"
+					},
+					"max_output_tokens": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"service_tier": {
+						"type": "string"
+					},
+					"extra": {
+						"type": "object",
+						"additionalProperties": {}
+					}
+				},
+				"required": ["model"]
+			},
+			"StreamOptions": {
+				"type": "object",
+				"properties": {
+					"include_obfuscation": {
+						"type": "boolean"
+					}
+				}
+			},
+			"ContentItem": {
+				"type": "object",
+				"properties": {
+					"type": {
+						"type": "string",
+						"description": "type"
 					},
 					"text": {
-						"description": "Text"
-					}
-				},
-				"required": ["input", "model"]
-			},
-			"OpenAiCompatImageGenerateDTO": {
-				"type": "object",
-				"properties": {
-					"prompt": {
 						"type": "string",
-						"description": "prompt",
-						"minLength": 1
+						"description": "text"
 					},
-					"background": {
+					"role": {
 						"type": "string",
-						"description": "background transparency",
-						"enum": ["transparent", "opaque", "auto"],
-						"title": "transparent : transparent; opaque : opaque; auto : auto"
-					},
-					"model": {
-						"type": "string",
-						"default": "gpt-image-2",
-						"description": "model",
-						"enum": ["gpt-image-2"]
-					},
-					"moderation": {
-						"type": "string",
-						"description": "Audit intensity",
-						"enum": ["auto", "low"],
-						"title": "auto : auto; low : low"
-					},
-					"n": {
-						"type": "integer",
-						"format": "int32",
-						"description": "Generation quantity (currently only supports 1)"
-					},
-					"outputCompression": {
-						"type": "integer",
-						"format": "int32",
-						"description": "JPEG/WebP compression level 0-100"
-					},
-					"outputFormat": {
-						"type": "string",
-						"description": "Output file format",
-						"enum": ["png", "jpeg", "webp"],
-						"title": "png : png; jpeg : jpeg; webp : webp"
-					},
-					"partialImages": {
-						"type": "integer",
-						"format": "int32",
-						"description": "partial images"
-					},
-					"quality": {
-						"type": "string",
-						"default": "auto",
-						"description": "quality grade",
-						"enum": ["auto", "low", "medium", "high", "standard"],
-						"title": "auto : auto; low : low; medium : medium; high : high; standard : standard"
-					},
-					"responseFormat": {
-						"type": "string",
-						"description": "Response format (compatible with DALL · E; The gpt image series always returns b64_json)",
-						"enum": ["url", "b64_json"],
-						"title": "url : url; b64_json : b64_json"
-					},
-					"size": {
-						"type": "string",
-						"default": "1024x1024",
-						"description": "image size, ① Single side ≤ 3840 px; ② Both width and height are multiples of 16;③ Long side : short side ≤ 3:1; ④ Total pixels ∈ [655,360, 8,294,400]. Requests that do not meet the constraints or are not supported by the channel for custom sizes will be rejected",
+						"description": "role",
 						"enum": [
-							"auto",
-							"1024x1024",
-							"1024x1536",
-							"1536x1024",
-							"2048x2048",
-							"2048x1152",
-							"3840x2160",
-							"2160x3840"
+							"first_frame",
+							"last_frame",
+							"reference_image",
+							"reference_video"
 						]
 					},
-					"inputFidelity": {
-						"type": "string",
-						"description": "Input image fidelity (newly added in gpt-image-2, only effective for editing scenes); Generate can be ignored)",
-						"enum": ["high", "low"],
-						"title": "high : high; low : low"
+					"image_url": {
+						"type": "object",
+						"additionalProperties": {},
+						"description": "image_url",
+						"properties": {
+							"empty": {
+								"type": "boolean"
+							}
+						}
 					},
-					"user": {
-						"type": "string",
-						"description": "user"
+					"video_url": {
+						"$ref": "#/components/schemas/JSONObject",
+						"description": "video_url"
+					},
+					"audio_url": {
+						"$ref": "#/components/schemas/JSONObject"
 					}
 				},
-				"required": ["model", "prompt", "quality"]
+				"required": ["type"]
 			},
-			"OpenAiCompatImageEditDTO": {
+			"Extra": {
 				"type": "object",
 				"properties": {
-					"image": {
+					"prompt_expansion_mode": {
+						"type": "string",
+						"default": "disabled",
+						"description": "prompt_expansion_mode"
+					}
+				}
+			},
+			"JSONObject": {
+				"type": "object",
+				"additionalProperties": {},
+				"properties": {
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"V1MinimaxImageToVideoGenerateDTO": {
+				"type": "object",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "model",
+						"enum": ["minimax-h3", "minimax-h3-lite"],
+						"minLength": 1
+					},
+					"content": {
 						"type": "array",
-						"description": "images",
+						"description": "content",
 						"items": {
-							"type": "string",
-							"format": "binary"
+							"$ref": "#/components/schemas/ContentItem"
 						},
 						"minItems": 1
 					},
-					"prompt": {
+					"resolution": {
 						"type": "string",
-						"description": "prompt",
+						"default": "768P",
+						"description": "resolution",
+						"enum": ["768P", "2K（minimax-h3-lite not supported）"],
 						"minLength": 1
 					},
-					"background": {
-						"type": "string",
-						"description": "background transparency",
-						"enum": ["transparent", "opaque", "auto"],
-						"title": "transparent : transparent; opaque : opaque; auto : auto"
-					},
-					"inputFidelity": {
-						"type": "string",
-						"description": "Input image fidelity (newly added in gpt-image-2, only effective for editing scenes); Generate can be ignored)",
-						"enum": ["high", "low"],
-						"title": "high : high; low : low"
-					},
-					"mark": {
-						"type": "string",
-						"format": "binary",
-						"description": "mark"
-					},
-					"model": {
-						"type": "string",
-						"default": "gpt-image-2",
-						"description": "model",
-						"enum": ["gpt-image-2"]
-					},
-					"moderation": {
-						"type": "string",
-						"description": "Audit intensity",
-						"enum": ["auto", "low"],
-						"title": "auto : auto; low : low"
-					},
-					"n": {
+					"duration": {
 						"type": "integer",
 						"format": "int32",
-						"description": "n"
+						"description": "duration",
+						"enum": ["4~15"]
 					},
-					"outputCompression": {
-						"type": "integer",
-						"format": "int32",
-						"description": "JPEG/WebP compression level 0-100"
-					},
-					"outputFormat": {
+					"ratio": {
 						"type": "string",
-						"description": "Output file format",
-						"enum": ["png", "jpeg", "webp"],
-						"title": "png : png; jpeg : jpeg; webp : webp"
+						"default": "adaptive",
+						"description": "ratio",
+						"enum": ["adaptive", "21:9", "16:9", "4:3", "1:1", "3:4", "9:16"]
 					},
-					"responseFormat": {
-						"type": "string",
-						"default": "b64_json",
-						"description": "Response format (compatible with DALL · E; The gpt image series always returns b64_json)",
-						"enum": ["url", "b64_json"],
-						"title": "url : url; b64_json : b64_json"
-					},
-					"partialImages": {
-						"type": "integer",
-						"format": "int64",
-						"description": "partialImages"
-					},
-					"quality": {
-						"type": "string",
-						"description": "quality",
-						"enum": ["auto", "low", "medium", "high", "standard"],
-						"title": "auto : auto; low : low; medium : medium; high : high; standard : standard"
-					},
-					"size": {
-						"type": "string",
-						"default": "1024x1024",
-						"description": "image size, ① Single side ≤ 3840 px; ② Both width and height are multiples of 16;③ Long side : short side ≤ 3:1; ④ Total pixels ∈ [655,360, 8,294,400]. Requests that do not meet the constraints or are not supported by the channel for custom sizes will be rejected",
-						"enum": [
-							"auto",
-							"1024x1024",
-							"1024x1536",
-							"1536x1024",
-							"2048x2048",
-							"2048x1152",
-							"3840x2160",
-							"2160x3840"
-						]
-					},
-					"user": {
-						"type": "string",
-						"description": "user"
+					"extra": {
+						"$ref": "#/components/schemas/Extra",
+						"description": "extra, the default setting is empty and prompt word optimization is not enabled"
 					}
 				},
-				"required": ["image", "model", "prompt", "quality"]
+				"required": ["content", "duration", "model", "resolution"]
 			},
-			"Sora2VideoGenerateDTO": {
+			"AnthropicV1MessagesDTO": {
 				"type": "object",
-				"description": "sora2 generate video request parameters",
 				"properties": {
 					"model": {
 						"type": "string",
-						"description": "Video generation model, default is sora-2",
-						"enum": ["sora-2", "sora-2-pro"],
-						"example": "sora-2",
-						"title": "sora-2; sora-2-pro"
+						"minLength": 1
 					},
-					"prompt": {
-						"type": "string",
-						"description": "The prompt for generating videos, up to 5000 characters",
-						"maxLength": 5000,
-						"minLength": 0
-					},
-					"images": {
+					"messages": {
 						"type": "array",
-						"description": "The images used to generate videos can be URL arrays or empty, currently only supporting one image",
-						"items": {
-							"type": "string"
-						},
-						"maxItems": 1,
-						"maxLength": 1,
-						"minItems": 0
+						"items": {}
 					},
-					"orientation": {
-						"type": "string",
-						"default": "landscape",
-						"description": "Direction of video generation, default landscape",
-						"enum": ["landscape", "portrait"],
-						"example": "landscape",
-						"title": "landscape : landscape; portrait : portrait"
+					"system": {},
+					"temperature": {
+						"type": "number",
+						"format": "double"
 					},
-					"size": {
-						"type": "string",
-						"default": "small",
-						"description": "Video generation size, default small, only sora-2-pro, size can be set large",
-						"enum": ["small", "large"],
-						"example": "small",
-						"title": "small : small; large : large"
+					"stream": {
+						"type": "boolean"
 					},
-					"duration": {
-						"type": "string",
-						"format": "int32",
-						"default": "10",
-						"description": "The duration of video generation can only be 10 for sora-2, and 10, 15, 25 for sora-2-pro, with a default of 10",
-						"enum": [10, 15, 25],
-						"example": "10",
-						"title": "10 : 10; 15 : 15; 25 : 25"
+					"metadata": {},
+					"tools": {
+						"type": "array",
+						"items": {}
 					},
-					"removeWatermark": {
-						"type": "boolean",
-						"default": false,
-						"description": "Whether to remove watermark, default is false"
+					"max_tokens": {
+						"type": "integer",
+						"format": "int32"
 					},
-					"styleId": {
-						"type": "string",
-						"default": "anime",
-						"description": "style id for video generation,default is anime",
-						"enum": [
-							"anime",
-							"selfie",
-							"golden",
-							"handheld",
-							"festive",
-							"retro",
-							"news",
-							"chaos",
-							"vintage",
-							"comic",
-							"kakalaka",
-							"sitcom"
-						],
-						"example": "anime",
-						"title": "anime : anime; selfie : selfie; golden : golden; handheld : handheld; festive : festive; retro : retro; news : news; chaos : chaos; vintage : vintage; comic : comic; kakalaka : kakalaka; sitcom : sitcom"
+					"budget_tokens": {
+						"type": "integer",
+						"format": "int32"
 					},
-					"storyboard": {
-						"type": "boolean",
-						"default": false,
-						"description": "whether to enable storyboard mode, if true, the prompt will be parsed as storyboard format"
+					"top_p": {
+						"type": "number",
+						"format": "double"
+					},
+					"top_k": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"tool_choice": {},
+					"service_tier": {
+						"type": "string"
+					},
+					"extra": {
+						"type": "object",
+						"additionalProperties": {}
 					}
 				},
-				"required": ["model", "prompt"]
+				"required": ["model"]
 			},
-			"Sora2VideoV2GenerateDTO": {
-				"type": "object",
-				"description": "SA-Generate V2 video request parameters",
-				"properties": {
-					"model": {
-						"type": "string",
-						"description": "Video generation model, default is sora-2",
-						"enum": ["sora-2"],
-						"example": "sora-2",
-						"title": "sora-2"
-					},
-					"prompt": {
-						"type": "string",
-						"description": "The prompt for generating videos, up to 5000 characters",
-						"maxLength": 5000,
-						"minLength": 0
-					},
-					"images": {
-						"type": "array",
-						"description": "The images used to generate videos can be URL arrays or empty, currently only supporting one image",
-						"items": {
-							"type": "string"
-						},
-						"maxItems": 1,
-						"maxLength": 1,
-						"minItems": 0
-					},
-					"orientation": {
-						"type": "string",
-						"default": "landscape",
-						"description": "Direction of video generation, default landscape",
-						"enum": ["landscape", "portrait"],
-						"example": "landscape",
-						"title": "landscape : landscape; portrait : portrait"
-					},
-					"size": {
-						"type": "string",
-						"default": "small",
-						"description": "Video generation size, default small",
-						"enum": ["small"],
-						"example": "small",
-						"title": "small : small"
-					},
-					"duration": {
-						"type": "string",
-						"format": "int32",
-						"default": "10",
-						"description": "The duration of video generation can only be 10 for sora-2, and 10, 15, with a default of 10",
-						"enum": [10, 15],
-						"example": "10",
-						"title": "10 : 10; 15 : 15"
-					},
-					"removeWatermark": {
-						"type": "boolean",
-						"default": false,
-						"description": "Whether to remove watermark, default is false"
-					},
-					"styleId": {
-						"type": "string",
-						"default": "anime",
-						"description": "style id for video generation,default is anime",
-						"enum": [
-							"anime",
-							"selfie",
-							"golden",
-							"handheld",
-							"festive",
-							"retro",
-							"news",
-							"chaos",
-							"vintage",
-							"comic",
-							"kakalaka",
-							"sitcom"
-						],
-						"example": "anime",
-						"title": "anime : anime; selfie : selfie; golden : golden; handheld : handheld; festive : festive; retro : retro; news : news; chaos : chaos; vintage : vintage; comic : comic; kakalaka : kakalaka; sitcom : sitcom"
-					},
-					"storyboard": {
-						"type": "boolean",
-						"default": false,
-						"description": "whether to enable storyboard mode, if true, the prompt will be parsed as storyboard format"
-					}
-				},
-				"required": ["model", "prompt"]
-			},
-			"OpenAiImageGenerateDTO": {
+			"OpenaiImageGenerateDTO": {
 				"type": "object",
 				"properties": {
 					"prompt": {
@@ -1500,7 +1086,8 @@
 					"model": {
 						"type": "string",
 						"description": "model",
-						"enum": ["gpt-image-2"]
+						"enum": ["gpt-image-2"],
+						"minLength": 1
 					},
 					"size": {
 						"type": "string",
@@ -1526,20 +1113,103 @@
 						"type": "string",
 						"default": "auto",
 						"description": "quality grade",
-						"enum": ["auto", "low", "medium", "high", "standard"],
-						"title": "auto : auto; low : low; medium : medium; high : high; standard : standard"
+						"enum": ["auto", "low", "medium", "high", "standard"]
 					},
 					"background": {
 						"type": "string",
 						"description": "background transparency",
-						"enum": ["transparent", "opaque", "auto"],
-						"title": "transparent : transparent; opaque : opaque; auto : auto"
+						"enum": ["transparent", "opaque", "auto"]
+					},
+					"moderation": {
+						"type": "string",
+						"description": "Audit intensity",
+						"enum": ["auto", "low"]
+					},
+					"user": {
+						"type": "string",
+						"description": "user"
+					},
+					"output_format": {
+						"type": "string",
+						"description": "Output file format",
+						"enum": ["png", "jpeg", "webp"]
+					},
+					"output_compression": {
+						"type": "integer",
+						"format": "int32",
+						"description": "JPEG/WebP compression level 0-100"
+					},
+					"response_format": {
+						"type": "string",
+						"description": "Response format (compatible with DALL · E; The gpt image series always returns b64_json)",
+						"enum": ["url", "b64_json"]
+					},
+					"input_fidelity": {
+						"type": "string",
+						"description": "Input image fidelity (newly added in gpt-image-2, only effective for editing scenes); Generate can be ignored)",
+						"enum": ["high", "low"]
+					},
+					"partial_images": {
+						"type": "integer",
+						"format": "int64",
+						"description": "partial images"
+					},
+					"extra": {
+						"type": "object",
+						"additionalProperties": {}
+					}
+				},
+				"required": ["model", "prompt", "quality"]
+			},
+			"OpenaiImageEditsDTO": {
+				"type": "object",
+				"properties": {
+					"prompt": {
+						"type": "string",
+						"description": "prompt",
+						"minLength": 1
+					},
+					"model": {
+						"type": "string",
+						"description": "model",
+						"enum": ["gpt-image-2"],
+						"minLength": 1
+					},
+					"size": {
+						"type": "string",
+						"default": "1024x1024",
+						"description": "image size, ① Single side ≤ 3840 px; ② Both width and height are multiples of 16; ③ Long side : short side ≤ 3:1; ④ Total pixels ∈ [655,360, 8,294,400]. Requests that do not meet the constraints or are not supported by the channel for custom sizes will be rejected",
+						"enum": [
+							"auto",
+							"1024x1024",
+							"1024x1536",
+							"1536x1024",
+							"2048x2048",
+							"2048x1152",
+							"3840x2160",
+							"2160x3840"
+						]
+					},
+					"n": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Generation quantity (currently only supports 1)"
+					},
+					"quality": {
+						"type": "string",
+						"default": "auto",
+						"description": "quality grade",
+						"enum": ["auto", "low", "medium", "high", "standard"]
+					},
+					"background": {
+						"type": "string",
+						"description": "background transparency",
+						"enum": ["transparent", "opaque", "auto"]
 					},
 					"outputFormat": {
 						"type": "string",
 						"description": "Output file format",
-						"enum": ["png", "jpeg", "webp"],
-						"title": "png : png; jpeg : jpeg; webp : webp"
+						"enum": ["png", "jpeg", "webp"]
 					},
 					"outputCompression": {
 						"type": "integer",
@@ -1549,20 +1219,358 @@
 					"moderation": {
 						"type": "string",
 						"description": "Audit intensity",
-						"enum": ["auto", "low"],
-						"title": "auto : auto; low : low"
+						"enum": ["auto", "low"]
 					},
 					"responseFormat": {
 						"type": "string",
 						"description": "Response format (compatible with DALL · E; The gpt image series always returns b64_json)",
-						"enum": ["url", "b64_json"],
-						"title": "url : url; b64_json : b64_json"
+						"enum": ["url", "b64_json"]
 					},
 					"inputFidelity": {
 						"type": "string",
 						"description": "Input image fidelity (newly added in gpt-image-2, only effective for editing scenes); Generate can be ignored)",
-						"enum": ["high", "low"],
-						"title": "high : high; low : low"
+						"enum": ["high", "low"]
+					},
+					"partialImages": {
+						"type": "integer",
+						"format": "int64",
+						"description": "partialImages"
+					},
+					"user": {
+						"type": "string",
+						"description": "user"
+					},
+					"extra": {
+						"type": "object",
+						"additionalProperties": {}
+					}
+				},
+				"required": ["model", "prompt", "quality"]
+			},
+			"V1HuoShanVideoGenerateDTO": {
+				"type": "object",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "model",
+						"minLength": 1
+					},
+					"content": {
+						"type": "array",
+						"description": "content",
+						"items": {
+							"$ref": "#/components/schemas/ContentItem"
+						},
+						"minItems": 1
+					},
+					"resolution": {
+						"type": "string",
+						"description": "resolution"
+					},
+					"ratio": {
+						"type": "string",
+						"description": "ratio"
+					},
+					"duration": {
+						"type": "integer",
+						"format": "int32",
+						"description": "duration"
+					},
+					"frames": {
+						"type": "integer",
+						"format": "int32",
+						"description": "frames"
+					},
+					"watermark": {
+						"type": "boolean",
+						"description": "watermark"
+					},
+					"seed": {
+						"type": "integer",
+						"format": "int32",
+						"description": "seed"
+					},
+					"draft": {
+						"type": "boolean",
+						"description": "draft"
+					},
+					"priority": {
+						"type": "integer",
+						"format": "int32",
+						"description": "priority"
+					},
+					"tools": {
+						"description": "tools"
+					},
+					"omni_reference_task_type": {
+						"type": "string",
+						"description": "omniReferenceTaskType"
+					},
+					"generate_audio": {
+						"type": "boolean",
+						"description": "generateAudio"
+					},
+					"output_format": {
+						"type": "string",
+						"description": "outputFormat"
+					},
+					"camera_fixed": {
+						"type": "boolean",
+						"description": "cameraFixed"
+					},
+					"return_last_frame": {
+						"type": "boolean",
+						"description": "returnLastFrame"
+					},
+					"service_tier": {
+						"type": "string",
+						"description": "serviceTier"
+					},
+					"execution_expires_after": {
+						"type": "integer",
+						"format": "int32",
+						"description": "executionExpiresAfter"
+					},
+					"safety_identifier": {
+						"type": "string",
+						"description": "safetyIdentifier"
+					}
+				},
+				"required": ["content", "model"]
+			},
+			"Sora2VideoGenerateDTO": {
+				"type": "object",
+				"description": "sora2 generate video request parameters",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "Video generation model, default is sora-2",
+						"enum": ["sora-2", "sora-2-pro"],
+						"example": "sora-2",
+						"minLength": 1
+					},
+					"prompt": {
+						"type": "string",
+						"description": "The prompt for generating videos, up to 5000 characters",
+						"maxLength": 5000,
+						"minLength": 0
+					},
+					"images": {
+						"type": "array",
+						"description": "The images used to generate videos can be URL arrays or empty, currently only supporting one image",
+						"items": {
+							"type": "string"
+						},
+						"maxItems": 1,
+						"maxLength": 1,
+						"minItems": 0
+					},
+					"orientation": {
+						"type": "string",
+						"default": "landscape",
+						"description": "Direction of video generation, default landscape",
+						"enum": ["landscape", "portrait"],
+						"example": "landscape"
+					},
+					"size": {
+						"type": "string",
+						"default": "small",
+						"description": "Video generation size, default small, only sora-2-pro, size can be set large",
+						"enum": ["small", "large"],
+						"example": "small"
+					},
+					"duration": {
+						"type": "integer",
+						"format": "int32",
+						"default": 10,
+						"description": "The duration of video generation can only be 10 for sora-2, and 10, 15, 25 for sora-2-pro, with a default of 10",
+						"enum": ["10", "15", "25"],
+						"example": 10
+					},
+					"removeWatermark": {
+						"type": "boolean",
+						"default": false,
+						"description": "Whether to remove watermark, default is false"
+					},
+					"styleId": {
+						"type": "string",
+						"default": "anime",
+						"description": "style id for video generation,default is anime",
+						"enum": [
+							"anime",
+							"selfie",
+							"golden",
+							"handheld",
+							"festive",
+							"retro",
+							"news",
+							"chaos",
+							"vintage",
+							"comic",
+							"kakalaka",
+							"sitcom"
+						],
+						"example": "anime"
+					},
+					"storyboard": {
+						"type": "boolean",
+						"default": false,
+						"description": "whether to enable storyboard mode, if true, the prompt will be parsed as storyboard format"
+					}
+				},
+				"required": ["model", "prompt"]
+			},
+			"Sora2VideoV2GenerateDTO": {
+				"type": "object",
+				"description": "SA-Generate V2 video request parameters",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "Video generation model, default is sora-2",
+						"enum": ["sora-2"],
+						"example": "sora-2",
+						"minLength": 1
+					},
+					"prompt": {
+						"type": "string",
+						"description": "The prompt for generating videos, up to 5000 characters",
+						"maxLength": 5000,
+						"minLength": 0
+					},
+					"images": {
+						"type": "array",
+						"description": "The images used to generate videos can be URL arrays or empty, currently only supporting one image",
+						"items": {
+							"type": "string"
+						},
+						"maxItems": 1,
+						"maxLength": 1,
+						"minItems": 0
+					},
+					"orientation": {
+						"type": "string",
+						"default": "landscape",
+						"description": "Direction of video generation, default landscape",
+						"enum": ["landscape", "portrait"],
+						"example": "landscape"
+					},
+					"size": {
+						"type": "string",
+						"default": "small",
+						"description": "Video generation size, default small, only sora-2-pro, size can be set large",
+						"enum": ["small", "large"],
+						"example": "small"
+					},
+					"duration": {
+						"type": "integer",
+						"format": "int32",
+						"default": 10,
+						"description": "The duration of video generation can only be 10 for sora-2, and 10, 15, 25 for sora-2-pro, with a default of 10",
+						"enum": ["10", "15", "25"],
+						"example": 10
+					},
+					"removeWatermark": {
+						"type": "boolean",
+						"default": false,
+						"description": "Whether to remove watermark, default is false"
+					},
+					"styleId": {
+						"type": "string",
+						"default": "anime",
+						"description": "style id for video generation,default is anime",
+						"enum": [
+							"anime",
+							"selfie",
+							"golden",
+							"handheld",
+							"festive",
+							"retro",
+							"news",
+							"chaos",
+							"vintage",
+							"comic",
+							"kakalaka",
+							"sitcom"
+						],
+						"example": "anime"
+					},
+					"storyboard": {
+						"type": "boolean",
+						"default": false,
+						"description": "whether to enable storyboard mode, if true, the prompt will be parsed as storyboard format"
+					}
+				},
+				"required": ["model", "prompt"]
+			},
+			"OpenaiImageAsyncGenerateDTO": {
+				"type": "object",
+				"properties": {
+					"prompt": {
+						"type": "string",
+						"description": "prompt",
+						"minLength": 1
+					},
+					"model": {
+						"type": "string",
+						"description": "model",
+						"enum": ["gpt-image-2"],
+						"minLength": 1
+					},
+					"size": {
+						"type": "string",
+						"default": "1024x1024",
+						"description": "image size, ① Single side ≤ 3840 px; ② Both width and height are multiples of 16; ③ Long side : short side ≤ 3:1; ④ Total pixels ∈ [655,360, 8,294,400]. Requests that do not meet the constraints or are not supported by the channel for custom sizes will be rejected",
+						"enum": [
+							"auto",
+							"1024x1024",
+							"1024x1536",
+							"1536x1024",
+							"2048x2048",
+							"2048x1152",
+							"3840x2160",
+							"2160x3840"
+						]
+					},
+					"n": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Generation quantity (currently only supports 1)"
+					},
+					"quality": {
+						"type": "string",
+						"default": "auto",
+						"description": "quality grade",
+						"enum": ["auto", "low", "medium", "high", "standard"]
+					},
+					"background": {
+						"type": "string",
+						"description": "background transparency",
+						"enum": ["transparent", "opaque", "auto"]
+					},
+					"outputFormat": {
+						"type": "string",
+						"description": "Output file format",
+						"enum": ["png", "jpeg", "webp"]
+					},
+					"outputCompression": {
+						"type": "integer",
+						"format": "int32",
+						"description": "JPEG/WebP compression level 0-100"
+					},
+					"moderation": {
+						"type": "string",
+						"description": "Audit intensity",
+						"enum": ["auto", "low"]
+					},
+					"responseFormat": {
+						"type": "string",
+						"description": "Response format (compatible with DALL · E; The gpt image series always returns b64_json)",
+						"enum": ["url", "b64_json"]
+					},
+					"inputFidelity": {
+						"type": "string",
+						"description": "Input image fidelity (newly added in gpt-image-2, only effective for editing scenes); Generate can be ignored)",
+						"enum": ["high", "low"]
 					},
 					"image": {
 						"type": "array",
@@ -1578,6 +1586,105 @@
 				},
 				"required": ["model", "prompt", "quality"]
 			},
+			"HSContentsGenerationsTasksDTO": {
+				"type": "object",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "model",
+						"minLength": 1
+					},
+					"content": {
+						"type": "array",
+						"description": "content",
+						"items": {
+							"$ref": "#/components/schemas/ContentItem"
+						},
+						"minItems": 1
+					},
+					"resolution": {
+						"type": "string",
+						"description": "resolution"
+					},
+					"ratio": {
+						"type": "string",
+						"description": "ratio"
+					},
+					"duration": {
+						"type": "integer",
+						"format": "int32",
+						"description": "duration"
+					},
+					"frames": {
+						"type": "integer",
+						"format": "int32",
+						"description": "frames"
+					},
+					"watermark": {
+						"type": "boolean",
+						"description": "watermark"
+					},
+					"seed": {
+						"type": "integer",
+						"format": "int32",
+						"description": "seed"
+					},
+					"draft": {
+						"type": "boolean",
+						"description": "draft"
+					},
+					"priority": {
+						"type": "integer",
+						"format": "int32",
+						"description": "priority"
+					},
+					"tools": {
+						"description": "tools"
+					},
+					"omni_reference_task_type": {
+						"type": "string",
+						"description": "omniReferenceTaskType"
+					},
+					"generate_audio": {
+						"type": "boolean",
+						"description": "generateAudio"
+					},
+					"output_format": {
+						"type": "string",
+						"description": "outputFormat"
+					},
+					"camera_fixed": {
+						"type": "boolean",
+						"description": "cameraFixed"
+					},
+					"return_last_frame": {
+						"type": "boolean",
+						"description": "returnLastFrame"
+					},
+					"service_tier": {
+						"type": "string",
+						"description": "serviceTier"
+					},
+					"callback_url": {
+						"type": "string",
+						"description": "callbackUrl"
+					},
+					"execution_expires_after": {
+						"type": "integer",
+						"format": "int32",
+						"description": "executionExpiresAfter"
+					},
+					"safety_identifier": {
+						"type": "string",
+						"description": "safetyIdentifier"
+					},
+					"extra": {
+						"type": "object",
+						"additionalProperties": {}
+					}
+				},
+				"required": ["content", "model"]
+			},
 			"GeminiVideoUpsampleDTO": {
 				"type": "object",
 				"properties": {
@@ -1589,7 +1696,8 @@
 					"action": {
 						"type": "string",
 						"description": "Upgrade operation type",
-						"enum": ["Get1080p", "Get4k", "GetGif"]
+						"enum": ["get1080p", "get4k", "getgif"],
+						"minLength": 1
 					}
 				},
 				"required": ["videoId"]
@@ -1606,7 +1714,7 @@
 						"type": "string",
 						"description": "Video operation, one of the following: text2video, img2video, get1080p",
 						"enum": ["text2video", "img2video", "get1080p"],
-						"title": "text2video : text2video; img2video : img2video; get1080p : get1080p"
+						"minLength": 1
 					},
 					"model": {
 						"type": "string",
@@ -1620,7 +1728,7 @@
 							"veo31_quality",
 							"veo31_fast_ingredients"
 						],
-						"title": "veo3_fast; veo2_fast; veo3_quality; veo2_quality; veo31_fast; veo31_quality; veo31_fast_ingredients"
+						"minLength": 1
 					},
 					"videoId": {
 						"type": "string",
@@ -1636,8 +1744,7 @@
 					"aspectRatio": {
 						"type": "string",
 						"description": "Aspect ratio：16:9、9:16",
-						"enum": ["16:9", "9:16"],
-						"title": "16:9 : 16:9; 9:16 : 9:16"
+						"enum": ["16:9", "9:16"]
 					},
 					"translation": {
 						"type": "boolean",
@@ -1660,20 +1767,20 @@
 						"default": "nano-banana-fast",
 						"description": "The model used to generate images",
 						"enum": ["nano-banana-fast", "nano-banana-pro", "nano-banana-2"],
-						"title": "nano-banana-fast; nano-banana-pro; nano-banana-2"
+						"minLength": 1
 					},
 					"resolution": {
 						"type": "string",
 						"default": "1K",
 						"description": "The resolution used to generate images",
 						"enum": ["1K", "2K", "4K"],
-						"title": "1K : 1K; 2K : 2K; 4K : 4K"
+						"minLength": 1
 					},
 					"action": {
 						"type": "string",
 						"description": "Action type, edit (modify existing image) or generate (create new image)",
 						"enum": ["edit", "generate"],
-						"title": "edit : 编辑 : edit; generate : 生成 : generate"
+						"minLength": 1
 					},
 					"numImages": {
 						"type": "integer",
@@ -1706,262 +1813,125 @@
 							"4:1",
 							"1:8",
 							"8:1"
-						],
-						"title": "21:9 : 21:9; 1:1 : 1:1; 4:3 : 4:3; 3:2 : 3:2; 2:3 : 2:3; 5:4 : 5:4; 4:5 : 4:5; 3:4 : 3:4; 16:9 : 16:9; 9:16 : 9:16; 1:4 : 1:4; 4:1 : 4:1; 1:8 : 1:8; 8:1 : 8:1"
+						]
 					}
 				},
 				"required": ["action", "numImages", "prompt"]
 			},
-			"ChatClaudeV1ResponsesDTO": {
+			"OpenaiChatCompletionsDTO": {
 				"type": "object",
 				"properties": {
 					"model": {
 						"type": "string",
-						"description": "model, You can view the list of supported models through the interface `/ai/chat/models`",
-						"enum": [
-							"gpt-5.4",
-							"gpt-5.5",
-							"claude-opus-4-6",
-							"claude-opus-4-7",
-							"claude-opus-4-8"
-						]
+						"minLength": 1
 					},
 					"messages": {
 						"type": "array",
-						"description": "messages",
 						"items": {}
 					},
-					"maxTokens": {
-						"type": "integer",
-						"format": "int32",
-						"description": "Maximum token count"
-					},
-					"system": {
-						"description": "system prompt"
-					},
-					"stream": {
-						"type": "boolean",
-						"default": true,
-						"description": "streaming output"
-					},
-					"temperature": {
-						"type": "number",
-						"format": "double",
-						"description": "Temperature (0-1)"
-					},
-					"topP": {
-						"type": "number",
-						"format": "double",
-						"description": "top P"
-					},
-					"topK": {
-						"type": "number",
-						"format": "double",
-						"description": "top k"
-					},
-					"stopSequences": {
-						"type": "array",
-						"description": "stopSequences",
-						"items": {
+					"metadata": {
+						"type": "object",
+						"additionalProperties": {
 							"type": "string"
 						}
 					},
-					"tools": {
-						"type": "array",
-						"description": "Tool List (Function Calling)",
-						"items": {}
-					},
-					"toolChoice": {
-						"description": "Tool selection strategy"
-					}
-				},
-				"required": ["messages", "model"]
-			},
-			"ChatCompletionsDTO": {
-				"type": "object",
-				"properties": {
-					"messages": {
-						"type": "array",
-						"description": "messages",
-						"items": {},
-						"minItems": 1
-					},
-					"model": {
-						"type": "string",
-						"description": "model, You can view the list of supported models through the interface `/ai/chat/models`",
-						"enum": [
-							"gpt-5.4",
-							"gpt-5.5",
-							"claude-opus-4-6",
-							"claude-opus-4-7",
-							"claude-opus-4-8"
-						]
-					},
-					"stream": {
-						"type": "boolean",
-						"default": false,
-						"description": "streaming output"
-					},
-					"temperature": {
-						"type": "number",
-						"format": "double",
-						"description": "Temperature (0-2)"
-					},
-					"maxTokens": {
-						"type": "integer",
-						"format": "int32",
-						"description": "Maximum token count"
-					},
-					"maxCompletionTokens": {
-						"type": "integer",
-						"format": "int32",
-						"description": "Maximum number of completed tokens"
-					},
-					"topP": {
-						"type": "number",
-						"format": "double",
-						"description": "top P"
-					},
-					"frequencyPenalty": {
-						"type": "number",
-						"format": "double",
-						"description": "frequency penalty(-2.0 to 2.0)"
-					},
-					"presencePenalty": {
-						"type": "number",
-						"format": "double",
-						"description": "presence penalty(-2.0 to 2.0)"
-					},
-					"stop": {
-						"description": "Stop sequence"
+					"logprobs": {
+						"type": "boolean"
 					},
 					"n": {
 						"type": "integer",
-						"format": "int32",
-						"description": "Generated Quantity"
+						"format": "int32"
 					},
 					"seed": {
 						"type": "integer",
-						"format": "int32",
-						"description": "random seed"
+						"format": "int32"
 					},
-					"user": {
-						"type": "string",
-						"description": "user"
+					"stop": {},
+					"stream": {
+						"type": "boolean"
+					},
+					"temperature": {
+						"type": "number",
+						"format": "double"
 					},
 					"tools": {
 						"type": "array",
-						"description": "Tool List (Function Calling)",
 						"items": {}
 					},
-					"toolChoice": {
-						"description": "Tool selection strategy"
+					"store": {
+						"type": "boolean"
 					},
-					"responseFormat": {
-						"description": "Response format"
+					"reasoning_effort": {
+						"type": "string"
 					},
-					"logprobs": {
-						"type": "boolean",
-						"description": "logprobs"
+					"frequency_penalty": {
+						"type": "number",
+						"format": "double"
 					},
-					"topLogprobs": {
+					"logit_bias": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					"top_logprobs": {
 						"type": "integer",
-						"format": "int32",
-						"description": "top logprobs"
+						"format": "int32"
 					},
-					"logitBias": {
-						"description": "logit bias"
+					"max_completion_tokens": {
+						"type": "integer",
+						"format": "int32"
 					},
-					"parallelToolCalls": {
-						"type": "boolean",
-						"description": "parallel tool calls"
+					"presence_penalty": {
+						"type": "number",
+						"format": "double"
+					},
+					"service_tier": {
+						"type": "string"
+					},
+					"stream_options": {
+						"$ref": "#/components/schemas/StreamOptions"
+					},
+					"top_p": {
+						"type": "number",
+						"format": "double"
+					},
+					"tool_choice": {},
+					"extra": {
+						"type": "object",
+						"additionalProperties": {}
 					}
 				},
-				"required": ["messages", "model"]
+				"required": ["model"]
 			},
-			"BdTextToVideoDTO": {
+			"RRMapResult": {
 				"type": "object",
+				"description": "Unified return structure for response results",
 				"properties": {
-					"model": {
-						"type": "string",
-						"description": "model",
-						"enum": [
-							"VQ1",
-							"VQ2",
-							"VQ3P",
-							"VQ3T",
-							"P35",
-							"P40",
-							"P45",
-							"P50",
-							"P55",
-							"K16",
-							"K20",
-							"K21M",
-							"K25T",
-							"K26",
-							"H20",
-							"H23",
-							"VE3.1",
-							"VE3.1F"
-						],
-						"title": "VQ1; VQ2; VQ3P; VQ3T; P35; P40; P45; P50; P55; K16; K20; K21M; K25T; K26; H20; H23; VE3.1; VE3.1F"
+					"code": {
+						"type": "integer",
+						"format": "int32",
+						"description": "Response status code",
+						"example": 200
 					},
-					"modelTaskInput": {
+					"message": {
+						"type": "string",
+						"description": "Response message"
+					},
+					"data": {
 						"type": "object",
 						"additionalProperties": {},
-						"description": "modelTaskInput",
+						"description": "Response result",
 						"properties": {
 							"empty": {
 								"type": "boolean"
 							}
 						}
-					}
-				}
-			},
-			"BdImageToVideoDTO": {
-				"type": "object",
-				"properties": {
-					"model": {
-						"type": "string",
-						"description": "model",
-						"enum": [
-							"V20",
-							"VQ1",
-							"VQ1C",
-							"VQ2T",
-							"VQ2P",
-							"VQ2PF",
-							"VQ2",
-							"VQ3P",
-							"VQ3T",
-							"P35",
-							"P40",
-							"P45",
-							"P50",
-							"P55",
-							"K16",
-							"K20",
-							"K21",
-							"K21M",
-							"K25T",
-							"K26",
-							"H23",
-							"H23F",
-							"VE3.1",
-							"VE3.1F"
-						],
-						"title": "V20; VQ1; VQ1C; VQ2T; VQ2P; VQ2PF; VQ2; VQ3P; VQ3T; P35; P40; P45; P50; P55; K16; K20; K21; K21M; K25T; K26; H23; H23F; VE3.1; VE3.1F"
 					},
-					"modelTaskInput": {
-						"type": "object",
-						"additionalProperties": {},
-						"description": "modelTaskInput",
-						"properties": {
-							"empty": {
-								"type": "boolean"
-							}
-						}
+					"traceId": {
+						"type": "string",
+						"description": "Response traceId"
 					}
 				}
 			},

@@ -1,3 +1,53 @@
 ---
 openapi: post /task/result
 ---
+
+## Response result
+
+The status has the following values:
+1.waiting: Tasks waiting to be executed
+2.success: The task has been successfully executed
+3.executing: Task in progress
+4.fail: Task execution failed
+5.invoking: Task in progress
+
+<Tabs>
+  <Tab title="success">
+    ```json
+    {
+        "code": 200,
+        "data": [
+            {
+                "status": "success",
+                "taskId": "xxx",
+                "resources": [
+                    {
+                        "url": "xxx"
+                    }
+                ]
+            }
+        ],
+        "message": "success",
+        "traceId": "xxx"
+    }
+    ```
+  </Tab>
+
+  <Tab title="fail">
+    ```json
+        {
+            "code": 200,
+            "data": [
+                {
+                    "status": "fail",
+                    "taskId": "xxx",
+                    "errorMessage": "timeout",
+                    "errorCode": 10035
+                }
+            ],
+            "message": "success",
+            "traceId": "xxx"
+        }
+    ```
+  </Tab>
+</Tabs>
