@@ -166,36 +166,6 @@
 				}
 			}
 		},
-		"/ai/v1/minimax/video/generate": {
-			"post": {
-				"tags": ["开放-minimax视频生成"],
-				"summary": "v1 minimax video generate",
-				"description": "v1 minimax video generate",
-				"operationId": "v1ImageToVideoGenerate",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/V1MinimaxImageToVideoGenerateDTO"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/ai/v1/messages": {
 			"post": {
 				"tags": ["开放-AI同步调用兼容接口"],
@@ -260,36 +230,6 @@
 				"responses": {
 					"200": {
 						"description": "OK"
-					}
-				}
-			}
-		},
-		"/ai/v1/huoshan/video/generate": {
-			"post": {
-				"tags": ["开放-火山视频生成"],
-				"summary": "v1 huoshan video generate",
-				"description": "v1 huoshan video generate",
-				"operationId": "v1VideoGenerate",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/V1HuoShanVideoGenerateDTO"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/RTaskResultVO"
-								}
-							}
-						}
 					}
 				}
 			}
@@ -365,6 +305,66 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/OpenaiImageAsyncGenerateDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RTaskResultVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ai/minimax/v1/video/generate": {
+			"post": {
+				"tags": ["开放-minimax视频生成"],
+				"summary": "minimax v1 video generate",
+				"description": "minimax v1 video generate",
+				"operationId": "v1ImageToVideoGenerate",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MiniMaxV1ImageToVideoGenerateDTO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RTaskResultVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ai/huoshan/v1/video/generate": {
+			"post": {
+				"tags": ["开放-火山视频生成"],
+				"summary": "huoshan v1 video generate",
+				"description": "huoshan v1 video generate",
+				"operationId": "v1VideoGenerate",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/HuoShanV1VideoGenerateDTO"
 							}
 						}
 					},
@@ -921,109 +921,6 @@
 					}
 				}
 			},
-			"ContentItem": {
-				"type": "object",
-				"properties": {
-					"type": {
-						"type": "string",
-						"description": "type"
-					},
-					"text": {
-						"type": "string",
-						"description": "text"
-					},
-					"role": {
-						"type": "string",
-						"description": "role",
-						"enum": [
-							"first_frame",
-							"last_frame",
-							"reference_image",
-							"reference_video"
-						]
-					},
-					"image_url": {
-						"type": "object",
-						"additionalProperties": {},
-						"description": "image_url",
-						"properties": {
-							"empty": {
-								"type": "boolean"
-							}
-						}
-					},
-					"video_url": {
-						"$ref": "#/components/schemas/JSONObject",
-						"description": "video_url"
-					},
-					"audio_url": {
-						"$ref": "#/components/schemas/JSONObject"
-					}
-				},
-				"required": ["type"]
-			},
-			"Extra": {
-				"type": "object",
-				"properties": {
-					"prompt_expansion_mode": {
-						"type": "string",
-						"default": "disabled",
-						"description": "prompt_expansion_mode"
-					}
-				}
-			},
-			"JSONObject": {
-				"type": "object",
-				"additionalProperties": {},
-				"properties": {
-					"empty": {
-						"type": "boolean"
-					}
-				}
-			},
-			"V1MinimaxImageToVideoGenerateDTO": {
-				"type": "object",
-				"properties": {
-					"model": {
-						"type": "string",
-						"description": "model",
-						"enum": ["minimax-h3", "minimax-h3-lite"],
-						"minLength": 1
-					},
-					"content": {
-						"type": "array",
-						"description": "content",
-						"items": {
-							"$ref": "#/components/schemas/ContentItem"
-						},
-						"minItems": 1
-					},
-					"resolution": {
-						"type": "string",
-						"default": "768P",
-						"description": "resolution",
-						"enum": ["768P", "2K（minimax-h3-lite not supported）"],
-						"minLength": 1
-					},
-					"duration": {
-						"type": "integer",
-						"format": "int32",
-						"description": "duration",
-						"enum": ["4~15"]
-					},
-					"ratio": {
-						"type": "string",
-						"default": "adaptive",
-						"description": "ratio",
-						"enum": ["adaptive", "21:9", "16:9", "4:3", "1:1", "3:4", "9:16"]
-					},
-					"extra": {
-						"$ref": "#/components/schemas/Extra",
-						"description": "extra, the default setting is empty and prompt word optimization is not enabled"
-					}
-				},
-				"required": ["content", "duration", "model", "resolution"]
-			},
 			"AnthropicV1MessagesDTO": {
 				"type": "object",
 				"properties": {
@@ -1246,97 +1143,6 @@
 					}
 				},
 				"required": ["model", "prompt", "quality"]
-			},
-			"V1HuoShanVideoGenerateDTO": {
-				"type": "object",
-				"properties": {
-					"model": {
-						"type": "string",
-						"description": "model",
-						"minLength": 1
-					},
-					"content": {
-						"type": "array",
-						"description": "content",
-						"items": {
-							"$ref": "#/components/schemas/ContentItem"
-						},
-						"minItems": 1
-					},
-					"resolution": {
-						"type": "string",
-						"description": "resolution"
-					},
-					"ratio": {
-						"type": "string",
-						"description": "ratio"
-					},
-					"duration": {
-						"type": "integer",
-						"format": "int32",
-						"description": "duration"
-					},
-					"frames": {
-						"type": "integer",
-						"format": "int32",
-						"description": "frames"
-					},
-					"watermark": {
-						"type": "boolean",
-						"description": "watermark"
-					},
-					"seed": {
-						"type": "integer",
-						"format": "int32",
-						"description": "seed"
-					},
-					"draft": {
-						"type": "boolean",
-						"description": "draft"
-					},
-					"priority": {
-						"type": "integer",
-						"format": "int32",
-						"description": "priority"
-					},
-					"tools": {
-						"description": "tools"
-					},
-					"omni_reference_task_type": {
-						"type": "string",
-						"description": "omniReferenceTaskType"
-					},
-					"generate_audio": {
-						"type": "boolean",
-						"description": "generateAudio"
-					},
-					"output_format": {
-						"type": "string",
-						"description": "outputFormat"
-					},
-					"camera_fixed": {
-						"type": "boolean",
-						"description": "cameraFixed"
-					},
-					"return_last_frame": {
-						"type": "boolean",
-						"description": "returnLastFrame"
-					},
-					"service_tier": {
-						"type": "string",
-						"description": "serviceTier"
-					},
-					"execution_expires_after": {
-						"type": "integer",
-						"format": "int32",
-						"description": "executionExpiresAfter"
-					},
-					"safety_identifier": {
-						"type": "string",
-						"description": "safetyIdentifier"
-					}
-				},
-				"required": ["content", "model"]
 			},
 			"Sora2VideoGenerateDTO": {
 				"type": "object",
@@ -1586,6 +1392,262 @@
 				},
 				"required": ["model", "prompt", "quality"]
 			},
+			"AudioUrlVO": {
+				"type": "object",
+				"description": "AudioUrl",
+				"properties": {
+					"url": {
+						"type": "string",
+						"description": "url"
+					}
+				}
+			},
+			"Extra": {
+				"type": "object",
+				"properties": {
+					"prompt_expansion_mode": {
+						"type": "string",
+						"default": "disabled",
+						"description": "prompt_expansion_mode"
+					}
+				}
+			},
+			"ImageUrlVO": {
+				"type": "object",
+				"description": "ImageUrlVO",
+				"properties": {
+					"url": {
+						"type": "string",
+						"description": "url"
+					}
+				}
+			},
+			"MiniMaxTaskContentDTO": {
+				"type": "object",
+				"properties": {
+					"type": {
+						"type": "string",
+						"description": "type"
+					},
+					"text": {
+						"type": "string",
+						"description": "text"
+					},
+					"role": {
+						"type": "string",
+						"description": "role",
+						"enum": [
+							"first_frame",
+							"last_frame",
+							"reference_image",
+							"reference_video"
+						]
+					},
+					"image_url": {
+						"$ref": "#/components/schemas/ImageUrlVO",
+						"description": "image_url"
+					},
+					"video_url": {
+						"$ref": "#/components/schemas/VideoUrlVO",
+						"description": "video_url"
+					},
+					"audio_url": {
+						"$ref": "#/components/schemas/AudioUrlVO"
+					}
+				},
+				"required": ["type"]
+			},
+			"MiniMaxV1ImageToVideoGenerateDTO": {
+				"type": "object",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "model",
+						"enum": ["minimax-h3", "minimax-h3-lite"],
+						"minLength": 1
+					},
+					"content": {
+						"type": "array",
+						"description": "content",
+						"items": {
+							"$ref": "#/components/schemas/MiniMaxTaskContentDTO"
+						},
+						"minItems": 1
+					},
+					"resolution": {
+						"type": "string",
+						"default": "768P",
+						"description": "resolution",
+						"enum": ["768P", "2K（minimax-h3-lite not supported）"],
+						"minLength": 1
+					},
+					"duration": {
+						"type": "integer",
+						"format": "int32",
+						"description": "duration",
+						"enum": ["4~15"]
+					},
+					"ratio": {
+						"type": "string",
+						"default": "adaptive",
+						"description": "ratio",
+						"enum": ["adaptive", "21:9", "16:9", "4:3", "1:1", "3:4", "9:16"]
+					},
+					"extra": {
+						"$ref": "#/components/schemas/Extra",
+						"description": "extra, the default setting is empty and prompt word optimization is not enabled"
+					}
+				},
+				"required": ["content", "duration", "model", "resolution"]
+			},
+			"VideoUrlVO": {
+				"type": "object",
+				"description": "VideoUrlVO",
+				"properties": {
+					"url": {
+						"type": "string",
+						"description": "url"
+					}
+				}
+			},
+			"DraftTaskVO": {
+				"type": "object",
+				"description": "DraftTaskVO",
+				"properties": {
+					"url": {
+						"type": "string",
+						"description": "url"
+					},
+					"id": {
+						"type": "string",
+						"description": "id"
+					}
+				}
+			},
+			"HSTaskContentDTO": {
+				"type": "object",
+				"properties": {
+					"type": {
+						"type": "string",
+						"description": "type"
+					},
+					"text": {
+						"type": "string",
+						"description": "text"
+					},
+					"role": {
+						"type": "string",
+						"description": "role"
+					},
+					"image_url": {
+						"$ref": "#/components/schemas/ImageUrlVO",
+						"description": "imageUrl"
+					},
+					"video_url": {
+						"$ref": "#/components/schemas/VideoUrlVO",
+						"description": "videoUrl"
+					},
+					"audio_url": {
+						"$ref": "#/components/schemas/AudioUrlVO",
+						"description": "audioUrl"
+					},
+					"draft_task": {
+						"$ref": "#/components/schemas/DraftTaskVO",
+						"description": "draftTask"
+					}
+				}
+			},
+			"HuoShanV1VideoGenerateDTO": {
+				"type": "object",
+				"properties": {
+					"model": {
+						"type": "string",
+						"description": "model",
+						"minLength": 1
+					},
+					"content": {
+						"type": "array",
+						"description": "content",
+						"items": {
+							"$ref": "#/components/schemas/HSTaskContentDTO"
+						},
+						"minItems": 1
+					},
+					"resolution": {
+						"type": "string",
+						"description": "resolution"
+					},
+					"ratio": {
+						"type": "string",
+						"description": "ratio"
+					},
+					"duration": {
+						"type": "integer",
+						"format": "int32",
+						"description": "duration"
+					},
+					"frames": {
+						"type": "integer",
+						"format": "int32",
+						"description": "frames"
+					},
+					"watermark": {
+						"type": "boolean",
+						"description": "watermark"
+					},
+					"seed": {
+						"type": "integer",
+						"format": "int32",
+						"description": "seed"
+					},
+					"draft": {
+						"type": "boolean",
+						"description": "draft"
+					},
+					"priority": {
+						"type": "integer",
+						"format": "int32",
+						"description": "priority"
+					},
+					"tools": {
+						"description": "tools"
+					},
+					"omni_reference_task_type": {
+						"type": "string",
+						"description": "omniReferenceTaskType"
+					},
+					"generate_audio": {
+						"type": "boolean",
+						"description": "generateAudio"
+					},
+					"output_format": {
+						"type": "string",
+						"description": "outputFormat"
+					},
+					"camera_fixed": {
+						"type": "boolean",
+						"description": "cameraFixed"
+					},
+					"return_last_frame": {
+						"type": "boolean",
+						"description": "returnLastFrame"
+					},
+					"service_tier": {
+						"type": "string",
+						"description": "serviceTier"
+					},
+					"execution_expires_after": {
+						"type": "integer",
+						"format": "int32",
+						"description": "executionExpiresAfter"
+					},
+					"safety_identifier": {
+						"type": "string",
+						"description": "safetyIdentifier"
+					}
+				},
+				"required": ["content", "model"]
+			},
 			"HSContentsGenerationsTasksDTO": {
 				"type": "object",
 				"properties": {
@@ -1598,7 +1660,7 @@
 						"type": "array",
 						"description": "content",
 						"items": {
-							"$ref": "#/components/schemas/ContentItem"
+							"$ref": "#/components/schemas/HSTaskContentDTO"
 						},
 						"minItems": 1
 					},

@@ -173,13 +173,13 @@
 							{
 								"group": "MiniMax",
 								"pages": [
-									"api-reference/ai/开放-minimax视频生成/v1-minimax-video-generate"
+									"api-reference/ai/开放-minimax视频生成/minimax-v1-video-generate"
 								]
 							},
 							{
 								"group": "HuoShan",
 								"pages": [
-									"api-reference/ai/开放-火山视频生成/v1-huoshan-video-generate",
+									"api-reference/ai/开放-火山视频生成/huoshan-v1-video-generate",
 									"api-reference/ai/开放-火山视频生成/contents-generations-tasks",
 									"api-reference/ai/开放-火山视频生成/get-task-result"
 								]
